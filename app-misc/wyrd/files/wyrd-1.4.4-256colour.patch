@@ -1,0 +1,1061 @@
+diff -uNr wyrd-1.4.4/curses/curses.ml wyrd-1.4.4-dan/curses/curses.ml
+--- wyrd-1.4.4/curses/curses.ml	2008-02-21 22:25:26.000000000 -0600
++++ wyrd-1.4.4-dan/curses/curses.ml	2008-08-18 16:19:34.000000000 -0500
+@@ -559,6 +559,262 @@
+   let magenta = 5
+   let cyan = 6
+   let white = 7
++  let color0 = 0
++  let color1 = 1
++  let color2 = 2
++  let color3 = 3
++  let color4 = 4
++  let color5 = 5
++  let color6 = 6
++  let color7 = 7
++  let color8 = 8
++  let color9 = 9
++  let color10 = 10
++  let color11 = 11
++  let color12 = 12
++  let color13 = 13
++  let color14 = 14
++  let color15 = 15
++  let color16 = 16
++  let color17 = 17
++  let color18 = 18
++  let color19 = 19
++  let color20 = 20
++  let color21 = 21
++  let color22 = 22
++  let color23 = 23
++  let color24 = 24
++  let color25 = 25
++  let color26 = 26
++  let color27 = 27
++  let color28 = 28
++  let color29 = 29
++  let color30 = 30
++  let color31 = 31
++  let color32 = 32
++  let color33 = 33
++  let color34 = 34
++  let color35 = 35
++  let color36 = 36
++  let color37 = 37
++  let color38 = 38
++  let color39 = 39
++  let color40 = 40
++  let color41 = 41
++  let color42 = 42
++  let color43 = 43
++  let color44 = 44
++  let color45 = 45
++  let color46 = 46
++  let color47 = 47
++  let color48 = 48
++  let color49 = 49
++  let color50 = 50
++  let color51 = 51
++  let color52 = 52
++  let color53 = 53
++  let color54 = 54
++  let color55 = 55
++  let color56 = 56
++  let color57 = 57
++  let color58 = 58
++  let color59 = 59
++  let color60 = 60
++  let color61 = 61
++  let color62 = 62
++  let color63 = 63
++  let color64 = 64
++  let color65 = 65
++  let color66 = 66
++  let color67 = 67
++  let color68 = 68
++  let color69 = 69
++  let color70 = 70
++  let color71 = 71
++  let color72 = 72
++  let color73 = 73
++  let color74 = 74
++  let color75 = 75
++  let color76 = 76
++  let color77 = 77
++  let color78 = 78
++  let color79 = 79
++  let color80 = 80
++  let color81 = 81
++  let color82 = 82
++  let color83 = 83
++  let color84 = 84
++  let color85 = 85
++  let color86 = 86
++  let color87 = 87
++  let color88 = 88
++  let color89 = 89
++  let color90 = 90
++  let color91 = 91
++  let color92 = 92
++  let color93 = 93
++  let color94 = 94
++  let color95 = 95
++  let color96 = 96
++  let color97 = 97
++  let color98 = 98
++  let color99 = 99
++  let color100 = 100
++  let color101 = 101
++  let color102 = 102
++  let color103 = 103
++  let color104 = 104
++  let color105 = 105
++  let color106 = 106
++  let color107 = 107
++  let color108 = 108
++  let color109 = 109
++  let color110 = 110
++  let color111 = 111
++  let color112 = 112
++  let color113 = 113
++  let color114 = 114
++  let color115 = 115
++  let color116 = 116
++  let color117 = 117
++  let color118 = 118
++  let color119 = 119
++  let color120 = 120
++  let color121 = 121
++  let color122 = 122
++  let color123 = 123
++  let color124 = 124
++  let color125 = 125
++  let color126 = 126
++  let color127 = 127
++  let color128 = 128
++  let color129 = 129
++  let color130 = 130
++  let color131 = 131
++  let color132 = 132
++  let color133 = 133
++  let color134 = 134
++  let color135 = 135
++  let color136 = 136
++  let color137 = 137
++  let color138 = 138
++  let color139 = 139
++  let color140 = 140
++  let color141 = 141
++  let color142 = 142
++  let color143 = 143
++  let color144 = 144
++  let color145 = 145
++  let color146 = 146
++  let color147 = 147
++  let color148 = 148
++  let color149 = 149
++  let color150 = 150
++  let color151 = 151
++  let color152 = 152
++  let color153 = 153
++  let color154 = 154
++  let color155 = 155
++  let color156 = 156
++  let color157 = 157
++  let color158 = 158
++  let color159 = 159
++  let color160 = 160
++  let color161 = 161
++  let color162 = 162
++  let color163 = 163
++  let color164 = 164
++  let color165 = 165
++  let color166 = 166
++  let color167 = 167
++  let color168 = 168
++  let color169 = 169
++  let color170 = 170
++  let color171 = 171
++  let color172 = 172
++  let color173 = 173
++  let color174 = 174
++  let color175 = 175
++  let color176 = 176
++  let color177 = 177
++  let color178 = 178
++  let color179 = 179
++  let color180 = 180
++  let color181 = 181
++  let color182 = 182
++  let color183 = 183
++  let color184 = 184
++  let color185 = 185
++  let color186 = 186
++  let color187 = 187
++  let color188 = 188
++  let color189 = 189
++  let color190 = 190
++  let color191 = 191
++  let color192 = 192
++  let color193 = 193
++  let color194 = 194
++  let color195 = 195
++  let color196 = 196
++  let color197 = 197
++  let color198 = 198
++  let color199 = 199
++  let color200 = 200
++  let color201 = 201
++  let color202 = 202
++  let color203 = 203
++  let color204 = 204
++  let color205 = 205
++  let color206 = 206
++  let color207 = 207
++  let color208 = 208
++  let color209 = 209
++  let color210 = 210
++  let color211 = 211
++  let color212 = 212
++  let color213 = 213
++  let color214 = 214
++  let color215 = 215
++  let color216 = 216
++  let color217 = 217
++  let color218 = 218
++  let color219 = 219
++  let color220 = 220
++  let color221 = 221
++  let color222 = 222
++  let color223 = 223
++  let color224 = 224
++  let color225 = 225
++  let color226 = 226
++  let color227 = 227
++  let color228 = 228
++  let color229 = 229
++  let color230 = 230
++  let color231 = 231
++  let color232 = 232
++  let color233 = 233
++  let color234 = 234
++  let color235 = 235
++  let color236 = 236
++  let color237 = 237
++  let color238 = 238
++  let color239 = 239
++  let color240 = 240
++  let color241 = 241
++  let color242 = 242
++  let color243 = 243
++  let color244 = 244
++  let color245 = 245
++  let color246 = 246
++  let color247 = 247
++  let color248 = 248
++  let color249 = 249
++  let color250 = 250
++  let color251 = 251
++  let color252 = 252
++  let color253 = 253
++  let color254 = 254
++  let color255 = 255
+ end
+ module Key = struct
+ let code_yes = 0o400
+diff -uNr wyrd-1.4.4/curses/curses.mli wyrd-1.4.4-dan/curses/curses.mli
+--- wyrd-1.4.4/curses/curses.mli	2008-02-21 22:25:26.000000000 -0600
++++ wyrd-1.4.4-dan/curses/curses.mli	2008-08-18 16:15:33.000000000 -0500
+@@ -450,6 +450,262 @@
+     val magenta : int
+     val cyan : int
+     val white : int
++    val color0 : int
++    val color1 : int
++    val color2 : int
++    val color3 : int
++    val color4 : int
++    val color5 : int
++    val color6 : int
++    val color7 : int
++    val color8 : int
++    val color9 : int
++    val color10 : int
++    val color11 : int
++    val color12 : int
++    val color13 : int
++    val color14 : int
++    val color15 : int
++    val color16 : int
++    val color17 : int
++    val color18 : int
++    val color19 : int
++    val color20 : int
++    val color21 : int
++    val color22 : int
++    val color23 : int
++    val color24 : int
++    val color25 : int
++    val color26 : int
++    val color27 : int
++    val color28 : int
++    val color29 : int
++    val color30 : int
++    val color31 : int
++    val color32 : int
++    val color33 : int
++    val color34 : int
++    val color35 : int
++    val color36 : int
++    val color37 : int
++    val color38 : int
++    val color39 : int
++    val color40 : int
++    val color41 : int
++    val color42 : int
++    val color43 : int
++    val color44 : int
++    val color45 : int
++    val color46 : int
++    val color47 : int
++    val color48 : int
++    val color49 : int
++    val color50 : int
++    val color51 : int
++    val color52 : int
++    val color53 : int
++    val color54 : int
++    val color55 : int
++    val color56 : int
++    val color57 : int
++    val color58 : int
++    val color59 : int
++    val color60 : int
++    val color61 : int
++    val color62 : int
++    val color63 : int
++    val color64 : int
++    val color65 : int
++    val color66 : int
++    val color67 : int
++    val color68 : int
++    val color69 : int
++    val color70 : int
++    val color71 : int
++    val color72 : int
++    val color73 : int
++    val color74 : int
++    val color75 : int
++    val color76 : int
++    val color77 : int
++    val color78 : int
++    val color79 : int
++    val color80 : int
++    val color81 : int
++    val color82 : int
++    val color83 : int
++    val color84 : int
++    val color85 : int
++    val color86 : int
++    val color87 : int
++    val color88 : int
++    val color89 : int
++    val color90 : int
++    val color91 : int
++    val color92 : int
++    val color93 : int
++    val color94 : int
++    val color95 : int
++    val color96 : int
++    val color97 : int
++    val color98 : int
++    val color99 : int
++    val color100 : int
++    val color101 : int
++    val color102 : int
++    val color103 : int
++    val color104 : int
++    val color105 : int
++    val color106 : int
++    val color107 : int
++    val color108 : int
++    val color109 : int
++    val color110 : int
++    val color111 : int
++    val color112 : int
++    val color113 : int
++    val color114 : int
++    val color115 : int
++    val color116 : int
++    val color117 : int
++    val color118 : int
++    val color119 : int
++    val color120 : int
++    val color121 : int
++    val color122 : int
++    val color123 : int
++    val color124 : int
++    val color125 : int
++    val color126 : int
++    val color127 : int
++    val color128 : int
++    val color129 : int
++    val color130 : int
++    val color131 : int
++    val color132 : int
++    val color133 : int
++    val color134 : int
++    val color135 : int
++    val color136 : int
++    val color137 : int
++    val color138 : int
++    val color139 : int
++    val color140 : int
++    val color141 : int
++    val color142 : int
++    val color143 : int
++    val color144 : int
++    val color145 : int
++    val color146 : int
++    val color147 : int
++    val color148 : int
++    val color149 : int
++    val color150 : int
++    val color151 : int
++    val color152 : int
++    val color153 : int
++    val color154 : int
++    val color155 : int
++    val color156 : int
++    val color157 : int
++    val color158 : int
++    val color159 : int
++    val color160 : int
++    val color161 : int
++    val color162 : int
++    val color163 : int
++    val color164 : int
++    val color165 : int
++    val color166 : int
++    val color167 : int
++    val color168 : int
++    val color169 : int
++    val color170 : int
++    val color171 : int
++    val color172 : int
++    val color173 : int
++    val color174 : int
++    val color175 : int
++    val color176 : int
++    val color177 : int
++    val color178 : int
++    val color179 : int
++    val color180 : int
++    val color181 : int
++    val color182 : int
++    val color183 : int
++    val color184 : int
++    val color185 : int
++    val color186 : int
++    val color187 : int
++    val color188 : int
++    val color189 : int
++    val color190 : int
++    val color191 : int
++    val color192 : int
++    val color193 : int
++    val color194 : int
++    val color195 : int
++    val color196 : int
++    val color197 : int
++    val color198 : int
++    val color199 : int
++    val color200 : int
++    val color201 : int
++    val color202 : int
++    val color203 : int
++    val color204 : int
++    val color205 : int
++    val color206 : int
++    val color207 : int
++    val color208 : int
++    val color209 : int
++    val color210 : int
++    val color211 : int
++    val color212 : int
++    val color213 : int
++    val color214 : int
++    val color215 : int
++    val color216 : int
++    val color217 : int
++    val color218 : int
++    val color219 : int
++    val color220 : int
++    val color221 : int
++    val color222 : int
++    val color223 : int
++    val color224 : int
++    val color225 : int
++    val color226 : int
++    val color227 : int
++    val color228 : int
++    val color229 : int
++    val color230 : int
++    val color231 : int
++    val color232 : int
++    val color233 : int
++    val color234 : int
++    val color235 : int
++    val color236 : int
++    val color237 : int
++    val color238 : int
++    val color239 : int
++    val color240 : int
++    val color241 : int
++    val color242 : int
++    val color243 : int
++    val color244 : int
++    val color245 : int
++    val color246 : int
++    val color247 : int
++    val color248 : int
++    val color249 : int
++    val color250 : int
++    val color251 : int
++    val color252 : int
++    val color253 : int
++    val color254 : int
++    val color255 : int
+   end
+ module Key :
+   sig
+diff -uNr wyrd-1.4.4/rcfile.ml wyrd-1.4.4-dan/rcfile.ml
+--- wyrd-1.4.4/rcfile.ml	2008-02-21 22:25:25.000000000 -0600
++++ wyrd-1.4.4-dan/rcfile.ml	2008-08-18 16:23:04.000000000 -0500
+@@ -414,6 +414,262 @@
+          | [< 'Ident "magenta" >] -> Color.magenta
+          | [< 'Ident "cyan" >]    -> Color.cyan
+          | [< 'Ident "white" >]   -> Color.white
++         | [< 'Ident "color0" >]  -> Color.color0
++         | [< 'Ident "color1" >]  -> Color.color1
++         | [< 'Ident "color2" >]  -> Color.color2
++         | [< 'Ident "color3" >]  -> Color.color3
++         | [< 'Ident "color4" >]  -> Color.color4
++         | [< 'Ident "color5" >]  -> Color.color5
++         | [< 'Ident "color6" >]  -> Color.color6
++         | [< 'Ident "color7" >]  -> Color.color7
++         | [< 'Ident "color8" >]  -> Color.color8
++         | [< 'Ident "color9" >]  -> Color.color9
++         | [< 'Ident "color10" >] -> Color.color10
++         | [< 'Ident "color11" >] -> Color.color11
++         | [< 'Ident "color12" >] -> Color.color12
++         | [< 'Ident "color13" >] -> Color.color13
++         | [< 'Ident "color14" >] -> Color.color14
++         | [< 'Ident "color15" >] -> Color.color15
++         | [< 'Ident "color16" >] -> Color.color16
++         | [< 'Ident "color17" >] -> Color.color17
++         | [< 'Ident "color18" >] -> Color.color18
++         | [< 'Ident "color19" >] -> Color.color19
++         | [< 'Ident "color20" >] -> Color.color20
++         | [< 'Ident "color21" >] -> Color.color21
++         | [< 'Ident "color22" >] -> Color.color22
++         | [< 'Ident "color23" >] -> Color.color23
++         | [< 'Ident "color24" >] -> Color.color24
++         | [< 'Ident "color25" >] -> Color.color25
++         | [< 'Ident "color26" >] -> Color.color26
++         | [< 'Ident "color27" >] -> Color.color27
++         | [< 'Ident "color28" >] -> Color.color28
++         | [< 'Ident "color29" >] -> Color.color29
++         | [< 'Ident "color30" >] -> Color.color30
++         | [< 'Ident "color31" >] -> Color.color31
++         | [< 'Ident "color32" >] -> Color.color32
++         | [< 'Ident "color33" >] -> Color.color33
++         | [< 'Ident "color34" >] -> Color.color34
++         | [< 'Ident "color35" >] -> Color.color35
++         | [< 'Ident "color36" >] -> Color.color36
++         | [< 'Ident "color37" >] -> Color.color37
++         | [< 'Ident "color38" >] -> Color.color38
++         | [< 'Ident "color39" >] -> Color.color39
++         | [< 'Ident "color40" >] -> Color.color40
++         | [< 'Ident "color41" >] -> Color.color41
++         | [< 'Ident "color42" >] -> Color.color42
++         | [< 'Ident "color43" >] -> Color.color43
++         | [< 'Ident "color44" >] -> Color.color44
++         | [< 'Ident "color45" >] -> Color.color45
++         | [< 'Ident "color46" >] -> Color.color46
++         | [< 'Ident "color47" >] -> Color.color47
++         | [< 'Ident "color48" >] -> Color.color48
++         | [< 'Ident "color49" >] -> Color.color49
++         | [< 'Ident "color50" >] -> Color.color50
++         | [< 'Ident "color51" >] -> Color.color51
++         | [< 'Ident "color52" >] -> Color.color52
++         | [< 'Ident "color53" >] -> Color.color53
++         | [< 'Ident "color54" >] -> Color.color54
++         | [< 'Ident "color55" >] -> Color.color55
++         | [< 'Ident "color56" >] -> Color.color56
++         | [< 'Ident "color57" >] -> Color.color57
++         | [< 'Ident "color58" >] -> Color.color58
++         | [< 'Ident "color59" >] -> Color.color59
++         | [< 'Ident "color60" >] -> Color.color60
++         | [< 'Ident "color61" >] -> Color.color61
++         | [< 'Ident "color62" >] -> Color.color62
++         | [< 'Ident "color63" >] -> Color.color63
++         | [< 'Ident "color64" >] -> Color.color64
++         | [< 'Ident "color65" >] -> Color.color65
++         | [< 'Ident "color66" >] -> Color.color66
++         | [< 'Ident "color67" >] -> Color.color67
++         | [< 'Ident "color68" >] -> Color.color68
++         | [< 'Ident "color69" >] -> Color.color69
++         | [< 'Ident "color70" >] -> Color.color70
++         | [< 'Ident "color71" >] -> Color.color71
++         | [< 'Ident "color72" >] -> Color.color72
++         | [< 'Ident "color73" >] -> Color.color73
++         | [< 'Ident "color74" >] -> Color.color74
++         | [< 'Ident "color75" >] -> Color.color75
++         | [< 'Ident "color76" >] -> Color.color76
++         | [< 'Ident "color77" >] -> Color.color77
++         | [< 'Ident "color78" >] -> Color.color78
++         | [< 'Ident "color79" >] -> Color.color79
++         | [< 'Ident "color80" >] -> Color.color80
++         | [< 'Ident "color81" >] -> Color.color81
++         | [< 'Ident "color82" >] -> Color.color82
++         | [< 'Ident "color83" >] -> Color.color83
++         | [< 'Ident "color84" >] -> Color.color84
++         | [< 'Ident "color85" >] -> Color.color85
++         | [< 'Ident "color86" >] -> Color.color86
++         | [< 'Ident "color87" >] -> Color.color87
++         | [< 'Ident "color88" >] -> Color.color88
++         | [< 'Ident "color89" >] -> Color.color89
++         | [< 'Ident "color90" >] -> Color.color90
++         | [< 'Ident "color91" >] -> Color.color91
++         | [< 'Ident "color92" >] -> Color.color92
++         | [< 'Ident "color93" >] -> Color.color93
++         | [< 'Ident "color94" >] -> Color.color94
++         | [< 'Ident "color95" >] -> Color.color95
++         | [< 'Ident "color96" >] -> Color.color96
++         | [< 'Ident "color97" >] -> Color.color97
++         | [< 'Ident "color98" >] -> Color.color98
++         | [< 'Ident "color99" >] -> Color.color99
++         | [< 'Ident "color100">] -> Color.color100
++         | [< 'Ident "color101">] -> Color.color101
++         | [< 'Ident "color102">] -> Color.color102
++         | [< 'Ident "color103">] -> Color.color103
++         | [< 'Ident "color104">] -> Color.color104
++         | [< 'Ident "color105">] -> Color.color105
++         | [< 'Ident "color106">] -> Color.color106
++         | [< 'Ident "color107">] -> Color.color107
++         | [< 'Ident "color108">] -> Color.color108
++         | [< 'Ident "color109">] -> Color.color109
++         | [< 'Ident "color110">] -> Color.color110
++         | [< 'Ident "color111">] -> Color.color111
++         | [< 'Ident "color112">] -> Color.color112
++         | [< 'Ident "color113">] -> Color.color113
++         | [< 'Ident "color114">] -> Color.color114
++         | [< 'Ident "color115">] -> Color.color115
++         | [< 'Ident "color116">] -> Color.color116
++         | [< 'Ident "color117">] -> Color.color117
++         | [< 'Ident "color118">] -> Color.color118
++         | [< 'Ident "color119">] -> Color.color119
++         | [< 'Ident "color120">] -> Color.color120
++         | [< 'Ident "color121">] -> Color.color121
++         | [< 'Ident "color122">] -> Color.color122
++         | [< 'Ident "color123">] -> Color.color123
++         | [< 'Ident "color124">] -> Color.color124
++         | [< 'Ident "color125">] -> Color.color125
++         | [< 'Ident "color126">] -> Color.color126
++         | [< 'Ident "color127">] -> Color.color127
++         | [< 'Ident "color128">] -> Color.color128
++         | [< 'Ident "color129">] -> Color.color129
++         | [< 'Ident "color130">] -> Color.color130
++         | [< 'Ident "color131">] -> Color.color131
++         | [< 'Ident "color132">] -> Color.color132
++         | [< 'Ident "color133">] -> Color.color133
++         | [< 'Ident "color134">] -> Color.color134
++         | [< 'Ident "color135">] -> Color.color135
++         | [< 'Ident "color136">] -> Color.color136
++         | [< 'Ident "color137">] -> Color.color137
++         | [< 'Ident "color138">] -> Color.color138
++         | [< 'Ident "color139">] -> Color.color139
++         | [< 'Ident "color140">] -> Color.color140
++         | [< 'Ident "color141">] -> Color.color141
++         | [< 'Ident "color142">] -> Color.color142
++         | [< 'Ident "color143">] -> Color.color143
++         | [< 'Ident "color144">] -> Color.color144
++         | [< 'Ident "color145">] -> Color.color145
++         | [< 'Ident "color146">] -> Color.color146
++         | [< 'Ident "color147">] -> Color.color147
++         | [< 'Ident "color148">] -> Color.color148
++         | [< 'Ident "color149">] -> Color.color149
++         | [< 'Ident "color150">] -> Color.color150
++         | [< 'Ident "color151">] -> Color.color151
++         | [< 'Ident "color152">] -> Color.color152
++         | [< 'Ident "color153">] -> Color.color153
++         | [< 'Ident "color154">] -> Color.color154
++         | [< 'Ident "color155">] -> Color.color155
++         | [< 'Ident "color156">] -> Color.color156
++         | [< 'Ident "color157">] -> Color.color157
++         | [< 'Ident "color158">] -> Color.color158
++         | [< 'Ident "color159">] -> Color.color159
++         | [< 'Ident "color160">] -> Color.color160
++         | [< 'Ident "color161">] -> Color.color161
++         | [< 'Ident "color162">] -> Color.color162
++         | [< 'Ident "color163">] -> Color.color163
++         | [< 'Ident "color164">] -> Color.color164
++         | [< 'Ident "color165">] -> Color.color165
++         | [< 'Ident "color166">] -> Color.color166
++         | [< 'Ident "color167">] -> Color.color167
++         | [< 'Ident "color168">] -> Color.color168
++         | [< 'Ident "color169">] -> Color.color169
++         | [< 'Ident "color170">] -> Color.color170
++         | [< 'Ident "color171">] -> Color.color171
++         | [< 'Ident "color172">] -> Color.color172
++         | [< 'Ident "color173">] -> Color.color173
++         | [< 'Ident "color174">] -> Color.color174
++         | [< 'Ident "color175">] -> Color.color175
++         | [< 'Ident "color176">] -> Color.color176
++         | [< 'Ident "color177">] -> Color.color177
++         | [< 'Ident "color178">] -> Color.color178
++         | [< 'Ident "color179">] -> Color.color179
++         | [< 'Ident "color180">] -> Color.color180
++         | [< 'Ident "color181">] -> Color.color181
++         | [< 'Ident "color182">] -> Color.color182
++         | [< 'Ident "color183">] -> Color.color183
++         | [< 'Ident "color184">] -> Color.color184
++         | [< 'Ident "color185">] -> Color.color185
++         | [< 'Ident "color186">] -> Color.color186
++         | [< 'Ident "color187">] -> Color.color187
++         | [< 'Ident "color188">] -> Color.color188
++         | [< 'Ident "color189">] -> Color.color189
++         | [< 'Ident "color190">] -> Color.color190
++         | [< 'Ident "color191">] -> Color.color191
++         | [< 'Ident "color192">] -> Color.color192
++         | [< 'Ident "color193">] -> Color.color193
++         | [< 'Ident "color194">] -> Color.color194
++         | [< 'Ident "color195">] -> Color.color195
++         | [< 'Ident "color196">] -> Color.color196
++         | [< 'Ident "color197">] -> Color.color197
++         | [< 'Ident "color198">] -> Color.color198
++         | [< 'Ident "color199">] -> Color.color199
++         | [< 'Ident "color200">] -> Color.color200
++         | [< 'Ident "color201">] -> Color.color201
++         | [< 'Ident "color202">] -> Color.color202
++         | [< 'Ident "color203">] -> Color.color203
++         | [< 'Ident "color204">] -> Color.color204
++         | [< 'Ident "color205">] -> Color.color205
++         | [< 'Ident "color206">] -> Color.color206
++         | [< 'Ident "color207">] -> Color.color207
++         | [< 'Ident "color208">] -> Color.color208
++         | [< 'Ident "color209">] -> Color.color209
++         | [< 'Ident "color210">] -> Color.color210
++         | [< 'Ident "color211">] -> Color.color211
++         | [< 'Ident "color212">] -> Color.color212
++         | [< 'Ident "color213">] -> Color.color213
++         | [< 'Ident "color214">] -> Color.color214
++         | [< 'Ident "color215">] -> Color.color215
++         | [< 'Ident "color216">] -> Color.color216
++         | [< 'Ident "color217">] -> Color.color217
++         | [< 'Ident "color218">] -> Color.color218
++         | [< 'Ident "color219">] -> Color.color219
++         | [< 'Ident "color220">] -> Color.color220
++         | [< 'Ident "color221">] -> Color.color221
++         | [< 'Ident "color222">] -> Color.color222
++         | [< 'Ident "color223">] -> Color.color223
++         | [< 'Ident "color224">] -> Color.color224
++         | [< 'Ident "color225">] -> Color.color225
++         | [< 'Ident "color226">] -> Color.color226
++         | [< 'Ident "color227">] -> Color.color227
++         | [< 'Ident "color228">] -> Color.color228
++         | [< 'Ident "color229">] -> Color.color229
++         | [< 'Ident "color230">] -> Color.color230
++         | [< 'Ident "color231">] -> Color.color231
++         | [< 'Ident "color232">] -> Color.color232
++         | [< 'Ident "color233">] -> Color.color233
++         | [< 'Ident "color234">] -> Color.color234
++         | [< 'Ident "color235">] -> Color.color235
++         | [< 'Ident "color236">] -> Color.color236
++         | [< 'Ident "color237">] -> Color.color237
++         | [< 'Ident "color238">] -> Color.color238
++         | [< 'Ident "color239">] -> Color.color239
++         | [< 'Ident "color240">] -> Color.color240
++         | [< 'Ident "color241">] -> Color.color241
++         | [< 'Ident "color242">] -> Color.color242
++         | [< 'Ident "color243">] -> Color.color243
++         | [< 'Ident "color244">] -> Color.color244
++         | [< 'Ident "color245">] -> Color.color245
++         | [< 'Ident "color246">] -> Color.color246
++         | [< 'Ident "color247">] -> Color.color247
++         | [< 'Ident "color248">] -> Color.color248
++         | [< 'Ident "color249">] -> Color.color249
++         | [< 'Ident "color250">] -> Color.color250
++         | [< 'Ident "color251">] -> Color.color251
++         | [< 'Ident "color252">] -> Color.color252
++         | [< 'Ident "color253">] -> Color.color253
++         | [< 'Ident "color254">] -> Color.color254
++         | [< 'Ident "color255">] -> Color.color255
+          | [< 'Ident "default" >] -> ~- 1
+          | [< >] ->
+             config_failwith ("Expected a foreground color after \"set " ^ obj_str)
+@@ -429,6 +685,262 @@
+          | [< 'Ident "magenta" >] -> Color.magenta
+          | [< 'Ident "cyan" >]    -> Color.cyan
+          | [< 'Ident "white" >]   -> Color.white
++         | [< 'Ident "color0" >]  -> Color.color0
++         | [< 'Ident "color1" >]  -> Color.color1
++         | [< 'Ident "color2" >]  -> Color.color2
++         | [< 'Ident "color3" >]  -> Color.color3
++         | [< 'Ident "color4" >]  -> Color.color4
++         | [< 'Ident "color5" >]  -> Color.color5
++         | [< 'Ident "color6" >]  -> Color.color6
++         | [< 'Ident "color7" >]  -> Color.color7
++         | [< 'Ident "color8" >]  -> Color.color8
++         | [< 'Ident "color9" >]  -> Color.color9
++         | [< 'Ident "color10" >] -> Color.color10
++         | [< 'Ident "color11" >] -> Color.color11
++         | [< 'Ident "color12" >] -> Color.color12
++         | [< 'Ident "color13" >] -> Color.color13
++         | [< 'Ident "color14" >] -> Color.color14
++         | [< 'Ident "color15" >] -> Color.color15
++         | [< 'Ident "color16" >] -> Color.color16
++         | [< 'Ident "color17" >] -> Color.color17
++         | [< 'Ident "color18" >] -> Color.color18
++         | [< 'Ident "color19" >] -> Color.color19
++         | [< 'Ident "color20" >] -> Color.color20
++         | [< 'Ident "color21" >] -> Color.color21
++         | [< 'Ident "color22" >] -> Color.color22
++         | [< 'Ident "color23" >] -> Color.color23
++         | [< 'Ident "color24" >] -> Color.color24
++         | [< 'Ident "color25" >] -> Color.color25
++         | [< 'Ident "color26" >] -> Color.color26
++         | [< 'Ident "color27" >] -> Color.color27
++         | [< 'Ident "color28" >] -> Color.color28
++         | [< 'Ident "color29" >] -> Color.color29
++         | [< 'Ident "color30" >] -> Color.color30
++         | [< 'Ident "color31" >] -> Color.color31
++         | [< 'Ident "color32" >] -> Color.color32
++         | [< 'Ident "color33" >] -> Color.color33
++         | [< 'Ident "color34" >] -> Color.color34
++         | [< 'Ident "color35" >] -> Color.color35
++         | [< 'Ident "color36" >] -> Color.color36
++         | [< 'Ident "color37" >] -> Color.color37
++         | [< 'Ident "color38" >] -> Color.color38
++         | [< 'Ident "color39" >] -> Color.color39
++         | [< 'Ident "color40" >] -> Color.color40
++         | [< 'Ident "color41" >] -> Color.color41
++         | [< 'Ident "color42" >] -> Color.color42
++         | [< 'Ident "color43" >] -> Color.color43
++         | [< 'Ident "color44" >] -> Color.color44
++         | [< 'Ident "color45" >] -> Color.color45
++         | [< 'Ident "color46" >] -> Color.color46
++         | [< 'Ident "color47" >] -> Color.color47
++         | [< 'Ident "color48" >] -> Color.color48
++         | [< 'Ident "color49" >] -> Color.color49
++         | [< 'Ident "color50" >] -> Color.color50
++         | [< 'Ident "color51" >] -> Color.color51
++         | [< 'Ident "color52" >] -> Color.color52
++         | [< 'Ident "color53" >] -> Color.color53
++         | [< 'Ident "color54" >] -> Color.color54
++         | [< 'Ident "color55" >] -> Color.color55
++         | [< 'Ident "color56" >] -> Color.color56
++         | [< 'Ident "color57" >] -> Color.color57
++         | [< 'Ident "color58" >] -> Color.color58
++         | [< 'Ident "color59" >] -> Color.color59
++         | [< 'Ident "color60" >] -> Color.color60
++         | [< 'Ident "color61" >] -> Color.color61
++         | [< 'Ident "color62" >] -> Color.color62
++         | [< 'Ident "color63" >] -> Color.color63
++         | [< 'Ident "color64" >] -> Color.color64
++         | [< 'Ident "color65" >] -> Color.color65
++         | [< 'Ident "color66" >] -> Color.color66
++         | [< 'Ident "color67" >] -> Color.color67
++         | [< 'Ident "color68" >] -> Color.color68
++         | [< 'Ident "color69" >] -> Color.color69
++         | [< 'Ident "color70" >] -> Color.color70
++         | [< 'Ident "color71" >] -> Color.color71
++         | [< 'Ident "color72" >] -> Color.color72
++         | [< 'Ident "color73" >] -> Color.color73
++         | [< 'Ident "color74" >] -> Color.color74
++         | [< 'Ident "color75" >] -> Color.color75
++         | [< 'Ident "color76" >] -> Color.color76
++         | [< 'Ident "color77" >] -> Color.color77
++         | [< 'Ident "color78" >] -> Color.color78
++         | [< 'Ident "color79" >] -> Color.color79
++         | [< 'Ident "color80" >] -> Color.color80
++         | [< 'Ident "color81" >] -> Color.color81
++         | [< 'Ident "color82" >] -> Color.color82
++         | [< 'Ident "color83" >] -> Color.color83
++         | [< 'Ident "color84" >] -> Color.color84
++         | [< 'Ident "color85" >] -> Color.color85
++         | [< 'Ident "color86" >] -> Color.color86
++         | [< 'Ident "color87" >] -> Color.color87
++         | [< 'Ident "color88" >] -> Color.color88
++         | [< 'Ident "color89" >] -> Color.color89
++         | [< 'Ident "color90" >] -> Color.color90
++         | [< 'Ident "color91" >] -> Color.color91
++         | [< 'Ident "color92" >] -> Color.color92
++         | [< 'Ident "color93" >] -> Color.color93
++         | [< 'Ident "color94" >] -> Color.color94
++         | [< 'Ident "color95" >] -> Color.color95
++         | [< 'Ident "color96" >] -> Color.color96
++         | [< 'Ident "color97" >] -> Color.color97
++         | [< 'Ident "color98" >] -> Color.color98
++         | [< 'Ident "color99" >] -> Color.color99
++         | [< 'Ident "color100">] -> Color.color100
++         | [< 'Ident "color101">] -> Color.color101
++         | [< 'Ident "color102">] -> Color.color102
++         | [< 'Ident "color103">] -> Color.color103
++         | [< 'Ident "color104">] -> Color.color104
++         | [< 'Ident "color105">] -> Color.color105
++         | [< 'Ident "color106">] -> Color.color106
++         | [< 'Ident "color107">] -> Color.color107
++         | [< 'Ident "color108">] -> Color.color108
++         | [< 'Ident "color109">] -> Color.color109
++         | [< 'Ident "color110">] -> Color.color110
++         | [< 'Ident "color111">] -> Color.color111
++         | [< 'Ident "color112">] -> Color.color112
++         | [< 'Ident "color113">] -> Color.color113
++         | [< 'Ident "color114">] -> Color.color114
++         | [< 'Ident "color115">] -> Color.color115
++         | [< 'Ident "color116">] -> Color.color116
++         | [< 'Ident "color117">] -> Color.color117
++         | [< 'Ident "color118">] -> Color.color118
++         | [< 'Ident "color119">] -> Color.color119
++         | [< 'Ident "color120">] -> Color.color120
++         | [< 'Ident "color121">] -> Color.color121
++         | [< 'Ident "color122">] -> Color.color122
++         | [< 'Ident "color123">] -> Color.color123
++         | [< 'Ident "color124">] -> Color.color124
++         | [< 'Ident "color125">] -> Color.color125
++         | [< 'Ident "color126">] -> Color.color126
++         | [< 'Ident "color127">] -> Color.color127
++         | [< 'Ident "color128">] -> Color.color128
++         | [< 'Ident "color129">] -> Color.color129
++         | [< 'Ident "color130">] -> Color.color130
++         | [< 'Ident "color131">] -> Color.color131
++         | [< 'Ident "color132">] -> Color.color132
++         | [< 'Ident "color133">] -> Color.color133
++         | [< 'Ident "color134">] -> Color.color134
++         | [< 'Ident "color135">] -> Color.color135
++         | [< 'Ident "color136">] -> Color.color136
++         | [< 'Ident "color137">] -> Color.color137
++         | [< 'Ident "color138">] -> Color.color138
++         | [< 'Ident "color139">] -> Color.color139
++         | [< 'Ident "color140">] -> Color.color140
++         | [< 'Ident "color141">] -> Color.color141
++         | [< 'Ident "color142">] -> Color.color142
++         | [< 'Ident "color143">] -> Color.color143
++         | [< 'Ident "color144">] -> Color.color144
++         | [< 'Ident "color145">] -> Color.color145
++         | [< 'Ident "color146">] -> Color.color146
++         | [< 'Ident "color147">] -> Color.color147
++         | [< 'Ident "color148">] -> Color.color148
++         | [< 'Ident "color149">] -> Color.color149
++         | [< 'Ident "color150">] -> Color.color150
++         | [< 'Ident "color151">] -> Color.color151
++         | [< 'Ident "color152">] -> Color.color152
++         | [< 'Ident "color153">] -> Color.color153
++         | [< 'Ident "color154">] -> Color.color154
++         | [< 'Ident "color155">] -> Color.color155
++         | [< 'Ident "color156">] -> Color.color156
++         | [< 'Ident "color157">] -> Color.color157
++         | [< 'Ident "color158">] -> Color.color158
++         | [< 'Ident "color159">] -> Color.color159
++         | [< 'Ident "color160">] -> Color.color160
++         | [< 'Ident "color161">] -> Color.color161
++         | [< 'Ident "color162">] -> Color.color162
++         | [< 'Ident "color163">] -> Color.color163
++         | [< 'Ident "color164">] -> Color.color164
++         | [< 'Ident "color165">] -> Color.color165
++         | [< 'Ident "color166">] -> Color.color166
++         | [< 'Ident "color167">] -> Color.color167
++         | [< 'Ident "color168">] -> Color.color168
++         | [< 'Ident "color169">] -> Color.color169
++         | [< 'Ident "color170">] -> Color.color170
++         | [< 'Ident "color171">] -> Color.color171
++         | [< 'Ident "color172">] -> Color.color172
++         | [< 'Ident "color173">] -> Color.color173
++         | [< 'Ident "color174">] -> Color.color174
++         | [< 'Ident "color175">] -> Color.color175
++         | [< 'Ident "color176">] -> Color.color176
++         | [< 'Ident "color177">] -> Color.color177
++         | [< 'Ident "color178">] -> Color.color178
++         | [< 'Ident "color179">] -> Color.color179
++         | [< 'Ident "color180">] -> Color.color180
++         | [< 'Ident "color181">] -> Color.color181
++         | [< 'Ident "color182">] -> Color.color182
++         | [< 'Ident "color183">] -> Color.color183
++         | [< 'Ident "color184">] -> Color.color184
++         | [< 'Ident "color185">] -> Color.color185
++         | [< 'Ident "color186">] -> Color.color186
++         | [< 'Ident "color187">] -> Color.color187
++         | [< 'Ident "color188">] -> Color.color188
++         | [< 'Ident "color189">] -> Color.color189
++         | [< 'Ident "color190">] -> Color.color190
++         | [< 'Ident "color191">] -> Color.color191
++         | [< 'Ident "color192">] -> Color.color192
++         | [< 'Ident "color193">] -> Color.color193
++         | [< 'Ident "color194">] -> Color.color194
++         | [< 'Ident "color195">] -> Color.color195
++         | [< 'Ident "color196">] -> Color.color196
++         | [< 'Ident "color197">] -> Color.color197
++         | [< 'Ident "color198">] -> Color.color198
++         | [< 'Ident "color199">] -> Color.color199
++         | [< 'Ident "color200">] -> Color.color200
++         | [< 'Ident "color201">] -> Color.color201
++         | [< 'Ident "color202">] -> Color.color202
++         | [< 'Ident "color203">] -> Color.color203
++         | [< 'Ident "color204">] -> Color.color204
++         | [< 'Ident "color205">] -> Color.color205
++         | [< 'Ident "color206">] -> Color.color206
++         | [< 'Ident "color207">] -> Color.color207
++         | [< 'Ident "color208">] -> Color.color208
++         | [< 'Ident "color209">] -> Color.color209
++         | [< 'Ident "color210">] -> Color.color210
++         | [< 'Ident "color211">] -> Color.color211
++         | [< 'Ident "color212">] -> Color.color212
++         | [< 'Ident "color213">] -> Color.color213
++         | [< 'Ident "color214">] -> Color.color214
++         | [< 'Ident "color215">] -> Color.color215
++         | [< 'Ident "color216">] -> Color.color216
++         | [< 'Ident "color217">] -> Color.color217
++         | [< 'Ident "color218">] -> Color.color218
++         | [< 'Ident "color219">] -> Color.color219
++         | [< 'Ident "color220">] -> Color.color220
++         | [< 'Ident "color221">] -> Color.color221
++         | [< 'Ident "color222">] -> Color.color222
++         | [< 'Ident "color223">] -> Color.color223
++         | [< 'Ident "color224">] -> Color.color224
++         | [< 'Ident "color225">] -> Color.color225
++         | [< 'Ident "color226">] -> Color.color226
++         | [< 'Ident "color227">] -> Color.color227
++         | [< 'Ident "color228">] -> Color.color228
++         | [< 'Ident "color229">] -> Color.color229
++         | [< 'Ident "color230">] -> Color.color230
++         | [< 'Ident "color231">] -> Color.color231
++         | [< 'Ident "color232">] -> Color.color232
++         | [< 'Ident "color233">] -> Color.color233
++         | [< 'Ident "color234">] -> Color.color234
++         | [< 'Ident "color235">] -> Color.color235
++         | [< 'Ident "color236">] -> Color.color236
++         | [< 'Ident "color237">] -> Color.color237
++         | [< 'Ident "color238">] -> Color.color238
++         | [< 'Ident "color239">] -> Color.color239
++         | [< 'Ident "color240">] -> Color.color240
++         | [< 'Ident "color241">] -> Color.color241
++         | [< 'Ident "color242">] -> Color.color242
++         | [< 'Ident "color243">] -> Color.color243
++         | [< 'Ident "color244">] -> Color.color244
++         | [< 'Ident "color245">] -> Color.color245
++         | [< 'Ident "color246">] -> Color.color246
++         | [< 'Ident "color247">] -> Color.color247
++         | [< 'Ident "color248">] -> Color.color248
++         | [< 'Ident "color249">] -> Color.color249
++         | [< 'Ident "color250">] -> Color.color250
++         | [< 'Ident "color251">] -> Color.color251
++         | [< 'Ident "color252">] -> Color.color252
++         | [< 'Ident "color253">] -> Color.color253
++         | [< 'Ident "color254">] -> Color.color254
++         | [< 'Ident "color255">] -> Color.color255
+          | [< 'Ident "default" >] -> ~- 1
+          | [< >] ->
+             config_failwith ("Expected a background color after \"set " ^ obj_str)

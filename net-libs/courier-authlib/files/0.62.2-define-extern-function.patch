@@ -1,0 +1,11 @@
+--- authpgsqllib.c.orig	2009-04-18 17:38:29.000000000 +0000
++++ authpgsqllib.c	2009-04-18 17:38:44.000000000 +0000
+@@ -30,6 +30,8 @@
+ 
+ static const char rcsid[]="$Id: authpgsqllib.c,v 1.19 2008/12/18 12:08:25 mrsam Exp $";
+ 
++extern const char *pg_encoding_to_char(int encoding);
++
+ /* tom@minnesota.com */
+ struct var_data {			
+ 	const char *name;

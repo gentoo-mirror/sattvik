@@ -1,0 +1,173 @@
+diff -Nuar samba-3.0.32/docs-xml/smbdotconf/printing/cupsencrypt.xml samba-3.0.32-cupsenc/docs-xml/smbdotconf/printing/cupsencrypt.xml
+--- samba-3.0.32/docs-xml/smbdotconf/printing/cupsencrypt.xml	1969-12-31 18:00:00.000000000 -0600
++++ samba-3.0.32-cupsenc/docs-xml/smbdotconf/printing/cupsencrypt.xml	2008-10-08 13:33:06.000000000 -0500
+@@ -0,0 +1,44 @@
++<samba:parameter name="cups encrypt"
++                 context="G"
++		 type="enum"
++		 print="1"
++		 advanced="1"
++                 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
++<description>
++	<para>This parameter is only applicable if <smbconfoption name="printing"/>
++	is set to <constant>cups</constant>.</para>
++
++	<para> If set, this option overrides the Encryption option in the CUPS 
++	<filename>client.conf</filename>. This is necessary if you have virtual samba
++	servers that connect to different CUPS daemons.</para>
++
++	<para>The <smbconfoption name="cups encrypt"/> can be set to one of five
++	values:</para>
++
++	<itemizedlist>
++		 <listitem>
++			<para><paramenter moreinfo="none">Default</parameter> = Use 
++			the default value from CUPS, which is generally derived from
++			the enviroment or files such as <filename>client.conf</filename>.
++			</para>
++		 </listitem>
++		 <listitem>
++			<para><paramenter moreinfo="none">Never</parameter> = Don't allow
++			Samba to use any encryption to connect to the CUPS server.
++		 </listitem>
++		 <listitem>
++			<para><paramenter moreinfo="none">Always</parameter> = Use 
++			SSL to connect to the CUPS server.</para>
++		 </listitem>
++		 <listitem>
++			<para><paramenter moreinfo="none">Required</parameter> = Use 
++			TLS to connect to the CUPS server.</para>
++		 </listitem>
++		 <listitem>
++			<para><paramenter moreinfo="none">IfRequested</parameter> = Use
++			TLS if the CUPS server requests it.</para>
++		 </listitem>
++	</itemizedlist>
++</description>
++<value type="default">Default</value>
++</samba:parameter>
+diff -Nuar samba-3.0.32/source/include/smb.h samba-3.0.32-cupsenc/source/include/smb.h
+--- samba-3.0.32/source/include/smb.h	2008-08-25 16:09:21.000000000 -0500
++++ samba-3.0.32-cupsenc/source/include/smb.h	2008-10-08 12:59:26.000000000 -0500
+@@ -1559,6 +1559,11 @@
+ #endif /* DEVELOPER */
+ };
+ 
++/* CUPS encryption types */
++enum cups_encryption {CUPS_ENCRYPT_ALWAYS, CUPS_ENCRYPT_IF_REQUESTED, 
++		      CUPS_ENCRYPT_NEVER, CUPS_ENCRYPT_REQUIRED,
++		      CUPS_ENCRYPT_DEFAULT};
++
+ /* LDAP schema types */
+ enum schema_types {SCHEMA_COMPAT, SCHEMA_AD, SCHEMA_SAMBA};
+ 
+diff -Nuar samba-3.0.32/source/param/loadparm.c samba-3.0.32-cupsenc/source/param/loadparm.c
+--- samba-3.0.32/source/param/loadparm.c	2008-08-25 16:09:21.000000000 -0500
++++ samba-3.0.32-cupsenc/source/param/loadparm.c	2008-10-08 13:00:06.000000000 -0500
+@@ -241,6 +241,7 @@
+ 	int ldap_debug_threshold;
+ 	int iAclCompat;
+ 	char *szCupsServer;
++	int iCupsEncrypt;
+ 	char *szIPrintServer;
+ 	int ldap_passwd_sync; 
+ 	int ldap_replication_sleep;
+@@ -684,6 +685,24 @@
+ 	{-1, NULL}
+ };
+ 
++static const struct enum_list enum_cups_encrypt[] = {
++	{CUPS_ENCRYPT_ALWAYS, "Always"},
++	{CUPS_ENCRYPT_ALWAYS, "always"},
++	{CUPS_ENCRYPT_IF_REQUESTED, "IfRequested"},
++	{CUPS_ENCRYPT_IF_REQUESTED, "Ifrequested"},
++	{CUPS_ENCRYPT_IF_REQUESTED, "ifrequested"},
++	{CUPS_ENCRYPT_IF_REQUESTED, "If Requested"},
++	{CUPS_ENCRYPT_IF_REQUESTED, "If requested"},
++	{CUPS_ENCRYPT_IF_REQUESTED, "if requested"},
++	{CUPS_ENCRYPT_NEVER, "Never"},
++	{CUPS_ENCRYPT_NEVER, "never"},
++	{CUPS_ENCRYPT_REQUIRED, "Required"},
++	{CUPS_ENCRYPT_REQUIRED, "required"},
++	{CUPS_ENCRYPT_DEFAULT, "Default"},
++	{CUPS_ENCRYPT_DEFAULT, "default"},
++	{-1, NULL}
++};
++
+ static const struct enum_list enum_ldap_ssl[] = {
+ 	{LDAP_SSL_OFF, "no"},
+ 	{LDAP_SSL_OFF, "No"},
+@@ -1059,6 +1078,7 @@
+ 	{"printing", P_ENUM, P_LOCAL, &sDefault.iPrinting, handle_printing, enum_printing, FLAG_ADVANCED | FLAG_PRINT | FLAG_GLOBAL}, 
+ 	{"cups options", P_STRING, P_LOCAL, &sDefault.szCupsOptions, NULL, NULL, FLAG_ADVANCED | FLAG_PRINT | FLAG_GLOBAL}, 
+ 	{"cups server", P_STRING, P_GLOBAL, &Globals.szCupsServer, NULL, NULL, FLAG_ADVANCED | FLAG_PRINT | FLAG_GLOBAL}, 
++	{"cups encrypt", P_ENUM, P_GLOBAL, &Globals.iCupsEncrypt, NULL, enum_cups_encrypt, FLAG_ADVANCED | FLAG_PRINT | FLAG_GLOBAL}, 
+ 	{"iprint server", P_STRING, P_GLOBAL, &Globals.szIPrintServer, NULL, NULL, FLAG_ADVANCED | FLAG_PRINT | FLAG_GLOBAL}, 
+ 	{"print command", P_STRING, P_LOCAL, &sDefault.szPrintcommand, NULL, NULL, FLAG_ADVANCED | FLAG_PRINT | FLAG_GLOBAL}, 
+ 	{"disable spoolss", P_BOOL, P_GLOBAL, &Globals.bDisableSpoolss, NULL, NULL, FLAG_ADVANCED | FLAG_PRINT | FLAG_GLOBAL}, 
+@@ -1644,6 +1664,7 @@
+ 	string_set(&Globals.szWinbindSeparator, "\\");
+ 
+ 	string_set(&Globals.szCupsServer, "");
++	Globals.iCupsEncrypt=CUPS_ENCRYPT_DEFAULT;
+ 	string_set(&Globals.szIPrintServer, "");
+ 
+ 	Globals.winbind_cache_time = 300;	/* 5 minutes */
+@@ -2050,6 +2071,7 @@
+ FN_GLOBAL_LIST(lp_svcctl_list, &Globals.szServicesList)
+ FN_LOCAL_STRING(lp_cups_options, szCupsOptions)
+ FN_GLOBAL_STRING(lp_cups_server, &Globals.szCupsServer)
++FN_GLOBAL_INTEGER(lp_cups_encrypt, &Globals.iCupsEncrypt)
+ FN_GLOBAL_STRING(lp_iprint_server, &Globals.szIPrintServer)
+ FN_LOCAL_STRING(lp_printcommand, szPrintcommand)
+ FN_LOCAL_STRING(lp_lpqcommand, szLpqcommand)
+diff -Nuar samba-3.0.32/source/printing/print_cups.c samba-3.0.32-cupsenc/source/printing/print_cups.c
+--- samba-3.0.32/source/printing/print_cups.c	2008-08-25 16:09:21.000000000 -0500
++++ samba-3.0.32-cupsenc/source/printing/print_cups.c	2008-10-08 13:01:09.000000000 -0500
+@@ -45,7 +45,9 @@
+ {
+ 	http_t *http;
+ 	char *server, *p;
++	const char*encType;
+ 	int port;
++	http_encryption_t enc;
+ 	
+ 	if (lp_cups_server() != NULL && strlen(lp_cups_server()) > 0) {
+ 		server = smb_xstrdup(lp_cups_server());
+@@ -60,13 +62,31 @@
+ 	} else {
+ 		port = ippPort();
+ 	}
++
++	switch(lp_cups_encrypt()) {
++		case CUPS_ENCRYPT_ALWAYS:
++			enc=HTTP_ENCRYPT_ALWAYS;
++			break;
++		case CUPS_ENCRYPT_IF_REQUESTED:
++			enc=HTTP_ENCRYPT_IF_REQUESTED;
++			break;
++		case CUPS_ENCRYPT_NEVER:
++			enc=HTTP_ENCRYPT_NEVER;
++			break;
++		case CUPS_ENCRYPT_REQUIRED:
++			enc=HTTP_ENCRYPT_REQUIRED;
++			break;
++		case CUPS_ENCRYPT_DEFAULT:
++			enc=cupsEncryption();
++			break;
++	}
+ 	
+-	DEBUG(10, ("connecting to cups server %s:%d\n",
+-		   server, port));
++	DEBUG(10, ("connecting to cups server %s:%d:%d \n",
++		   server, port, enc));
+ 
+-	if ((http = httpConnect(server, port)) == NULL) {
+-		DEBUG(0,("Unable to connect to CUPS server %s:%d - %s\n", 
+-			 server, port, strerror(errno)));
++	if ((http = httpConnectEncrypt(server, port, enc)) == NULL) {
++		DEBUG(0,("Unable to connect to CUPS server %s:%d:%d - %s\n", 
++			 server, port, enc, strerror(errno)));
+ 		SAFE_FREE(server);
+ 		return NULL;
+ 	}
