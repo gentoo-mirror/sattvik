@@ -2,6 +2,12 @@
 # Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*rxvt-unicode-9.06-r3 (30 Oct 2009)
+
+  30 Oct 2009; Daniel Solano Gómez <gentoo@sattvik.com>
+  +rxvt-unicode-9.06-r3.ebuild, metadata.xml:
+  Version bump to rxvt-unicode-9.06-r3
+
 *rxvt-unicode-9.06-r2 (26 Oct 2009)
 
   26 Oct 2009; Daniel Solano Gomez <dan@gentoo.org>
