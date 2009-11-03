@@ -1,0 +1,12 @@
+# ChangeLog for mail-filter/maildrop
+# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*maildrop-2.2.0 (03 Nov 2009)
+
+  03 Nov 2009; Daniel Solano Gómez <gentoo@sattvik.com>
+  +files/maildrop-1.8.1-disable-fam.patch,
+  +files/maildrop-2.0.4-makedat.patch, +maildrop-2.2.0.ebuild,
+  +files/maildrop-2.2.0-db4.patch, +files/maildroprc, +metadata.xml:
+  Added mail-filter/maildrop-2.2.0 with IUSE tools patch.
+
