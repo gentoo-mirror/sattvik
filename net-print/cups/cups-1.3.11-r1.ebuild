@@ -1,6 +1,6 @@
 # Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.3.11.ebuild,v 1.1 2009/07/08 22:41:43 tgurr Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.3.11-r1.ebuild,v 1.8 2009/11/24 04:02:42 jer Exp $
 
 inherit autotools eutils flag-o-matic multilib pam
 
@@ -8,11 +8,11 @@ MY_P=${P/_}
 
 DESCRIPTION="The Common Unix Printing System"
 HOMEPAGE="http://www.cups.org/"
-SRC_URI="http://ftp.easysw.com/pub/cups/${PV}/${MY_P}-source.tar.bz2"
+SRC_URI="mirror://easysw/${PN}/${PV}/${MY_P}-source.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~sparc-fbsd ~x86 ~x86-fbsd"
+KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~sparc-fbsd ~x86-fbsd"
 IUSE="acl avahi dbus gnutls java jpeg kerberos ldap pam perl php png ppds python samba slp ssl static tiff X xinetd zeroconf"
 
 COMMON_DEPEND="acl? ( kernel_linux? ( sys-apps/acl sys-apps/attr ) )
@@ -104,6 +104,11 @@ src_unpack() {
 	# detect recent libgnutls versions, upstream bug STR #3178
 	epatch "${FILESDIR}/${PN}-1.3.10-str3178.patch"
 	epatch "${FILESDIR}/${PN}-1.3.8-group_fix.patch"
+
+	# security fix CUPS XSS and HTTP header/body attacks via attribute injection
+	# upstream bug STR #3178 and STR #3401
+	epatch "${FILESDIR}/${PN}-1.3.11-str3367-security-1.3v2.patch"
+	epatch "${FILESDIR}/${PN}-1.3.11-str3401-security-1.3v2-regression.patch"
 
 	# cups does not use autotools "the usual way" and ship a static config.h.in
 	eaclocal
@@ -274,7 +279,7 @@ pkg_postinst() {
 		echo
 		ewarn "/usr/lib/cups exists - You need to remerge every ebuild that"
 		ewarn "installed into /usr/lib/cups and /etc/cups, qfile is in portage-utils:"
-		ewarn "# FEATURES=-collision-protect emerge -va1 \$(qfile -qC /usr/lib/cups /etc/cups | sed \"s:net-print/cups$::\")"
+		ewarn "# FEATURES=-collision-protect emerge -va1 \$(qfile -qC /usr/lib/cups /etc/cups | sed -e \"s:net-print/cups$::\")"
 		echo
 		ewarn "FEATURES=-collision-protect is needed to overwrite the compatibility"
 		ewarn "symlinks installed by this package, it won't be needed on later merges."
