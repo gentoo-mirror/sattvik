@@ -12,7 +12,7 @@ HOMEPAGE="http://clojure.org/"
 SRC_URI="http://clojure.googlecode.com/files/clojure-${PV/_/-}.zip"
 
 LICENSE="CPL-1.0 BSD"
-SLOT="0"
+SLOT="1.1"
 KEYWORDS="~amd64 ~x86"
 
 IUSE=""
