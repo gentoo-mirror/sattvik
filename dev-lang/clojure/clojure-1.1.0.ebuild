@@ -12,7 +12,7 @@ HOMEPAGE="http://clojure.org/"
 SRC_URI="http://clojure.googlecode.com/files/clojure-${PV/_/-}.zip"
 
 LICENSE="CPL-1.0 BSD"
-SLOT="0"
+SLOT="1.1"
 KEYWORDS="~amd64 ~x86"
 
 IUSE=""
@@ -28,7 +28,7 @@ java_prepare() {
 
 src_install() {
 	java-pkg_newjar ${P/_/-}.jar
-	java-pkg_dolauncher  ${PN} --main clojure.main
+	java-pkg_dolauncher  ${PN}-${SLOT} --main clojure.main
 	dodoc changes.txt || die "Failed to copy changes.txt"
 	dodoc readme.txt  || die "Failed to copy readme.txt"
 
