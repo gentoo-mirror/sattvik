@@ -28,7 +28,7 @@ java_prepare() {
 
 src_install() {
 	java-pkg_newjar ${P/_/-}.jar
-	java-pkg_dolauncher  ${PN} --main clojure.main
+	java-pkg_dolauncher  ${PN}-${SLOT} --main clojure.main
 	dodoc changes.txt || die "Failed to copy changes.txt"
 	dodoc readme.txt  || die "Failed to copy readme.txt"
 
