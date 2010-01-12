@@ -1,0 +1,139 @@
+diff --git a/source3/configure.in b/source3/configure.in
+--- a/source3/configure.in
++++ b/source3/configure.in
+@@ -788,6 +788,7 @@ if test x$enable_cups != xno; then
+ 		        x"$ac_cv_header_cups_language_h" = xyes; then
+ 			AC_DEFINE(HAVE_CUPS,1,[Whether we have CUPS])
+ 			samba_cv_HAVE_CUPS=yes
++			AC_CHECK_LIB_EXT(cups, PRINT_LIBS, httpConnectEncrypt)
+ 		else
+ 			AC_MSG_WARN([cups-config around but cups-devel not installed])
+ 			CFLAGS=$ac_save_CFLAGS
+diff --git a/source3/include/proto.h b/source3/include/proto.h
+--- a/source3/include/proto.h
++++ b/source3/include/proto.h
+@@ -4125,6 +4125,7 @@ const char **lp_admin_users(int );
+ const char **lp_svcctl_list(void);
+ char *lp_cups_options(int );
+ char *lp_cups_server(void);
++int lp_cups_encrypt(void);
+ char *lp_iprint_server(void);
+ int lp_cups_connection_timeout(void);
+ const char *lp_ctdbd_socket(void);
+diff --git a/source3/param/loadparm.c b/source3/param/loadparm.c
+--- a/source3/param/loadparm.c
++++ b/source3/param/loadparm.c
+@@ -54,6 +54,10 @@
+ #include "includes.h"
+ #include "printing.h"
+ 
++#ifdef HAVE_HTTPCONNECTENCRYPT
++#include <cups/http.h>
++#endif
++
+ bool bLoaded = False;
+ 
+ extern enum protocol_types Protocol;
+@@ -257,6 +261,7 @@ struct global {
+ 	int ldap_debug_threshold;
+ 	int iAclCompat;
+ 	char *szCupsServer;
++	int CupsEncrypt;
+ 	char *szIPrintServer;
+ 	char *ctdbdSocket;
+ 	char **szClusterAddresses;
+@@ -774,6 +779,8 @@ static const struct enum_list enum_case[] = {
+ 	{-1, NULL}
+ };
+ 
++
++
+ static const struct enum_list enum_bool_auto[] = {
+ 	{False, "No"},
+ 	{False, "False"},
+@@ -2628,6 +2635,16 @@ static struct parm_struct parm_table[] = {
+ 		.flags		= FLAG_ADVANCED | FLAG_PRINT | FLAG_GLOBAL,
+ 	},
+ 	{
++		.label          = "cups encrypt",
++		.type           = P_ENUM,
++		.p_class        = P_GLOBAL,
++		.ptr            = &Globals.CupsEncrypt,
++		.special        = NULL,
++		.enum_list      = enum_bool_auto,
++		.flags          = FLAG_ADVANCED | FLAG_PRINT | FLAG_GLOBAL,
++	},
++	{
++
+ 		.label		= "cups connection timeout",
+ 		.type		= P_INTEGER,
+ 		.p_class	= P_GLOBAL,
+@@ -5471,6 +5488,23 @@ FN_LOCAL_LIST(lp_admin_users, szAdminUsers)
+ FN_GLOBAL_LIST(lp_svcctl_list, &Globals.szServicesList)
+ FN_LOCAL_STRING(lp_cups_options, szCupsOptions)
+ FN_GLOBAL_STRING(lp_cups_server, &Globals.szCupsServer)
++int lp_cups_encrypt(void)
++{
++#ifdef HAVE_HTTPCONNECTENCRYPT
++	switch (Globals.CupsEncrypt) {
++		case Auto:
++			Globals.CupsEncrypt = HTTP_ENCRYPT_REQUIRED;
++			break;
++		case True:
++			Globals.CupsEncrypt = HTTP_ENCRYPT_ALWAYS;
++			break;
++		case False:
++			Globals.CupsEncrypt = HTTP_ENCRYPT_NEVER;
++			break;
++	}
++#endif
++	return Globals.CupsEncrypt;
++}
+ FN_GLOBAL_STRING(lp_iprint_server, &Globals.szIPrintServer)
+ FN_GLOBAL_INTEGER(lp_cups_connection_timeout, &Globals.cups_connection_timeout)
+ FN_GLOBAL_CONST_STRING(lp_ctdbd_socket, &Globals.ctdbdSocket)
+diff --git a/source3/printing/print_cups.c b/source3/printing/print_cups.c
+--- a/source3/printing/print_cups.c
++++ b/source3/printing/print_cups.c
+@@ -93,7 +93,12 @@ static http_t *cups_connect(TALLOC_CTX *frame)
+                 alarm(timeout);
+         }
+ 
++#ifdef HAVE_HTTPCONNECTENCRYPT
++	http = httpConnectEncrypt(server, port, lp_cups_encrypt());
++#else
+ 	http = httpConnect(server, port);
++#endif
++
+ 
+ 	CatchSignal(SIGALRM, SIGNAL_CAST SIG_IGN);
+         alarm(0);
+diff --git a/docs-xml/smbdotconf/printing/cupsencrypt.xml b/docs-xml/smbdotconf/printing/cupsencrypt.xml
+--- /dev/null
++++ b/docs-xml/smbdotconf/printing/cupsencrypt.xml
+@@ -0,0 +1,25 @@
++<samba:parameter name="cups encrypt"
++	context="G"
++	type="enum"
++	advanced="1" print="1"
++	xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
++<description>
++	<para>
++	This parameter is only applicable if <smbconfoption name="printing"/>
++	is set to <constant>cups</constant> and if you use CUPS newer than
++	1.0.x.It is used to define whether or not Samba should use encryption
++	when talking to the CUPS server. Possible values are
++	<emphasis>auto</emphasis>, <emphasis>yes</emphasis> and
++	<emphasis>no</emphasis>
++	</para>
++
++	<para>
++	When set to auto we will try to do a TLS handshake on each CUPS
++	connection setup. If that fails, we will fall back to unencrypted
++	operation.
++	</para>
++
++</description>
++
++<value type="default">"no"</value>
++</samba:parameter>
