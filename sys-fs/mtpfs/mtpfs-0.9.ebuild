@@ -1,51 +1,40 @@
-# ==========================================================================
-# This ebuild come from akoya repository. Zugaina.org only host a copy.
-# For more info go to http://gentoo.zugaina.org/
-# ************************ General Portage Overlay ************************
-# ==========================================================================
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2009 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-inherit eutils
+EAPI="2"
 
-S="${WORKDIR}/mtpfs-${PV}"
-
-DESCRIPTION="A FUSE filesystem providing access to MTP devices."
-HOMEPAGE="http://www.adebenham.com/mtpfs/"
-SRC_URI="http://www.adebenham.com/mtpfs/${P}.tar.gz"
+DESCRIPTION="MTPFS is a Fuse filesystem based on libmtp"
+HOMEPAGE="http://adebenham.com/mtpfs"
+SRC_URI="http://adebenham.com/mtpfs/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~x86"
 IUSE="debug"
 
-DEPEND=">=sys-fs/fuse-2.2
-	>=dev-libs/glib-2.6
-	>=media-libs/libmtp-0.0.9"
-
+DEPEND="sys-fs/fuse
+      >=dev-libs/glib-2.18.4-r1
+      media-libs/libmtp"
 RDEPEND="${DEPEND}"
 
+src_configure() {
+   econf $(use_enable debug) || die 'econf failed'
+}
+
 src_compile() {
-	econf $(use_enable debug)
-	emake
+   emake || die 'emake failed'
 }
 
 src_install() {
-	einstall || die "einstall failed"
-	dodoc AUTHORS INSTALL NEWS README ChangeLog
+   emake DESTDIR="${D}" install || die 'installation failed'
+   dodoc AUTHORS INSTALL NEWS README ChangeLog
 }
 
 pkg_postinst() {
-	einfo "To mount your MTP device, issue:"
-	einfo "    /usr/bin/mtpfs <mountpoint>"
-	einfo
-	einfo "To unmount your MTP device, issue:"
-	einfo "    /usr/bin/fusermount -u <mountpoint>"
-
-	if use debug; then
-		einfo
-		einfo "You have enabled debugging output."
-		einfo "Please make sure you run mtpfs with the -d flag."
-	fi
-}
+   einfo "To mount your MTP device, issue:"
+   einfo " /usr/bin/mtpfs <mountpoint>"
+   einfo
+   einfo "To unmount your MTP device, issue:"
+   einfo " /usr/bin/fusermount -u <mountpoint>"
+} 
