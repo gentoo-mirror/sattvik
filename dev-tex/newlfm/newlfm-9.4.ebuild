@@ -1,4 +1,4 @@
-# Copyright 1999-2008 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-tex/newlfm/newlfm-8.3-r1.ebuild,v 1.2 2008/09/05 07:01:50 opfer Exp $
 
@@ -17,6 +17,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=""
+RDEPEND=""
 S="${WORKDIR}/${PN}"
 
 src_compile() {
