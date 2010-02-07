@@ -15,7 +15,7 @@ HOMEPAGE="http://www.courier-mta.org/maildrop/"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="alpha amd64 arm hppa ia64 ppc s390 sh sparc x86"
-IUSE="berkdb debug fam gdbm ldap mysql postgres authlib"
+IUSE="berkdb debug fam gdbm ldap mysql postgres authlib tools"
 
 DEPEND="!mail-mta/courier
 	net-mail/mailbase
