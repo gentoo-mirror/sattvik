@@ -6,7 +6,7 @@ inherit mozextension multilib
 
 MY_P="${P/-/_}"
 
-DESCRIPTION="A vim-like interface for Firefox"
+DESCRIPTION="Make Firefox behave like Vim"
 HOMEPAGE="http://vimperator.org/vimperator"
 SRC_URI="http://vimperator-labs.googlecode.com/files/${MY_P}.xpi"
 
@@ -30,6 +30,10 @@ S="${WORKDIR}/${MY_P}"
 
 src_unpack() {
 	xpi_unpack "${MY_P}".xpi
+
+	cd "${S}"
+	sed -i -r -e 's/(em:maxVersion>3\.)5\.\*/\16.*/' install.rdf
+
 }
 
 vimperator_install() {
@@ -68,11 +72,11 @@ src_install() {
 }
 
 pkg_postinst() {
-	elog "NoScript has been installed for the following packages:"
+	elog "Vimperator has been installed for the following packages:"
 	for i in ${mozillas}; do
 		elog "  $i"
 	done
 	elog
-	elog "After installing other mozilla ebuilds, if you want to use noscript with them"
-	elog "reinstall www-plugins/noscript"
+	elog "After installing other mozilla ebuilds, if you want to use Vimperator with them"
+	elog "reinstall www-plugins/vimperator"
 }
