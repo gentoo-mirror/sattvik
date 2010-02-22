@@ -32,23 +32,36 @@ src_unpack() {
 	xpi_unpack "${MY_P}".xpi
 }
 
+vimperator_install() {
+	local emid="vimperator@mozdev.org"
+
+	# You must tell xpi_install which xpi to use
+	[[ ${#} -ne 1 ]] && die "$FUNCNAME takes exactly one argument, please specify an xpi to unpack"
+
+	x="${1}"
+	cd ${x}
+	# determine id for extension
+	insinto "${MOZILLA_FIVE_HOME}"/extensions/${emid}
+	doins -r "${x}"/* || die "failed to copy extension"
+}
+
 src_install() {
 	local MOZILLA_FIVE_HOME
 	mozillas=""
 
 	if has_version '>=www-client/mozilla-firefox-3.5'; then
 		MOZILLA_FIVE_HOME="/usr/$(get_libdir)/mozilla-firefox"
-		xpi_install "${WORKDIR}/${MY_P}"
+		vimperator_install "${WORKDIR}/${MY_P}"
 		mozillas="$(best_version www-client/mozilla-firefox) ${mozillas}"
 	fi
 	if has_version '>=www-client/firefox-bin-3.5'; then
 		MOZILLA_FIVE_HOME="/opt/firefox"
-		xpi_install "${WORKDIR}/${MY_P}"
+		vimperator_install "${WORKDIR}/${MY_P}"
 		mozillas="$(best_version www-client/firefox-bin) ${mozillas}"
 	fi
 	if has_version '>=www-client/icecat-3.5'; then
 		MOZILLA_FIVE_HOME="/usr/$(get_libdir)/icecat"
-		xpi_install "${WORKDIR}/${MY_P}"
+		vimperator_install "${WORKDIR}/${MY_P}"
 		mozillas="$(best_version www-client/icecat) ${mozillas}"
 	fi
 
