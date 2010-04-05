@@ -2,6 +2,10 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  05 Apr 2010; Daniel Solano Gómez <gentoo@sattvik.com>
+  +files/elinks-0.12_pre5-compilation-fix.patch:
+  Add missing patch.
+
 *elinks-0.12_pre5 (05 Apr 2010)
 
   05 Apr 2010; Daniel Solano Gómez <gentoo@sattvik.com>
