@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/www-client/elinks/elinks-0.11.7.ebuild,v 1.3 2010/02/24 12:27:34 phajdan.jr Exp $
+# $Header: /var/cvsroot/gentoo-x86/www-client/elinks/elinks-0.12_pre5.ebuild,v 1.1 2010/04/04 11:55:12 spock Exp $
 
 EAPI="2"
 
@@ -16,7 +16,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
 IUSE="bittorrent bzip2 debug finger ftp gopher gpm guile idn ipv6 \
-	  javascript lua nls nntp perl ruby ssl unicode X zlib"
+	  javascript lua nls nntp perl ruby samba ssl unicode X zlib"
 RESTRICT="test"
 
 DEPEND=">=dev-libs/expat-1.95.4
@@ -30,6 +30,7 @@ DEPEND=">=dev-libs/expat-1.95.4
 	idn? ( net-dns/libidn )
 	perl? ( sys-devel/libperl )
 	ruby? ( dev-lang/ruby )
+	samba? ( net-fs/samba-libs )
 	!hppa? ( !mips? ( !alpha? ( javascript? ( dev-lang/spidermonkey ) ) ) )"
 RDEPEND="${DEPEND}"
 
@@ -44,19 +45,14 @@ src_prepare() {
 	fi
 	sed -i -e 's/\(.*set protocol.ftp.use_epsv.*\)/# \1/' ${PN}.conf
 	cd "${S}"
-	epatch "${FILESDIR}"/${PN}-0.11.3-lua-5.patch
 
 	if use lua && has_version ">=dev-lang/lua-5.1"; then
 		epatch "${FILESDIR}"/${PN}-0.11.2-lua-5.1.patch
 	fi
 
-	epatch "${FILESDIR}/${PN}-0.11.3-color.patch"
-
-	if use unicode ; then
-		epatch "${FILESDIR}"/elinks-0.10.1-utf_8_io-default.patch
-	fi
-
 	epatch "${FILESDIR}"/elinks-0.11.5-makefile.patch
+	epatch "${FILESDIR}"/elinks-0.12_pre5-compilation-fix.patch
+	epatch "${FILESDIR}/${PN}-0.11.3-color.patch"
 
 	sed -i -e 's/-Werror//' configure*
 	eautoreconf
@@ -85,6 +81,7 @@ src_configure() {
 		--enable-leds \
 		--enable-88-colors \
 		--enable-256-colors \
+		--enable-true-color \
 		--enable-html-highlight \
 		$(use_with gpm) \
 		$(use_with zlib) \
@@ -103,6 +100,7 @@ src_configure() {
 		$(use_enable gopher) \
 		$(use_enable nntp) \
 		$(use_enable finger) \
+		$(use_enable samba smb) \
 		${myconf} || die
 }
 
