@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>sattvik</herd>
+	<maintainer>
+		<email>gentoo@sattvik.com</email>
+		<name>Daniel Solano Gómez</name>
+	</maintainer>
+	<longdescription lang="en">
+		The NoScript Firefox extension provides extra protection for Firefox,
+		Flock, Seamonkey and other mozilla-based browsers: this free, open
+		source add-on allows JavaScript, Java and Flash and other plugins  to be
+		executed only by trusted web sites of your choice  (e.g. your online
+		bank), and provides the most powerful Anti-XSS protection  available in
+		a browser. 
+	</longdescription>
+</pkgmetadata>
