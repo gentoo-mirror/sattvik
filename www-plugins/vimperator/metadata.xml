@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<herd>sattvik</herd>
+	<maintainer>
+		<email>gentoo@sattvik.com</email>
+		<name>Daniel Solano Gómez</name>
+	</maintainer>
+	<longdescription lang="en">
+		Vimperator is a Firefox browser extension with strong inspiration from
+		the Vim text editor, with a mind towards faster and more efficient
+		browsing.  It has similar key bindings and you could call it a modal web
+		browser, as key bindings differ according to which mode you are in.
+	</longdescription>
+</pkgmetadata>
