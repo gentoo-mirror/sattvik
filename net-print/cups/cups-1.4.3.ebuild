@@ -1,10 +1,10 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.4.1.ebuild,v 1.2 2009/09/17 15:36:38 lack Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.4.3.ebuild,v 1.1 2010/03/31 23:01:18 tgurr Exp $
 
 EAPI="2"
 
-inherit eutils flag-o-matic multilib pam versionator
+inherit autotools eutils flag-o-matic multilib pam versionator
 
 MY_P=${P/_}
 
@@ -15,13 +15,21 @@ SRC_URI="mirror://easysw/${PN}/${PV}/${MY_P}-source.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~sparc-fbsd ~x86 ~x86-fbsd"
-IUSE="acl dbus debug gnutls java +jpeg kerberos ldap pam perl php +png python samba slp +ssl static +tiff X xinetd zeroconf"
+IUSE="acl dbus debug gnutls java +jpeg kerberos ldap pam perl php +png python samba slp +ssl static +tiff +usb X xinetd"
 
-COMMON_DEPEND="acl? ( kernel_linux? ( sys-apps/acl sys-apps/attr ) )
+COMMON_DEPEND="
+	app-text/libpaper
+	dev-libs/libgcrypt
+	acl? (
+		kernel_linux? (
+			sys-apps/acl
+			sys-apps/attr
+		)
+	)
 	dbus? ( sys-apps/dbus )
 	gnutls? ( net-libs/gnutls )
 	java? ( >=virtual/jre-1.4 )
-	jpeg? ( >=media-libs/jpeg-6b )
+	jpeg? ( >=media-libs/jpeg-6b:0 )
 	kerberos? ( virtual/krb5 )
 	ldap? ( net-nds/openldap )
 	pam? ( virtual/pam )
@@ -30,23 +38,24 @@ COMMON_DEPEND="acl? ( kernel_linux? ( sys-apps/acl sys-apps/attr ) )
 	png? ( >=media-libs/libpng-1.2.1 )
 	python? ( dev-lang/python )
 	slp? ( >=net-libs/openslp-1.0.4 )
-	ssl? ( !gnutls? ( >=dev-libs/openssl-0.9.8g ) )
+	ssl? (
+		!gnutls? ( >=dev-libs/openssl-0.9.8g )
+	)
 	tiff? ( >=media-libs/tiff-3.5.5 )
+	usb? ( dev-libs/libusb )
 	xinetd? ( sys-apps/xinetd )
-	zeroconf? ( || ( net-dns/avahi[mdnsresponder-compat] net-misc/mDNSResponder ) )
-	app-text/libpaper
-	app-text/poppler-utils
-	dev-libs/libgcrypt
-	dev-libs/libusb
-	!net-print/cupsddk"
-
+"
 DEPEND="${COMMON_DEPEND}"
 
 RDEPEND="${COMMON_DEPEND}
+	!net-print/cupsddk
 	!virtual/lpr
-	X? ( x11-misc/xdg-utils )"
-
-PDEPEND="|| ( app-text/ghostscript-gpl[cups] app-text/ghostscript-gnu[cups] )"
+	X? ( x11-misc/xdg-utils )
+"
+PDEPEND="
+	app-text/ghostscript-gpl[cups]
+	>=app-text/poppler-0.12.3-r3[utils]
+"
 
 PROVIDE="virtual/lpr"
 
@@ -57,6 +66,11 @@ RESTRICT="test"
 
 S="${WORKDIR}/${MY_P}"
 
+LANGS="da de es eu fi fr id it ja ko nl no pl pt pt_BR ru sv zh zh_TW"
+for X in ${LANGS} ; do
+	IUSE="${IUSE} linguas_${X}"
+done
+
 pkg_setup() {
 	enewgroup lp
 	enewuser lp -1 -1 -1 lp
@@ -64,14 +78,27 @@ pkg_setup() {
 }
 
 src_prepare() {
+	# remove default optimizations and do not strip by default
+	sed -e 's:OPTIM="-Os -g":OPTIM="":' \
+		-e 's:INSTALL_STRIP="-s":INSTALL_STRIP="":' \
+		-i config-scripts/cups-compiler.m4
+
 	# create a missing symlink to allow https printing via IPP, bug #217293
 	epatch "${FILESDIR}/${PN}-1.4.0-backend-https.patch"
+
+	AT_M4DIR=config-scripts eaclocal
 	epatch "${FILESDIR}/${PN}-1.4.1-group_fix.patch"
+	eautoconf
 }
 
 src_configure() {
-	local myconf
+	# locale support
+	strip-linguas ${LANGS}
+	if [ -z "${LINGUAS}" ] ; then
+		export LINGUAS=none
+	fi
 
+	local myconf
 	if use ssl || use gnutls ; then
 		myconf="${myconf} \
 			$(use_enable gnutls) \
@@ -88,9 +115,9 @@ src_configure() {
 		--with-cups-user=lp \
 		--with-cups-group=lp \
 		--with-docdir=/usr/share/cups/html \
-		--with-pdftops=pdftops \
+		--with-languages="${LINGUAS}" \
+		--with-pdftops=/usr/bin/pdftops \
 		--with-system-groups=lpadmin \
-		--with-xinetd=/etc/xinetd.d \
 		$(use_enable acl) \
 		$(use_enable dbus) \
 		$(use_enable debug) \
@@ -103,15 +130,15 @@ src_configure() {
 		$(use_enable slp) \
 		$(use_enable static) \
 		$(use_enable tiff) \
-		$(use_enable zeroconf dnssd) \
+		$(use_enable usb libusb) \
 		$(use_with java) \
 		$(use_with perl) \
 		$(use_with php) \
 		$(use_with python) \
+		$(use_with xinetd xinetd /etc/xinetd.d) \
 		--enable-libpaper \
-		--enable-libusb \
 		--enable-threads \
-		--enable-pdftops \
+		--disable-dnssd \
 		${myconf}
 
 	# install in /usr/libexec always, instead of using /usr/lib/cups, as that
@@ -130,8 +157,6 @@ src_install() {
 
 	# install our init script
 	local neededservices
-	use zeroconf && has_version 'net-dns/avahi' && neededservices="$neededservices avahi-daemon"
-	use zeroconf && has_version 'net-misc/mDNSResponder' && neededservices="$neededservices mDNSResponderPosix"
 	use dbus && neededservices="$neededservices dbus"
 	[[ -n ${neededservices} ]] && neededservices="need${neededservices}"
 	sed -e "s/@neededservices@/$neededservices/" "${FILESDIR}"/cupsd.init.d > "${T}"/cupsd
@@ -150,8 +175,11 @@ src_install() {
 		rm -rf "${D}"/etc/xinetd.d
 	fi
 
-	keepdir /usr/share/cups/profiles /usr/libexec/cups/driver /var/log/cups \
-		/var/run/cups/certs /var/cache/cups /var/spool/cups/tmp /etc/cups/ssl
+	keepdir /usr/libexec/cups/driver /usr/share/cups/{model,profiles} \
+		/var/cache/cups /var/cache/cups/rss /var/log/cups /var/run/cups/certs \
+		/var/spool/cups/tmp
+
+	keepdir /etc/cups/{interfaces,ppd,ssl}
 
 	use X || rm -r "${D}"/usr/share/applications
 
