@@ -1,0 +1,10 @@
+# ChangeLog for www-plugins/firebug
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*firebug-1.5.4 (28 May 2010)
+
+  28 May 2010; Daniel Solano Gómez <gentoo@sattvik.com>
+  -firebug-1.5.1.ebuild, +firebug-1.5.4.ebuild:
+  Version bump.
+
