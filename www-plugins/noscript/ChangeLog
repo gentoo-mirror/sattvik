@@ -2,6 +2,13 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*noscript-1.9.9.81 (28 May 2010)
+
+  28 May 2010; Daniel Solano Gómez <gentoo@sattvik.com>
+  -noscript-1.9.9.47.ebuild, -noscript-1.9.9.57.ebuild,
+  +noscript-1.9.9.81.ebuild:
+  Version bump.
+
 *noscript-1.9.9.69 (25 Apr 2010)
 
   25 Apr 2010; Daniel Solano Gómez <gentoo@sattvik.com>
