@@ -1,6 +1,6 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-terms/rxvt-unicode/rxvt-unicode-9.06-r2.ebuild,v 1.2 2009/10/25 22:22:20 mr_bones_ Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-terms/rxvt-unicode/rxvt-unicode-9.07-r2.ebuild,v 1.1 2010/05/31 01:45:06 jer Exp $
 
 EAPI="2"
 
@@ -13,24 +13,23 @@ SRC_URI="http://dist.schmorp.de/rxvt-unicode/${P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
-IUSE="truetype perl iso14755 afterimage xterm-color wcwidth vanilla"
+IUSE="afterimage iso14755 perl blink truetype xterm-color +vanilla wcwidth"
 
 # see bug #115992 for modular x deps
 RDEPEND="x11-libs/libX11
 	x11-libs/libXft
 	afterimage? ( media-libs/libafterimage )
 	x11-libs/libXrender
-	perl? ( dev-lang/perl )"
+	perl? ( dev-lang/perl )
+	>=sys-libs/ncurses-5.7-r3"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	x11-proto/xproto"
 
 src_prepare() {
-	#Bug 270694
-	epatch "${FILESDIR}/${PN}-9.06-glibc-2.10.patch"
 	epatch "${FILESDIR}/dan-colours.patch"
 
-	if (use xterm-color || use wcwidth); then
+	if { use xterm-color || use wcwidth; }; then
 		ewarn "You enabled xterm-color or wcwidth or both."
 		ewarn "Please note that neither of them are supported by upstream."
 		ewarn "You are at your own if you run into problems."
@@ -48,10 +47,14 @@ src_prepare() {
 			doc/Makefile.in
 	fi
 
+	# kill the rxvt-unicode terminfo file - #192083
+	sed -i -e "/rxvt-unicode.terminfo/d" doc/Makefile.in ||
+		die "sed failed"
+
 	use wcwidth && epatch doc/wcwidth.patch
 
 	# bug #240165
-	epatch "${FILESDIR}"/${P}-no-urgency-if-focused.diff
+	epatch "${FILESDIR}"/${PN}-9.06-no-urgency-if-focused.diff
 
 	# ncurses will provide rxvt-unicode terminfo, so we don't install them again
 	# see bug #192083
@@ -70,7 +73,7 @@ src_prepare() {
 	#fi
 
 	# bug #263638
-	epatch "${FILESDIR}"/${P}-popups-hangs.patch
+	epatch "${FILESDIR}"/${PN}-9.06-popups-hangs.patch
 
 	# bug #237271
 	if ! use vanilla; then
@@ -79,6 +82,7 @@ src_prepare() {
 		ewarn "Gentoo community."
 		ebeep 5
 		epatch "${FILESDIR}"/${PN}-9.05_no-MOTIF-WM-INFO.patch
+		epatch "${FILESDIR}"/${PN}-9.06-font-width.patch
 	fi
 
 	eautoreconf
@@ -94,12 +98,12 @@ src_configure() {
 		$(use_enable truetype xft) \
 		$(use_enable afterimage) \
 		$(use_enable perl) \
-		--disable-text-blink \
+		$(use_enable blink text-blink) \
 		${myconf}
 }
 
 src_compile() {
-	emake || die
+	emake || die "emake failed"
 
 	sed -i \
 		-e 's/RXVT_BASENAME = "rxvt"/RXVT_BASENAME = "urxvt"/' \
