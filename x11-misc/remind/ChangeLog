@@ -1,0 +1,13 @@
+# ChangeLog for x11-misc/remind
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*remind-03.01.09 (22 Jun 2010)
+
+  22 Jun 2010; Daniel Solano Gómez <gentoo@sattvik.com>
+  -files/remind-03.01.05-nova.patch, +remind-03.01.09.ebuild,
+  +files/remind-03.01.09-nova.patch:
+  Version bump with updated patch.
+  Clean out old patch.
+  Added metadata.xml.
+

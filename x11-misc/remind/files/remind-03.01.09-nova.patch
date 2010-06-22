@@ -1,6 +1,6 @@
-diff -uNr remind-03.01.05/src/custom.h remind-03.01.05-dan/src/custom.h
---- remind-03.01.05/src/custom.h	2008-04-01 10:32:11.000000000 -0500
-+++ remind-03.01.05-dan/src/custom.h	2008-08-18 16:46:13.000000000 -0500
+diff -Naur remind-03.01.09/src/custom.h remind-03.01.09-libnova/src/custom.h
+--- remind-03.01.09/src/custom.h	2010-04-25 09:04:40.000000000 -0500
++++ remind-03.01.09-libnova/src/custom.h	2010-06-21 21:11:43.000000000 -0500
 @@ -29,6 +29,9 @@
  #define LON_MIN 39
  #define LON_SEC  0
@@ -11,68 +11,68 @@ diff -uNr remind-03.01.05/src/custom.h remind-03.01.05-dan/src/custom.h
  
  /*---------------------------------------------------------------------*/
  /* DEFAULT_PAGE:  The default page size to use for Rem2PS.             */
-diff -uNr remind-03.01.05/src/funcs.c remind-03.01.05-dan/src/funcs.c
---- remind-03.01.05/src/funcs.c	2008-01-30 20:37:40.000000000 -0600
-+++ remind-03.01.05-dan/src/funcs.c	2008-08-18 17:00:43.000000000 -0500
+diff -Naur remind-03.01.09/src/funcs.c remind-03.01.09-libnova/src/funcs.c
+--- remind-03.01.09/src/funcs.c	2010-04-25 08:49:31.000000000 -0500
++++ remind-03.01.09-libnova/src/funcs.c	2010-06-21 21:37:47.000000000 -0500
 @@ -48,6 +48,7 @@
  #include "protos.h"
  #include "err.h"
  #include "expr.h"
 +#include "nova.h"
  
- /* Function prototypes */
- static int FCurrent (void);
-@@ -91,8 +92,12 @@
- static	int	FMinsfromutc	(void);
- static	int	FMoondate	(void);
- static	int	FMoondatetime	(void);
-+static	int	FMoonillum	(void);
- static	int	FMoonphase	(void);
-+static	int	FMoonrise	(void);
-+static	int	FMoonset	(void);
- static	int	FMoontime	(void);
-+static	int	FMoontransit	(void);
- static	int	FMon		(void);
- static	int	FMonnum		(void);
- static	int	FOrd		(void);
-@@ -108,6 +113,7 @@
- static	int	FDusk	 	(void);
- static	int	FSunset		(void);
- static	int	FSunrise	(void);
-+static	int	FSuntransit	(void);
- static	int	FTime		(void);
- static	int	FTrigdate	(void);
- static	int	FTrigdatetime	(void);
-@@ -227,8 +233,12 @@
-     {   "monnum",	1,	1,	FMonnum },
-     {	"moondate",	1,	3,	FMoondate },
-     {	"moondatetime",	1,	3,	FMoondatetime },
-+    {	"moonillum",	0,	2,	FMoonillum },
-     {	"moonphase",	0,	2,	FMoonphase },
-+    {	"moonrise",	0,	1,	FMoonrise },
-+    {	"moonset",	0,	1,	FMoonset },
-     {	"moontime",	1,	3,	FMoontime },
-+    {	"moontransit",	0,	1,	FMoontransit },
-     {   "nonomitted",   2,      NO_MAX, FNonomitted },
-     {   "now",		0,	0,	FNow	},
-     {   "ord",		1,	1,	FOrd	},
-@@ -245,6 +255,7 @@
-     {   "substr",	2,	3,	FSubstr	},
-     {   "sunrise",	0,	1,	FSunrise},
-     {   "sunset",	0,	1,	FSunset },
-+    {   "suntransit",	0,	1,	FSuntransit },
-     {   "time",		2,	2,	FTime	},
-     {   "timepart",	1,	1,	FTimepart },
-     {   "today",	0,	0,	FToday	},
-@@ -1938,6 +1949,7 @@
- static int FSun(int rise)
+ /* Defines that used to be static variables */
+ #define Nargs (info->nargs)
+@@ -97,8 +98,12 @@
+ static	int	FMinsfromutc	(func_info *);
+ static	int	FMoondate	(func_info *);
+ static	int	FMoondatetime	(func_info *);
++static	int	FMoonillum   	(func_info *);
+ static	int	FMoonphase	(func_info *);
++static	int	FMoonrise 	(func_info *);
++static	int	FMoonset  	(func_info *);
+ static	int	FMoontime	(func_info *);
++static	int	FMoontransit 	(func_info *);
+ static	int	FMon		(func_info *);
+ static	int	FMonnum		(func_info *);
+ static	int	FOrd		(func_info *);
+@@ -114,6 +119,7 @@
+ static	int	FDusk	 	(func_info *);
+ static	int	FSunset		(func_info *);
+ static	int	FSunrise	(func_info *);
++static	int	FSuntransit	(func_info *);
+ static	int	FTime		(func_info *);
+ static	int	FTrigdate	(func_info *);
+ static	int	FTrigdatetime	(func_info *);
+@@ -231,8 +237,12 @@
+     {   "monnum",       1,      1,      1,          FMonnum },
+     {   "moondate",     1,      3,      0,          FMoondate },
+     {   "moondatetime", 1,      3,      0,          FMoondatetime },
++    {	"moonillum",    0,      2,      0,          FMoonillum },
+     {   "moonphase",    0,      2,      0,          FMoonphase },
++    {   "moonrise",     0,      1,      0,          FMoonrise },
++    {   "moonset",      0,      1,      0,          FMoonset },
+     {   "moontime",     1,      3,      0,          FMoontime },
++    {   "moontransit",  0,      1,      0,          FMoontransit },
+     {   "nonomitted",   2,      NO_MAX, 0,          FNonomitted },
+     {   "now",          0,      0,      0,          FNow    },
+     {   "ord",          1,      1,      1,          FOrd    },
+@@ -250,6 +260,7 @@
+     {   "substr",       2,      3,      1,          FSubstr },
+     {   "sunrise",      0,      1,      0,          FSunrise},
+     {   "sunset",       0,      1,      0,          FSunset },
++    {   "suntransit",   0,      1,      0,          FSuntransit },
+     {   "time",         2,      2,      1,          FTime   },
+     {   "timepart",     1,      1,      1,          FTimepart },
+     {   "today",        0,      0,      0,          FToday  },
+@@ -1974,6 +1985,7 @@
+ static int FSun(int rise, func_info *info)
  {
      int jul = JulianToday;
 +
      static double cosz = -0.014543897;  /* for sunrise and sunset */
      int r;
  
-@@ -1946,7 +1958,27 @@
+@@ -1982,7 +1994,27 @@
  	jul = DATEPART(ARG(0));
      }
  
@@ -99,29 +99,30 @@ diff -uNr remind-03.01.05/src/funcs.c remind-03.01.05-dan/src/funcs.c
 +    }
 +
      if (r == NO_TIME) {
- 	RetVal.v.val = 0;
+ 	RETVAL = 0;
  	RetVal.type = INT_TYPE;
-@@ -1964,6 +1996,10 @@
+@@ -2004,6 +2036,10 @@
  {
-     return FSun(1);
+     return FSun(0, info);
  }
-+static int FSuntransit(void)
++static int FSuntransit(func_info *info)
 +{
-+    return FSun(4);
++    return FSun(4, info);
 +}
- static int FSunset(void)
+ 
+ static int FDawn(func_info *info)
  {
-     return FSun(0);
-@@ -2222,6 +2258,158 @@
+@@ -2257,6 +2293,158 @@
+ }
  
  /***************************************************************/
- /*                                                             */
++/*                                                             */
 +/*  FMoonillum                                                 */
 +/*                                                             */
 +/*  Moon's illumination for specified date/time.               */
 +/*                                                             */
 +/***************************************************************/
-+static int FMoonillum(void)
++static int FMoonillum(func_info *info)
 +{
 +    int date, time;
 +
@@ -156,7 +157,7 @@ diff -uNr remind-03.01.05/src/funcs.c remind-03.01.05-dan/src/funcs.c
 +/*  Time of the moonrise for a given date.                     */
 +/*                                                             */
 +/***************************************************************/
-+static int FMoonrise(void)
++static int FMoonrise(func_info *info)
 +{
 +  int time;
 +  int jul = JulianToday;
@@ -195,7 +196,7 @@ diff -uNr remind-03.01.05/src/funcs.c remind-03.01.05-dan/src/funcs.c
 +/*  Time of the moonset for a given date.                      */
 +/*                                                             */
 +/***************************************************************/
-+static int FMoonset(void)
++static int FMoonset(func_info *info)
 +{
 +  int time;
 +  int jul = JulianToday;
@@ -234,7 +235,7 @@ diff -uNr remind-03.01.05/src/funcs.c remind-03.01.05-dan/src/funcs.c
 +/*  Time of the moon's transit for a given date.               */
 +/*                                                             */
 +/***************************************************************/
-+static int FMoontransit(void)
++static int FMoontransit(func_info *info)
 +{
 +  int time;
 +  int jul = JulianToday;
@@ -267,14 +268,13 @@ diff -uNr remind-03.01.05/src/funcs.c remind-03.01.05-dan/src/funcs.c
 +}
 +
 +/***************************************************************/
-+/*                                                             */
+ /*                                                             */
  /*  FMoondate                                                  */
  /*                                                             */
- /*  Hunt for next occurrence of specified moon phase           */
-diff -uNr remind-03.01.05/src/globals.h remind-03.01.05-dan/src/globals.h
---- remind-03.01.05/src/globals.h	2008-04-14 20:11:07.000000000 -0500
-+++ remind-03.01.05-dan/src/globals.h	2008-08-18 16:46:13.000000000 -0500
-@@ -101,6 +101,9 @@
+diff -Naur remind-03.01.09/src/globals.h remind-03.01.09-libnova/src/globals.h
+--- remind-03.01.09/src/globals.h	2010-04-21 07:41:17.000000000 -0500
++++ remind-03.01.09-libnova/src/globals.h	2010-06-21 21:11:43.000000000 -0500
+@@ -106,6 +106,9 @@
  EXTERN  INIT(	int	  LongMin, LON_MIN);
  EXTERN  INIT(	int	  LongSec, LON_SEC);
  EXTERN	INIT(	char	  *Location, LOCATION);
@@ -284,9 +284,9 @@ diff -uNr remind-03.01.05/src/globals.h remind-03.01.05-dan/src/globals.h
  
  /* UTC calculation stuff */
  EXTERN  INIT(	int	  MinsFromUTC, 0);
-diff -uNr remind-03.01.05/src/Makefile.in remind-03.01.05-dan/src/Makefile.in
---- remind-03.01.05/src/Makefile.in	2008-01-26 14:36:20.000000000 -0600
-+++ remind-03.01.05-dan/src/Makefile.in	2008-08-18 17:08:23.000000000 -0500
+diff -Naur remind-03.01.09/src/Makefile.in remind-03.01.09-libnova/src/Makefile.in
+--- remind-03.01.09/src/Makefile.in	2010-04-21 12:26:56.000000000 -0500
++++ remind-03.01.09-libnova/src/Makefile.in	2010-06-21 21:11:43.000000000 -0500
 @@ -29,10 +29,10 @@
  
  REMINDSRCS=	calendar.c dynbuf.c dorem.c dosubst.c expr.c files.c funcs.c \
@@ -309,9 +309,9 @@ diff -uNr remind-03.01.05/src/Makefile.in remind-03.01.05-dan/src/Makefile.in
  
  install-nostripped: all
  	-mkdir -p $(DESTDIR)$(bindir) || true
-diff -uNr remind-03.01.05/src/nova.c remind-03.01.05-dan/src/nova.c
---- remind-03.01.05/src/nova.c	1969-12-31 18:00:00.000000000 -0600
-+++ remind-03.01.05-dan/src/nova.c	2008-08-18 17:09:32.000000000 -0500
+diff -Naur remind-03.01.09/src/nova.c remind-03.01.09-libnova/src/nova.c
+--- remind-03.01.09/src/nova.c	1969-12-31 18:00:00.000000000 -0600
++++ remind-03.01.09-libnova/src/nova.c	2010-06-21 21:11:43.000000000 -0500
 @@ -0,0 +1,580 @@
 +#include "config.h"
 +#include <stdlib.h>
@@ -893,9 +893,9 @@ diff -uNr remind-03.01.05/src/nova.c remind-03.01.05-dan/src/nova.c
 +
 +  return (int)(pctIllum*100.0);
 +}
-diff -uNr remind-03.01.05/src/nova.h remind-03.01.05-dan/src/nova.h
---- remind-03.01.05/src/nova.h	1969-12-31 18:00:00.000000000 -0600
-+++ remind-03.01.05-dan/src/nova.h	2008-08-18 17:01:16.000000000 -0500
+diff -Naur remind-03.01.09/src/nova.h remind-03.01.09-libnova/src/nova.h
+--- remind-03.01.09/src/nova.h	1969-12-31 18:00:00.000000000 -0600
++++ remind-03.01.09-libnova/src/nova.h	2010-06-21 21:11:43.000000000 -0500
 @@ -0,0 +1,9 @@
 +int novaSunrise(int date);
 +int novaSuntransit(int date);
@@ -906,16 +906,16 @@ diff -uNr remind-03.01.05/src/nova.h remind-03.01.05-dan/src/nova.h
 +int novaMoonset(int);
 +int novaMoontransit(int);
 +int novaMoonIllumination(int,int);
-diff -uNr remind-03.01.05/src/var.c remind-03.01.05-dan/src/var.c
---- remind-03.01.05/src/var.c	2008-02-06 22:12:59.000000000 -0600
-+++ remind-03.01.05-dan/src/var.c	2008-08-18 16:46:13.000000000 -0500
-@@ -484,6 +484,9 @@
-     {   "LatMin",	  1,	INT_TYPE,	&LatMin,	-59,	59  },
-     {   "LatSec",	  1,	INT_TYPE,	&LatSec,	-59,	59  },
-     {   "Location",	  1,	STR_TYPE,	&Location,	0,	0   },
-+    {   "LocationAlt",	  1,	INT_TYPE,	&LocationAlt,	ANY,	ANY   },
-+    {   "LocationPressure",1,	INT_TYPE,	&LocationPressure,0,	ANY   },
-+    {   "LocationTemp",	  1,	INT_TYPE,	&LocationTemp,	ANY,	ANY   },
-     {   "LongDeg",	  1,	INT_TYPE,	&LongDeg,	-180,	180  },
-     {   "LongMin",	  1,	INT_TYPE,	&LongMin,	-59,	59  },
-     {   "LongSec",	  1,	INT_TYPE,	&LongSec,	-59,	59  },
+diff -Naur remind-03.01.09/src/var.c remind-03.01.09-libnova/src/var.c
+--- remind-03.01.09/src/var.c	2010-04-21 12:16:14.000000000 -0500
++++ remind-03.01.09-libnova/src/var.c	2010-06-21 21:43:59.000000000 -0500
+@@ -592,6 +592,9 @@
+     {"LatMin",         1,  INT_TYPE,     &LatMin,             -59,    59  },
+     {"LatSec",         1,  INT_TYPE,     &LatSec,             -59,    59  },
+     {"Location",       1,  STR_TYPE,     &Location,           0,      0   },
++    {"LocationAlt",    1,  INT_TYPE,     &LocationAlt         ANY,    ANY },
++    {"LocationPressure",1, INT_TYPE,     &LocationPressure,   0,      ANY },
++    {"LocationTemp",   1,  INT_TYPE,     &LocationTemp,       ANY,    ANY },
+     {"LongDeg",        1,  INT_TYPE,     &LongDeg,            -180,   180 },
+     {"LongMin",        1,  INT_TYPE,     &LongMin,            -59,    59  },
+     {"LongSec",        1,  INT_TYPE,     &LongSec,            -59,    59  },
