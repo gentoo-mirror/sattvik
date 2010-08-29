@@ -1,0 +1,13 @@
+# ChangeLog for net-p2p/freenet
+# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*freenet-0.7.5_p1275 (29 Aug 2010)
+
+  29 Aug 2010; Daniel Solano Gómez <gentoo@sattvik.com>
+  +files/run.sh-20090501, +files/ext.patch, +files/freenet,
+  +files/freenet.old, +files/strip-openjdk-check.patch,
+  +files/strip-version-check.patch, +files/wrapper1.conf,
+  +freenet-0.7.5_p1275.ebuild, +metadata.xml:
+  Initial import to fix Ant dependency.
+
