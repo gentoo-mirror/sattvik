@@ -1,0 +1,14 @@
+diff -Naur TracSubTicketsPlugin-0.1.0/tracsubtickets/db_default.py TracSubTicketsPlugin-0.1.0-fixed/tracsubtickets/db_default.py
+--- TracSubTicketsPlugin-0.1.0/tracsubtickets/db_default.py	2010-04-13 01:56:06.000000000 -0500
++++ TracSubTicketsPlugin-0.1.0-fixed/tracsubtickets/db_default.py	2010-09-20 08:08:56.000000000 -0500
+@@ -33,8 +33,8 @@
+ version = 1
+ tables = [
+     Table(name, key=('parent','child'))[
+-        Column('parent'),
+-        Column('child'),
++        Column('parent', type='int'),
++        Column('child', type='int'),
+     ],
+ ]
+ 
