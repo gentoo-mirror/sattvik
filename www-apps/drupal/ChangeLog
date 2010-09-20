@@ -1,8 +1,0 @@
-# ChangeLog for www-apps/drupal
-# Copyright 1999-2009 Gentoo Foundation; Distributed under the GPL v2
-# $Header: $
-
-  26 Oct 2009; Daniel Solano Gómez <gentoo@sattvik.com>
-  -drupal-6.13.ebuild, +metadata.xml:
-  Removed obselete www-apps/drupal-6.13
-
