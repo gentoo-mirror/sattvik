@@ -1,0 +1,255 @@
+diff -u -r jsch-0.1.43.orig/src/com/jcraft/jsch/IdentityFile.java jsch-0.1.43/src/com/jcraft/jsch/IdentityFile.java
+--- jsch-0.1.43.orig/src/com/jcraft/jsch/IdentityFile.java	2010-09-14 11:04:01.605252002 -0700
++++ jsch-0.1.43/src/com/jcraft/jsch/IdentityFile.java	2010-09-14 12:03:06.135252001 -0700
+@@ -157,6 +157,10 @@
+ 
+       int i=0;
+ 
++      /*
++       * first skip to the start of a "-----"
++       * which denotes the beginning of a PEM encoded private key file
++       */
+       while(i<len){
+         if(buf[i] == '-' && i+4<len && 
+            buf[i+1] == '-' && buf[i+2] == '-' && 
+@@ -165,23 +169,53 @@
+         }
+         i++;
+       }
+-
++      /*
++       * This block parses the PEM header.
++       *
++       * The three ways this loop exits are:
++       * 1. i >= len (the while loop condition) (this is likely an error condition)
++       * 2. \n\n or \r\n\r\n (an empty line, denoting the end of the header section.
++       * 3. having consumed one \n, finding no header (a line with a :).
++       */
+       while(i<len){
++        /*
++         * The first line of the PEM file looks like:
++         * ----- BEGIN
++         * The final increment advances past everything up to the BEGIN
++         */
+         if(buf[i]=='B'&& i+3<len && buf[i+1]=='E'&& buf[i+2]=='G'&& buf[i+3]=='I'){
+-          i+=6;	    
++          /*
++           * Found a begin?  Advance past it and the space that follows
++           */
++          i+=6;
++          /*
++           * there are a few different PEM encoded formats.  the characters after BEGIN 
++           * determines the type.
++           */
+           if(buf[i]=='D'&& buf[i+1]=='S'&& buf[i+2]=='A'){ type=DSS; }
+-	  else if(buf[i]=='R'&& buf[i+1]=='S'&& buf[i+2]=='A'){ type=RSA; }
+-	  else if(buf[i]=='S'&& buf[i+1]=='S'&& buf[i+2]=='H'){ // FSecure
+-	    type=UNKNOWN;
+-	    keytype=FSECURE;
+-	  }
+-	  else{
++	      else if(buf[i]=='R'&& buf[i+1]=='S'&& buf[i+2]=='A'){ type=RSA; }
++	      else if(buf[i]=='S'&& buf[i+1]=='S'&& buf[i+2]=='H'){ // FSecure
++	        type=UNKNOWN;
++	        keytype=FSECURE;
++	      }
++	      else{
+             //System.err.println("invalid format: "+identity);
+-	    throw new JSchException("invalid privatekey: "+identity);
+-	  }
++	        throw new JSchException("invalid privatekey: "+identity);
++	      }
++          /*
++           * Now advance past our three type characters, either DSA, RSA, or SSH
++           */
+           i+=3;
+-	  continue;
+-	}
++          /*
++           * We've now determined our key type.  The default loop condition will
++           * ensure that we advance to the end of the line.
++           */
++	      continue;
++	    }
++        /*
++         * Look for "AES-256-"
++         * and change the cipher if we find it.
++         */
+         if(buf[i]=='A'&& i+7<len && buf[i+1]=='E'&& buf[i+2]=='S'&& buf[i+3]=='-' && 
+            buf[i+4]=='2'&& buf[i+5]=='5'&& buf[i+6]=='6'&& buf[i+7]=='-'){
+           i+=8;
+@@ -196,53 +230,128 @@
+           }
+           continue;
+         }
++        /*
++         * Look for "AES-128-"
++         * and change the cipher if we find it.
++         */
++        if(buf[i]=='A'&& i+7<len && buf[i+1]=='E'&& buf[i+2]=='S'&& buf[i+3]=='-' && 
++           buf[i+4]=='1'&& buf[i+5]=='2'&& buf[i+6]=='8'&& buf[i+7]=='-'){
++          i+=8;
++          if(Session.checkCipher((String)jsch.getConfig("aes128-cbc"))){
++            c=Class.forName((String)jsch.getConfig("aes128-cbc"));
++            cipher=(Cipher)(c.newInstance());
++            key=new byte[cipher.getBlockSize()];
++            iv=new byte[cipher.getIVSize()];
++          }
++          else{
++            throw new JSchException("privatekey: aes128-cbc is not available "+identity);
++          }
++          continue;
++        }
++        /*
++         * Look for "AES-192-"
++         * and change the cipher if we find it.
++         */
++        if(buf[i]=='A'&& i+7<len && buf[i+1]=='E'&& buf[i+2]=='S'&& buf[i+3]=='-' && 
++           buf[i+4]=='1'&& buf[i+5]=='9'&& buf[i+6]=='2'&& buf[i+7]=='-'){
++          i+=8;
++          if(Session.checkCipher((String)jsch.getConfig("aes192-cbc"))){
++            c=Class.forName((String)jsch.getConfig("aes192-cbc"));
++            cipher=(Cipher)(c.newInstance());
++            key=new byte[cipher.getBlockSize()];
++            iv=new byte[cipher.getIVSize()];
++          }
++          else{
++            throw new JSchException("privatekey: aes192-cbc is not available "+identity);
++          }
++          continue;
++        }
++        /*
++         * look for "CBC," to find the initialization vector, and initialize iv with it.
++         */
+         if(buf[i]=='C'&& i+3<len && buf[i+1]=='B'&& buf[i+2]=='C'&& buf[i+3]==','){
+           i+=4;
+-	  for(int ii=0; ii<iv.length; ii++){
++	      for(int ii=0; ii<iv.length; ii++){
+             iv[ii]=(byte)(((a2b(buf[i++])<<4)&0xf0)+
+ 			  (a2b(buf[i++])&0xf));
+-  	  }
+-	  continue;
+-	}
+-	if(buf[i]==0x0d && i+1<len && buf[i+1]==0x0a){
+-	  i++;
+-	  continue;
+-	}
+-	if(buf[i]==0x0a && i+1<len){
+-	  if(buf[i+1]==0x0a){ i+=2; break; }
+-	  if(buf[i+1]==0x0d &&
+-	     i+2<len && buf[i+2]==0x0a){
+-	     i+=3; break;
+-	  }
+-	  boolean inheader=false;
+-	  for(int j=i+1; j<len; j++){
+-	    if(buf[j]==0x0a) break;
+-	    //if(buf[j]==0x0d) break;
+-	    if(buf[j]==':'){inheader=true; break;}
+-	  }
+-	  if(!inheader){
+-	    i++; 
+-	    encrypted=false;    // no passphrase
+-	    break;
+-	  }
+-	}
+-	i++;
++  	      }
++	      continue;
++	    }
++        /*
++         * if we reach a \r followed by a \n, advance
++         * past it, so that the \n detection kicks in.
++         */
++	    if(buf[i]==0x0d && i+1<len && buf[i+1]==0x0a){
++	      i++;
++	      continue;
++	    }
++        /*
++         * This is the end of a line detector.
++         */
++	    if(buf[i]==0x0a && i+1<len){
++          /*
++           * If we're followed by exactly one more \n,
++           * advance past both of them and break out as
++           * \n\n denotes the end of a header section.
++           *
++           * Thus we've reached the key data.
++           */
++	      if(buf[i+1]==0x0a){ i+=2; break; }
++          /*
++           * be sure to check for windows line endings too
++           */
++	      if(buf[i+1]==0x0d &&
++	         i+2<len && buf[i+2]==0x0a){
++	         i+=3; break;
++	      }
++          /*
++           * If we reached a carriage return
++           * and we haven't exited because of the
++           * end of the header marker, then
++           * check if we're in a header, 
++           * and advance past the end of the header key.
++           * 
++           */
++          boolean inheader=false;
++          for(int j=i+1; j<len; j++){
++            if(buf[j]==0x0a) break;
++            //if(buf[j]==0x0d) break;
++            if(buf[j]==':'){inheader=true; break;}
++          }
++          /*
++           * If we're not in a header, we've reached
++           * unencrypted key material, and we need
++           * to break out.
++           */
++          if(!inheader){
++            i++; 
++            encrypted=false;    // no passphrase
++            break;
++          }
++          /*
++           * if we've gotten this far, then we're in a header
++           * and buf[i] is pointing at the beginning of a header
++           * the loop increment below will advance in until
++           * one of the if blocks above matches.
++           */
++	    }
++	    i++;
+       }
+ 
+       if(type==ERROR){
+-	throw new JSchException("invalid privatekey: "+identity);
++        throw new JSchException("invalid privatekey: "+identity);
+       }
+ 
+       int start=i;
+       while(i<len){
+         if(buf[i]==0x0a){
+-	  boolean xd=(buf[i-1]==0x0d);
+-          System.arraycopy(buf, i+1, 
++	    boolean xd=(buf[i-1]==0x0d);
++        System.arraycopy(buf, i+1, 
+ 			   buf, 
+ 			   i-(xd ? 1 : 0), 
+ 			   len-i-1-(xd ? 1 : 0)
+ 			   );
+-	  if(xd)len--;
++	    if(xd)len--;
+           len--;
+           continue;
+         }
+@@ -252,10 +361,10 @@
+       encoded_data=Util.fromBase64(buf, start, i-start);
+ 
+       if(encoded_data.length>4 &&            // FSecure
+-	 encoded_data[0]==(byte)0x3f &&
+-	 encoded_data[1]==(byte)0x6f &&
+-	 encoded_data[2]==(byte)0xf9 &&
+-	 encoded_data[3]==(byte)0xeb){
++	    encoded_data[0]==(byte)0x3f &&
++	    encoded_data[1]==(byte)0x6f &&
++	    encoded_data[2]==(byte)0xf9 &&
++	    encoded_data[3]==(byte)0xeb){
+ 
+ 	Buffer _buf=new Buffer(encoded_data);
+ 	_buf.getInt();  // 0x3f6ff9be
