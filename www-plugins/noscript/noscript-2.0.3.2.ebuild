@@ -15,11 +15,11 @@ IUSE=""
 
 RDEPEND="
 	|| (
-		>=www-client/mozilla-firefox-1.5
-		>=www-client/firefox-bin-1.5
-		>=www-client/seamonkey-1.1
-		>=www-client/seamonkey-bin-1.1
-		>=www-client/icecat-3.5
+		>=www-client/mozilla-firefox-3.0
+		>=www-client/firefox-bin-3.0
+		>=www-client/seamonkey-2.0
+		>=www-client/seamonkey-bin-2.0
+		>=www-client/icecat-3.0
 	)"
 DEPEND="${RDEPEND}"
 
@@ -36,27 +36,27 @@ src_install() {
 	local MOZILLA_FIVE_HOME
 	mozillas=""
 
-	if has_version '>=www-client/mozilla-firefox-1.5'; then
+	if has_version '>=www-client/mozilla-firefox-3.0'; then
 		MOZILLA_FIVE_HOME="/usr/$(get_libdir)/mozilla-firefox"
 		xpi_install "${WORKDIR}/${P}"
 		mozillas="$(best_version www-client/mozilla-firefox) ${mozillas}"
 	fi
-	if has_version '>=www-client/firefox-bin-1.5'; then
+	if has_version '>=www-client/firefox-bin-3.0'; then
 		MOZILLA_FIVE_HOME="/opt/firefox"
 		xpi_install "${WORKDIR}/${P}"
 		mozillas="$(best_version www-client/firefox-bin) ${mozillas}"
 	fi
-	if has_version '>=www-client/seamonkey-1.1'; then
+	if has_version '>=www-client/seamonkey-2.0'; then
 		MOZILLA_FIVE_HOME="/usr/$(get_libdir)/seamonkey"
 		xpi_install "${WORKDIR}/${P}"
 		mozillas="$(best_version www-client/seamonkey) ${mozillas}"
 	fi
-	if has_version '>=www-client/seamonkey-bin-1.1'; then
+	if has_version '>=www-client/seamonkey-bin-2.0'; then
 		MOZILLA_FIVE_HOME="/opt/seamonkey"
 		xpi_install "${WORKDIR}/${P}"
 		mozillas="$(best_version www-client/seamonkey-bin) ${mozillas}"
 	fi
-	if has_version '>=www-client/icecat-3.5'; then
+	if has_version '>=www-client/icecat-3.0'; then
 		MOZILLA_FIVE_HOME="/usr/$(get_libdir)/icecat"
 		xpi_install "${WORKDIR}/${P}"
 		mozillas="$(best_version www-client/icecat) ${mozillas}"
