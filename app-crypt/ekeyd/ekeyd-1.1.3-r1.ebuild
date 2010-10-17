@@ -156,4 +156,13 @@ pkg_postinst() {
 		elog "If you're unsure about the working state of the CDC ACM driver"
 		elog "enable the usb USE flag and use the userland USB daemon"
 	fi
+
+	if use kernel_linux; then
+		elog ""
+		elog "In order for the ekey-egd-linux daemon to be effective, be sure"
+		elog "to set the kernel's write wakeup threshold high enough.  For"
+		elog "example, you can add the following line to /etc/sysctl.conf:"
+		elog ""
+		elog "   kernel.random.write_wakeup_threshold = 1024"
+	fi
 }
