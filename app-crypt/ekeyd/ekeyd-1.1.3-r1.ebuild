@@ -95,6 +95,8 @@ src_install() {
 	if use kernel_linux; then
 		newsbin daemon/egd-linux ekey-egd-linux || die
 		doman daemon/ekey-egd-linux.8
+		newinitd "${FILESDIR}"/ekey-egd-linux.init ekey-egd-linux || die
+		newconfd "${FILESDIR}"/ekey-egd-linux.conf ekey-egd-linux || die
 	fi
 
 	newinitd "${FILESDIR}"/${PN}.init ${PN} || die
