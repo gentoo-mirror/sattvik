@@ -18,7 +18,7 @@ IUSE=""
 
 RDEPEND="
 	|| (
-		>=www-client/mozilla-firefox-1.5
+		>=www-client/firefox-1.5
 		>=www-client/firefox-bin-1.5
 		>=www-client/seamonkey-1.1
 		>=www-client/seamonkey-bin-1.1
@@ -43,10 +43,10 @@ src_install() {
 	local MOZILLA_FIVE_HOME
 	mozillas=""
 
-	if has_version '>=www-client/mozilla-firefox-1.5'; then
-		MOZILLA_FIVE_HOME="/usr/$(get_libdir)/mozilla-firefox"
+	if has_version '>=www-client/firefox-1.5'; then
+		MOZILLA_FIVE_HOME="/usr/$(get_libdir)/firefox"
 		xpi_install "${S}"
-		mozillas="$(best_version www-client/mozilla-firefox) ${mozillas}"
+		mozillas="$(best_version www-client/firefox) ${mozillas}"
 	fi
 	if has_version '>=www-client/firefox-bin-1.5'; then
 		MOZILLA_FIVE_HOME="/opt/firefox"
