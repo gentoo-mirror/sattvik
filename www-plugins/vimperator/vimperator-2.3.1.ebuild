@@ -17,7 +17,7 @@ IUSE=""
 
 RDEPEND="
 	|| (
-		>=www-client/mozilla-firefox-3.5
+		>=www-client/firefox-3.5
 		>=www-client/firefox-bin-3.5
 		>=www-client/icecat-3.5
 	)"
@@ -53,10 +53,10 @@ src_install() {
 	local MOZILLA_FIVE_HOME
 	mozillas=""
 
-	if has_version '>=www-client/mozilla-firefox-3.5'; then
-		MOZILLA_FIVE_HOME="/usr/$(get_libdir)/mozilla-firefox"
+	if has_version '>=www-client/firefox-3.5'; then
+		MOZILLA_FIVE_HOME="/usr/$(get_libdir)/firefox"
 		vimperator_install "${WORKDIR}/${MY_P}"
-		mozillas="$(best_version www-client/mozilla-firefox) ${mozillas}"
+		mozillas="$(best_version www-client/firefox) ${mozillas}"
 	fi
 	if has_version '>=www-client/firefox-bin-3.5'; then
 		MOZILLA_FIVE_HOME="/opt/firefox"
