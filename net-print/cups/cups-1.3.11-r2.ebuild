@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.3.11-r2.ebuild,v 1.4 2010/03/08 22:20:59 reavertm Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.3.11-r2.ebuild,v 1.13 2010/08/10 20:54:31 scarabeus Exp $
 
 EAPI=2
 inherit autotools eutils flag-o-matic multilib pam
@@ -13,7 +13,7 @@ SRC_URI="mirror://easysw/${PN}/${PV}/${MY_P}-source.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
+KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~sparc-fbsd ~x86-fbsd"
 IUSE="acl avahi dbus gnutls java jpeg kerberos ldap pam perl php png ppds python samba slp ssl static tiff X xinetd zeroconf"
 
 COMMON_DEPEND="
@@ -25,7 +25,7 @@ COMMON_DEPEND="
 			sys-apps/attr
 		)
 	)
-	avahi? ( net-dns/avahi )
+	avahi? ( net-dns/avahi[mdnsresponder-compat] )
 	dbus? ( sys-apps/dbus )
 	gnutls? ( net-libs/gnutls )
 	java? ( >=virtual/jre-1.4 )
@@ -89,14 +89,6 @@ for X in ${LANGS} ; do
 done
 
 pkg_setup() {
-	if use avahi && ! built_with_use net-dns/avahi mdnsresponder-compat ; then
-		echo
-		eerror "In order to have cups working with avahi zeroconf support, you need"
-		eerror "to have net-dns/avahi emerged with \"mdnsresponder-compat\" in your USE"
-		eerror "flag. Please add that flag, re-emerge avahi, and then emerge cups again."
-		die "net-dns/avahi is missing the mdnsresponder-compat feature."
-	fi
-
 	enewgroup lp
 	enewuser lp -1 -1 -1 lp
 
@@ -192,6 +184,7 @@ src_configure() {
 		--enable-libpaper \
 		--enable-pdftops \
 		--enable-threads \
+		--with-optim="${CFLAGS}" \
 		${myconf}
 
 	# install in /usr/libexec always, instead of using /usr/lib/cups, as that
