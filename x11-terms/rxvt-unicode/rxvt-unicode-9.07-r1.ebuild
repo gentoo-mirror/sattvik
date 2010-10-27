@@ -1,6 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-terms/rxvt-unicode/rxvt-unicode-9.07-r1.ebuild,v 1.1 2010/02/03 05:07:45 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-terms/rxvt-unicode/rxvt-unicode-9.07-r1.ebuild,v 1.9 2010/10/23 22:01:50 halcy0n Exp $
 
 EAPI="2"
 
@@ -12,13 +12,13 @@ SRC_URI="http://dist.schmorp.de/rxvt-unicode/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="alpha amd64 hppa ia64 ppc ppc64 sparc x86 ~x86-fbsd"
 IUSE="truetype perl iso14755 afterimage xterm-color wcwidth +vanilla"
 
 # see bug #115992 for modular x deps
 RDEPEND="x11-libs/libX11
 	x11-libs/libXft
-	afterimage? ( media-libs/libafterimage )
+	afterimage? ( || ( media-libs/libafterimage x11-wm/afterstep ) )
 	x11-libs/libXrender
 	perl? ( dev-lang/perl )
 	>=sys-libs/ncurses-5.7-r3"
