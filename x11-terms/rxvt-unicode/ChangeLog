@@ -2,6 +2,15 @@
 # Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*rxvt-unicode-9.09 (19 Nov 2010)
+
+  19 Nov 2010; Daniel Solano Gómez <gentoo@sattvik.com>
+  +files/rxvt-unicode-9.06-font-width.patch,
+  -files/rxvt-unicode-9.06-glibc-2.10.patch, +rxvt-unicode-9.09.ebuild,
+  +files/rxvt-unicode-9.09-sattvik-colours.patch,
+  -files/rxvt-unicode_no-urgency-if-focused.diff:
+  Version bump. Clean out old files.
+
   27 Oct 2010; Daniel Solano Gómez <gentoo@sattvik.com>
   rxvt-unicode-9.07-r1.ebuild, rxvt-unicode-9.07-r2.ebuild, metadata.xml:
   Synced with portage.
