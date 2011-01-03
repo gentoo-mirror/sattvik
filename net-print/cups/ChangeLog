@@ -1,6 +1,19 @@
 # ChangeLog for net-print/cups
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*cups-1.4.5 (03 Jan 2011)
+*cups-1.4.4-r2 (03 Jan 2011)
+*cups-1.3.11-r4 (03 Jan 2011)
+
+  03 Jan 2011; Daniel Solano Gómez <gentoo@sattvik.com>
+  -cups-1.3.11-r2.ebuild, -cups-1.3.11-r3.ebuild, +cups-1.3.11-r4.ebuild,
+  +files/cups-1.3.11-pdf-m4.patch, -cups-1.4.4.ebuild, +cups-1.4.4-r2.ebuild,
+  +files/cups-1.4.4-dont-compress-manpages.patch,
+  +files/cups-1.4.4-fix-install-perms.patch, +files/cups-1.4.4-nostrip.patch,
+  +files/cups-1.4.4-perl-includes.patch, +files/cups-1.4.4-php-destdir.patch,
+  +cups-1.4.5.ebuild:
+  Version bumps/sync with portage.
 
 *cups-1.3.11-r3 (15 Nov 2010)
 
