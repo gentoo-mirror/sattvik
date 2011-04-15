@@ -1,4 +1,4 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/www-plugins/noscript/noscript-1.9.8.86.ebuild,v 1.3 2010/01/01 18:03:23 scarabeus Exp $
 
@@ -9,11 +9,11 @@ inherit mozextension multilib
 MY_P="${P}-fx+sm"
 DESCRIPTION="Adds a menu and a toolbar with various web developer tools."
 HOMEPAGE="http://chrispederick.com/work/web-developer/"
-SRC_URI="https://addons.mozilla.org/en-US/firefox/downloads/file/56976/${MY_P}.xpi"
+SRC_URI="https://addons.mozilla.org/en-US/firefox/downloads/file/107252/${MY_P}.xpi"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sparc x86"
 IUSE=""
 
 RDEPEND="
