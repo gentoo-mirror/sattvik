@@ -1,6 +1,6 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.3.11-r4.ebuild,v 1.1 2010/12/01 13:03:55 scarabeus Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.3.11-r4.ebuild,v 1.5 2011/04/30 15:10:52 scarabeus Exp $
 
 EAPI=2
 inherit autotools eutils flag-o-matic multilib pam
@@ -29,7 +29,7 @@ COMMON_DEPEND="
 	dbus? ( sys-apps/dbus )
 	gnutls? ( net-libs/gnutls )
 	java? ( >=virtual/jre-1.4 )
-	jpeg? ( >=media-libs/jpeg-6b )
+	jpeg? ( virtual/jpeg )
 	kerberos? ( virtual/krb5 )
 	ldap? ( net-nds/openldap )
 	pam? ( virtual/pam )
@@ -51,11 +51,10 @@ DEPEND="${COMMON_DEPEND}"
 RDEPEND="${COMMON_DEPEND}
 	!<net-print/foomatic-filters-ppds-20070501
 	!<net-print/hplip-1.7.4a-r1
-	!virtual/lpr
 	X? ( x11-misc/xdg-utils )
 "
 PDEPEND="
-	app-text/ghostscript-gpl
+	app-text/ghostscript-gpl[cups]
 	>=app-text/poppler-0.12.3-r3[utils]
 	ppds? (
 		|| (
@@ -73,8 +72,6 @@ PDEPEND="
 	)
 	samba? ( >=net-fs/samba-3.0.8 )
 "
-
-PROVIDE="virtual/lpr"
 
 # upstream includes an interactive test which is a nono for gentoo.
 # therefore, since the printing herd has bigger fish to fry, for now,
@@ -260,19 +257,6 @@ pkg_postinst() {
 	elog "For information about installing a printer and general cups setup"
 	elog "take a look at: http://www.gentoo.org/doc/en/printing-howto.xml"
 	echo
-
-	local good_gs=false
-	for x in app-text/ghostscript-gpl app-text/ghostscript-gnu ; do
-		if has_version ${x} && built_with_use ${x} cups ; then
-			good_gs=true
-			break
-		fi
-	done
-	if ! ${good_gs} ; then
-		echo
-		ewarn "You need to emerge ghostscript with the \"cups\" USE flag turned on."
-		echo
-	fi
 
 	if [[ $upgrade_from_1_2 = 0 ]] ; then
 		echo

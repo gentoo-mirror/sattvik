@@ -1,12 +1,12 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.4.6.ebuild,v 1.1 2011/01/13 01:59:49 tgurr Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.4.6-r1.ebuild,v 1.4 2011/05/01 15:15:04 scarabeus Exp $
 
 EAPI=3
 
 PYTHON_DEPEND="python? 2:2.5"
 
-inherit autotools eutils flag-o-matic multilib pam perl-module python versionator java-pkg-opt-2
+inherit autotools eutils flag-o-matic linux-info multilib pam perl-module python versionator java-pkg-opt-2
 
 MY_P=${P/_}
 
@@ -17,7 +17,7 @@ SRC_URI="mirror://easysw/${PN}/${PV}/${MY_P}-source.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~sparc-fbsd ~x86 ~x86-fbsd"
-IUSE="acl dbus debug gnutls java +jpeg kerberos ldap pam perl php +png python samba slp +ssl static-libs +threads +tiff +usb X xinetd"
+IUSE="acl dbus debug gnutls java +jpeg kerberos ldap pam perl php +png python samba slp +ssl static-libs +threads +tiff usb X xinetd"
 
 LANGS="da de es eu fi fr id it ja ko nl no pl pt pt_BR ru sv zh zh_TW"
 for X in ${LANGS} ; do
@@ -26,7 +26,6 @@ done
 
 RDEPEND="
 	app-text/libpaper
-	dev-libs/libgcrypt
 	acl? (
 		kernel_linux? (
 			sys-apps/acl
@@ -44,7 +43,10 @@ RDEPEND="
 	png? ( >=media-libs/libpng-1.4.3 )
 	slp? ( >=net-libs/openslp-1.0.4 )
 	ssl? (
-		gnutls? ( net-libs/gnutls )
+		gnutls? (
+			dev-libs/libgcrypt
+			net-libs/gnutls
+		)
 		!gnutls? ( >=dev-libs/openssl-0.9.8g )
 	)
 	tiff? ( >=media-libs/tiff-3.5.5 )
@@ -63,8 +65,6 @@ PDEPEND="
 	>=app-text/poppler-0.12.3-r3[utils]
 "
 
-PROVIDE="virtual/lpr"
-
 # upstream includes an interactive test which is a nono for gentoo.
 RESTRICT="test"
 
@@ -76,8 +76,45 @@ pkg_setup() {
 	enewgroup lpadmin 106
 
 	# python 3 is no-go
-	python_set_active_version 2
-	python_pkg_setup
+	if use python; then
+		python_set_active_version 2
+		python_pkg_setup
+	fi
+
+	linux-info_pkg_setup
+	if  ! linux_config_exists; then
+		ewarn "Can't check the linux kernel configuration."
+		ewarn "You might have some incompatible options enabled."
+	else
+		# recheck that we don't have usblp to collide with libusb
+		if use usb; then
+			if linux_chkconfig_present USB_PRINTER; then
+				eerror "Your usb printers will be managed via libusb."
+				eerror "Note that this interface still has issues so alternatively"
+				eerror "you should just disable usb useflag on ${P}."
+				eerror "${P} requires the USB_PRINTER support disabled."
+				eerror "Please disable it:"
+				eerror "    CONFIG_USB_PRINTER=n"
+				eerror "in /usr/src/linux/.config or"
+				eerror "    Device Drivers --->"
+				eerror "        USB support  --->"
+				eerror "            [ ] USB Printer support"
+				die "USB_PRINTER module enabled"
+			fi
+		else
+			#here we should warn user that he should enable it so he can print
+			if ! linux_chkconfig_present USB_PRINTER; then
+				ewarn "If you plan to use USB printers you should enable the USB_PRINTER"
+				ewarn "support in your kernel."
+				ewarn "Please enable it:"
+				ewarn "    CONFIG_USB_PRINTER=y"
+				ewarn "in /usr/src/linux/.config or"
+				ewarn "    Device Drivers --->"
+				ewarn "        USB support  --->"
+				ewarn "            [*] USB Printer support"
+			fi
+		fi
+	fi
 }
 
 src_prepare() {
@@ -237,4 +274,15 @@ pkg_postinst() {
 	elog "For information about installing a printer and general cups setup"
 	elog "take a look at: http://www.gentoo.org/doc/en/printing-howto.xml"
 	echo
+
+	if use usb; then
+		elog
+		elog "You are going to use new libusb backed to access your usb printer."
+		elog "This interface has quite few known issues and does not report all"
+		elog "issues and just refuses to print."
+		elog "Please consider disabling usb useflag if you are having issues."
+		elog
+		elog "Please note that if you disable the usb useflag your device will be"
+		elog "still working using kernel usblp interface instead of libusb."
+	fi
 }
