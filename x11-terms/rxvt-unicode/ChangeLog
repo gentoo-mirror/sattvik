@@ -3,6 +3,14 @@
 # $Header: $
 
   04 May 2011; Daniel Solano Gómez <gentoo@sattvik.com>
+  files/rxvt-unicode-9.05_no-MOTIF-WM-INFO.patch,
+  files/rxvt-unicode-9.06-font-width.patch,
+  files/rxvt-unicode-9.06-no-urgency-if-focused.diff,
+  files/rxvt-unicode-9.06-popups-hangs.patch,
+  files/rxvt-unicode-9.10-force-hints.patch:
+  Update with patches from main tree
+
+  04 May 2011; Daniel Solano Gómez <gentoo@sattvik.com>
   -rxvt-unicode-9.07.ebuild, rxvt-unicode-9.10.ebuild:
   Sync up with main tree.
 
