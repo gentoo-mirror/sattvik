@@ -1,6 +1,6 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-terms/rxvt-unicode/rxvt-unicode-9.10.ebuild,v 1.3 2010/12/22 19:18:33 wired Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-terms/rxvt-unicode/rxvt-unicode-9.10.ebuild,v 1.9 2011/04/23 18:53:15 armin76 Exp $
 
 EAPI="3"
 
@@ -12,7 +12,7 @@ SRC_URI="http://dist.schmorp.de/rxvt-unicode/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="alpha amd64 hppa ia64 ppc ~ppc64 sparc x86 ~x86-fbsd"
 IUSE="256-color afterimage blink fading-colors +font-styles force-hints iso14755 perl pixbuf truetype unicode3 +vanilla wcwidth"
 
 # see bug #115992 for modular x deps
@@ -22,7 +22,7 @@ RDEPEND="x11-libs/libX11
 	>=sys-libs/ncurses-5.7-r6
 	afterimage? ( || ( media-libs/libafterimage x11-wm/afterstep ) )
 	perl? ( dev-lang/perl )
-	pixbuf? ( || ( >=x11-libs/gdk-pixbuf-2.21 <=x11-libs/gtk+-2.21 ) )"
+	pixbuf? ( x11-libs/gdk-pixbuf x11-libs/gtk+:2 )"
 DEPEND="${RDEPEND}
 	dev-util/pkgconfig
 	x11-proto/xproto"
