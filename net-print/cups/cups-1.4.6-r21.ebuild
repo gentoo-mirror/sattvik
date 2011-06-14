@@ -142,9 +142,6 @@ src_prepare() {
 	# interface hangs using some browsers, bug #325871
 	epatch "${FILESDIR}/${PN}-1.4.6-web-hang.patch"
 
-	# Dan's group fix
-	epatch "${FILESDIR}/${PN}-1.4.1-group_fix.patch"
-
 	AT_M4DIR=config-scripts eaclocal
 	eautoconf
 }
