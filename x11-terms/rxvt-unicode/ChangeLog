@@ -2,6 +2,15 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*rxvt-unicode-9.12 (03 Jul 2011)
+
+  03 Jul 2011; Daniel Solano Gómez <gentoo@sattvik.com>
+  -rxvt-unicode-9.07-r1.ebuild, -rxvt-unicode-9.07-r2.ebuild,
+  -rxvt-unicode-9.09.ebuild, rxvt-unicode-9.10.ebuild,
+  rxvt-unicode-9.11.ebuild, +rxvt-unicode-9.12.ebuild,
+  -files/dan-colours.patch, metadata.xml:
+  Sync up with portage.
+
 *rxvt-unicode-9.11 (04 May 2011)
 
   04 May 2011; Daniel Solano Gómez <gentoo@sattvik.com>
