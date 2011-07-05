@@ -34,9 +34,6 @@ DEPEND="${RDEPEND}
 REQUIRED_USE="vanilla? ( !alt-font-width focused-urgency !force-hints !wcwidth )"
 
 src_prepare() {
-	if use kernel_Darwin; then
-		cp "${FILESDIR}"/macosx-clipboard src/perl/ || die
-	fi
 	# fix for prefix not installing properly
 	epatch "${FILESDIR}"/${PN}-9.06-case-insensitive-fs.patch
 
