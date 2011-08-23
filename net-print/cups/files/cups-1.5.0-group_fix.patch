@@ -1,0 +1,67 @@
+diff -Naur cups-1.5.0/scheduler/auth.c cups-1.5.0-group_fix/scheduler/auth.c
+--- cups-1.5.0/scheduler/auth.c	2011-05-19 22:49:49.000000000 -0500
++++ cups-1.5.0-group_fix/scheduler/auth.c	2011-08-23 18:13:32.000000000 -0500
+@@ -1431,6 +1431,7 @@
+     const char    *groupname)		/* I - Group name */
+ {
+   int		i;			/* Looping var */
++  int		foundit;		/* Whether or not the search returned a positive result. */
+   struct group	*group;			/* System group info */
+   char		junk[33];		/* MD5 password (not used) */
+ #ifdef HAVE_MBR_UID_TO_UUID
+@@ -1452,29 +1453,43 @@
+     return (0);
+ 
+  /*
+-  * Check to see if the user is a member of the named group...
++  * Iterate through all group entries until a match is found.
+   */
+-
+-  group = getgrnam(groupname);
+-  endgrent();
+-
+-  if (group != NULL)
++  setgrent();
++  foundit=0;
++  while(!foundit && (group=getgrent())!=NULL)
+   {
+    /*
+-    * Group exists, check it...
++    * If the group name doesn't match, move on...
++    */
++    if(_cups_strcasecmp(groupname, group->gr_name))
++      continue;
++
++   /*
++    * First, check to see if group ID matches the user's group ID.
+     */
++    if(user && group->gr_gid == user->pw_gid)
++    {
++      foundit=1;
++      break;
++    }
+ 
++   /*
++    * Check to see if the user is listed as a member of the group...
++    */
+     for (i = 0; group->gr_mem[i]; i ++)
+       if (!_cups_strcasecmp(username, group->gr_mem[i]))
+-	return (1);
++      {
++	foundit=1;
++	break;
++      }
+   }
++  endgrent();
+ 
+  /*
+-  * Group doesn't exist or user not in group list, check the group ID
+-  * against the user's group ID...
++  * If the group membership was confirmed, return.
+   */
+-
+-  if (user && group && group->gr_gid == user->pw_gid)
++  if (foundit)
+     return (1);
+ 
+ #ifdef HAVE_MBR_UID_TO_UUID

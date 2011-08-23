@@ -1,6 +1,6 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.4.6-r21.ebuild,v 1.2 2011/06/06 21:54:07 dilfridge Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.4.6-r2.ebuild,v 1.10 2011/08/07 14:04:11 armin76 Exp $
 
 EAPI=3
 
@@ -16,8 +16,8 @@ SRC_URI="mirror://easysw/${PN}/${PV}/${MY_P}-source.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~sparc-fbsd ~x86 ~x86-fbsd"
-IUSE="acl dbus debug gnutls java +jpeg kerberos ldap pam perl php +png python samba slp +ssl static-libs +threads +tiff usb X xinetd"
+KEYWORDS="alpha amd64 arm hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~sparc-fbsd ~x86-fbsd"
+IUSE="acl dbus debug gnutls java +jpeg kerberos ldap pam perl php +png python samba slp +ssl static-libs +threads +tiff X xinetd"
 
 LANGS="da de es eu fi fr id it ja ko nl no pl pt pt_BR ru sv zh zh_TW"
 for X in ${LANGS} ; do
@@ -50,7 +50,6 @@ RDEPEND="
 		!gnutls? ( >=dev-libs/openssl-0.9.8g )
 	)
 	tiff? ( >=media-libs/tiff-3.5.5 )
-	usb? ( virtual/libusb:0 )
 	X? ( x11-misc/xdg-utils )
 	xinetd? ( sys-apps/xinetd )
 	!net-print/cupsddk
@@ -81,37 +80,11 @@ pkg_setup() {
 		python_pkg_setup
 	fi
 
-	if use usb; then
-		elog "You are going to use new libusb backed to access your usb printer."
-		elog "This interface has quite few known issues and does not report all"
-		elog "issues and just refuses to print."
-		elog "Please consider disabling usb useflag if you are having issues."
-		elog
-		elog "Please note that if you disable the usb useflag your device will be"
-		elog "still working using kernel usblp interface instead of libusb."
-		echo
-	fi
-
 	linux-info_pkg_setup
 	if  ! linux_config_exists; then
 		ewarn "Can't check the linux kernel configuration."
 		ewarn "You might have some incompatible options enabled."
 	else
-		# recheck that we don't have usblp to collide with libusb
-		if use usb; then
-			if linux_chkconfig_present USB_PRINTER; then
-				eerror "Your usb printers will be managed via libusb which collides with kernel module."
-				eerror "${P} requires the USB_PRINTER support disabled."
-				eerror "Please disable it:"
-				eerror "    CONFIG_USB_PRINTER=n"
-				eerror "in /usr/src/linux/.config or"
-				eerror "    Device Drivers --->"
-				eerror "        USB support  --->"
-				eerror "            [ ] USB Printer support"
-				eerror "Alternatively, just disable the usb useflag for cups (your printer will still work)."
-				die "USB_PRINTER module enabled"
-			fi
-		else
 			#here we should warn user that he should enable it so he can print
 			if ! linux_chkconfig_present USB_PRINTER; then
 				ewarn "If you plan to use USB printers you should enable the USB_PRINTER"
@@ -122,9 +95,7 @@ pkg_setup() {
 				ewarn "    Device Drivers --->"
 				ewarn "        USB support  --->"
 				ewarn "            [*] USB Printer support"
-				ewarn "Alternatively, enable the usb useflag for cups and use the new, less-tested libusb code."
 			fi
-		fi
 	fi
 }
 
@@ -202,7 +173,7 @@ src_configure() {
 		$(use_enable slp) \
 		$(use_enable static-libs static) \
 		$(use_enable tiff) \
-		$(use_enable usb libusb) \
+		--disable-libusb \
 		$(use_with java) \
 		$(use_with perl) \
 		$(use_with php) \
