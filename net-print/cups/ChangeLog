@@ -2,6 +2,16 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*cups-1.5.0-r1 (26 Aug 2011)
+*cups-1.4.8-r21 (26 Aug 2011)
+*cups-1.4.8-r1 (26 Aug 2011)
+
+  26 Aug 2011; Daniel Solano Gómez <gentoo@sattvik.com>
+  -cups-1.4.6-r21.ebuild, -cups-1.4.8.ebuild, +cups-1.4.8-r1.ebuild,
+  +cups-1.4.8-r21.ebuild, +files/cups-1.4.8-CVE-2011-2896.patch,
+  -cups-1.5.0.ebuild, +cups-1.5.0-r1.ebuild, metadata.xml:
+  Sync up with portage (security fix)
+
 *cups-1.5.0 (23 Aug 2011)
 *cups-1.4.8 (23 Aug 2011)
 *cups-1.4.6-r2 (23 Aug 2011)
