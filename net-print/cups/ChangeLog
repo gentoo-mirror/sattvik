@@ -2,6 +2,15 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*cups-1.5.0-r2 (01 Sep 2011)
+*cups-1.4.8-r22 (01 Sep 2011)
+
+  01 Sep 2011; Daniel Solano Gómez <gentoo@sattvik.com>
+  +cups-1.4.8-r22.ebuild, -files/cups-1.4.8-CVE-2011-2896.patch,
+  +files/cups-1.4.8-CVE-2011-3170.patch, +files/cups-1.4.8-largeimage.patch,
+  +cups-1.5.0-r2.ebuild:
+  Security updates.
+
 *cups-1.5.0-r1 (26 Aug 2011)
 *cups-1.4.8-r21 (26 Aug 2011)
 *cups-1.4.8-r1 (26 Aug 2011)
