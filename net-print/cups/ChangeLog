@@ -2,6 +2,10 @@
 # Copyright 1999-2011 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+  06 Oct 2011; Daniel Solano Gómez <gentoo@sattvik.com> cups-1.4.8-r1.ebuild,
+  cups-1.4.8-r21.ebuild, cups-1.5.0-r1.ebuild, cups-1.5.0-r2.ebuild:
+  Sync up with main tree.
+
 *cups-1.5.0-r2 (01 Sep 2011)
 *cups-1.4.8-r22 (01 Sep 2011)
 
