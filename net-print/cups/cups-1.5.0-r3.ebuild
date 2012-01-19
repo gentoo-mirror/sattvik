@@ -1,6 +1,6 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.5.0-r1.ebuild,v 1.2 2011/08/27 10:46:02 dilfridge Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.5.0-r3.ebuild,v 1.3 2012/01/15 22:41:37 dilfridge Exp $
 
 #
 # See http://git.overlays.gentoo.org/gitweb/?p=dev/dilfridge.git;a=blob;f=net-print/cups/notes.txt;hb=HEAD
@@ -11,7 +11,7 @@ EAPI=3
 
 PYTHON_DEPEND="python? 2:2.5"
 
-inherit autotools eutils flag-o-matic linux-info multilib pam perl-module python versionator java-pkg-opt-2
+inherit autotools eutils fdo-mime gnome2-utils flag-o-matic multilib pam perl-module python versionator java-pkg-opt-2
 
 MY_P=${P/_}
 MY_PV=${PV/_}
@@ -23,7 +23,7 @@ SRC_URI="mirror://easysw/${PN}/${MY_PV}/${MY_P}-source.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="acl dbus debug gnutls java +jpeg kerberos ldap pam perl php +png python samba slp +ssl static-libs +threads +tiff usb X xinetd"
+IUSE="acl dbus debug +filters gnutls java +jpeg kerberos ldap pam perl php +png python samba slp +ssl static-libs +threads +tiff usb X xinetd"
 
 LANGS="da de es eu fi fr id it ja ko nl no pl pt pt_BR ru sv zh zh_TW"
 for X in ${LANGS} ; do
@@ -39,6 +39,7 @@ RDEPEND="
 		)
 	)
 	dbus? ( sys-apps/dbus )
+	filters? ( net-print/foomatic-filters )
 	java? ( >=virtual/jre-1.6 )
 	jpeg? ( virtual/jpeg:0 )
 	kerberos? ( virtual/krb5 )
@@ -46,7 +47,7 @@ RDEPEND="
 	pam? ( virtual/pam )
 	perl? ( dev-lang/perl )
 	php? ( dev-lang/php )
-	png? ( >=media-libs/libpng-1.4.3 )
+	png? ( >=media-libs/libpng-1.4.3:0 )
 	slp? ( >=net-libs/openslp-1.0.4 )
 	ssl? (
 		gnutls? (
@@ -55,7 +56,7 @@ RDEPEND="
 		)
 		!gnutls? ( >=dev-libs/openssl-0.9.8g )
 	)
-	tiff? ( >=media-libs/tiff-3.5.5 )
+	tiff? ( >=media-libs/tiff-3.5.5:0 )
 	usb? ( virtual/libusb:0 )
 	X? ( x11-misc/xdg-utils )
 	xinetd? ( sys-apps/xinetd )
@@ -86,51 +87,6 @@ pkg_setup() {
 		python_set_active_version 2
 		python_pkg_setup
 	fi
-
-	if use usb; then
-		elog "You are going to use new libusb backed to access your usb printer."
-		elog "This interface has quite few known issues and does not report all"
-		elog "issues and just refuses to print."
-		elog "Please consider disabling usb useflag if you are having issues."
-		elog
-		elog "Please note that if you disable the usb useflag your device will be"
-		elog "still working using kernel usblp interface instead of libusb."
-		echo
-	fi
-
-	linux-info_pkg_setup
-	if  ! linux_config_exists; then
-		ewarn "Can't check the linux kernel configuration."
-		ewarn "You might have some incompatible options enabled."
-	else
-		# recheck that we don't have usblp to collide with libusb
-		if use usb; then
-			if linux_chkconfig_present USB_PRINTER; then
-				eerror "Your usb printers will be managed via libusb which collides with kernel module."
-				eerror "${P} requires the USB_PRINTER support disabled."
-				eerror "Please disable it:"
-				eerror "    CONFIG_USB_PRINTER=n"
-				eerror "in /usr/src/linux/.config or"
-				eerror "    Device Drivers --->"
-				eerror "        USB support  --->"
-				eerror "            [ ] USB Printer support"
-				eerror "Alternatively, just disable the usb useflag for cups (your printer will still work)."
-			fi
-		else
-			#here we should warn user that he should enable it so he can print
-			if ! linux_chkconfig_present USB_PRINTER; then
-				ewarn "If you plan to use USB printers you should enable the USB_PRINTER"
-				ewarn "support in your kernel."
-				ewarn "Please enable it:"
-				ewarn "    CONFIG_USB_PRINTER=y"
-				ewarn "in /usr/src/linux/.config or"
-				ewarn "    Device Drivers --->"
-				ewarn "        USB support  --->"
-				ewarn "            [*] USB Printer support"
-				ewarn "Alternatively, enable the usb useflag for cups and use the new, less-tested libusb code."
-			fi
-		fi
-	fi
 }
 
 src_prepare() {
@@ -140,6 +96,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-1.4.4-nostrip.patch"
 	epatch "${FILESDIR}/${PN}-1.4.4-php-destdir.patch"
 	epatch "${FILESDIR}/${PN}-1.4.4-perl-includes.patch"
+	epatch "${FILESDIR}/${PN}-1.4.8-largeimage.patch"
 	# security fixes
 	epatch "${FILESDIR}/${PN}-1.4.8-CVE-2011-3170.patch"
 
@@ -281,7 +238,7 @@ src_install() {
 	fi
 
 	keepdir /usr/libexec/cups/driver /usr/share/cups/{model,profiles} \
-		/var/cache/cups /var/cache/cups/rss /var/log/cups /var/run/cups/certs \
+		/var/cache/cups /var/cache/cups/rss /var/log/cups \
 		/var/spool/cups/tmp
 
 	keepdir /etc/cups/{interfaces,ppd,ssl}
@@ -292,9 +249,23 @@ src_install() {
 	echo "ServerName /var/run/cups/cups.sock" >> "${D}"/etc/cups/client.conf
 }
 
+pkg_preinst() {
+	gnome2_icon_savelist
+}
+
 pkg_postinst() {
+	# Update desktop file database and gtk icon cache (bug 370059)
+	gnome2_icon_cache_update
+	fdo-mime_desktop_database_update
+
 	echo
 	elog "For information about installing a printer and general cups setup"
 	elog "take a look at: http://www.gentoo.org/doc/en/printing-howto.xml"
 	echo
+}
+
+pkg_postrm() {
+	# Update desktop file database and gtk icon cache (bug 370059)
+	gnome2_icon_cache_update
+	fdo-mime_desktop_database_update
 }
