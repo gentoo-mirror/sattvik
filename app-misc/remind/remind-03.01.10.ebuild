@@ -1,6 +1,8 @@
-# Copyright 1999-2009 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-misc/remind/remind-03.01.07.ebuild,v 1.5 2009/08/09 12:58:20 nixnut Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-misc/remind/remind-03.01.10.ebuild,v 1.3 2011/01/08 11:40:45 fauli Exp $
+
+EAPI=2
 
 inherit eutils
 
@@ -13,22 +15,20 @@ SRC_URI="http://www.roaringpenguin.com/files/download/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 ppc sparc x86 ~x86-fbsd"
+KEYWORDS="amd64 ~ppc x86 ~x86-fbsd"
 IUSE="tk"
 
 DEPEND=">=sci-libs/libnova-0.12"
 RDEPEND="tk? ( dev-lang/tk dev-tcltk/tcllib )
 	>=sci-libs/libnova-0.12"
 
-src_unpack() {
-	unpack ${A}
-	cd "${S}"
-	epatch "${FILESDIR}/remind-03.01.07-nova.patch"
+src_prepare() {
+	epatch "${FILESDIR}/remind-03.01.09-nova.patch"
 	sed -i 's:$(MAKE) install:&-nostripped:' "${S}"/Makefile || die
 }
 
 src_test() {
-	if [[ $UID -eq 0 ]] ; then
+	if [[ ${EUID} -eq 0 ]] ; then
 		ewarn "Testing fails if run as root. Skipping tests."
 		return
 	fi
@@ -45,4 +45,8 @@ src_install() {
 		rm "${D}"/usr/bin/tkremind "${D}"/usr/share/man/man1/tkremind* \
 			"${D}"/usr/bin/cm2rem*  "${D}"/usr/share/man/man1/cm2rem*
 	fi
+
+	rm "${S}"/contrib/rem2ics-*/{Makefile,rem2ics.spec} || die
+	insinto /usr/share/${PN}
+	doins -r contrib/
 }
