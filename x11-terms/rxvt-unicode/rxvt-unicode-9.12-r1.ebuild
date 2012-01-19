@@ -1,6 +1,6 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-terms/rxvt-unicode/rxvt-unicode-9.12.ebuild,v 1.2 2011/07/03 18:53:24 wired Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-terms/rxvt-unicode/rxvt-unicode-9.12-r1.ebuild,v 1.8 2012/01/15 16:14:15 armin76 Exp $
 
 EAPI="4"
 
@@ -8,14 +8,14 @@ inherit autotools
 
 DESCRIPTION="rxvt clone with xft and unicode support"
 HOMEPAGE="http://software.schmorp.de/pkg/rxvt-unicode.html"
-SRC_URI="http://dist.schmorp.de/rxvt-unicode/${P}.tar.bz2"
+SRC_URI="http://dist.schmorp.de/rxvt-unicode/Attic/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris"
+KEYWORDS="alpha amd64 hppa ia64 ~ppc ~ppc64 sparc x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris"
 IUSE="
 	256-color alt-font-width afterimage blink +focused-urgency fading-colors
-	+font-styles force-hints iso14755 +mousewheel perl pixbuf truetype unicode3
+	+font-styles force-hints iso14755 +mousewheel +perl pixbuf truetype unicode3
 	+vanilla wcwidth
 "
 
@@ -44,10 +44,7 @@ src_prepare() {
 		einfo "   or the *afterimage* USE flag. Enabling both will default to pixbuf."
 	fi
 
-	if use vanilla; then
-		ewarn " + You have enabled the vanilla USE flag."
-		ewarn "   This means no USE flag controlled patches will be applied."
-	else
+	if ! use vanilla; then
 		ewarn " + You are going to include unsupported third-party bug fixes/features."
 
 		use wcwidth && epatch doc/wcwidth.patch
