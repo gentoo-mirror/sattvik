@@ -2,6 +2,12 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*cups-1.5.0-r4 (28 Jan 2012)
+
+  28 Jan 2012; Daniel Solano Gómez <gentoo@sattvik.com> -cups-1.5.0-r3.ebuild,
+  +cups-1.5.0-r4.ebuild, +files/cups-1.5.0-systemd-socket.patch:
+  Sync with portage
+
   28 Jan 2012; Daniel Solano Gómez <gentoo@sattvik.com> cups-1.4.8-r1.ebuild,
   -cups-1.4.8-r22.ebuild, cups-1.4.8-r23.ebuild, -cups-1.5.0-r2.ebuild,
   cups-1.5.0-r3.ebuild:
