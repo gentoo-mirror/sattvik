@@ -1,17 +1,12 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.5.0-r3.ebuild,v 1.3 2012/01/15 22:41:37 dilfridge Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.5.0-r3.ebuild,v 1.8 2012/01/27 22:18:20 dilfridge Exp $
 
-#
-# See http://git.overlays.gentoo.org/gitweb/?p=dev/dilfridge.git;a=blob;f=net-print/cups/notes.txt;hb=HEAD
-# for some notes about the ongoing work here
-#
-
-EAPI=3
+EAPI=4
 
 PYTHON_DEPEND="python? 2:2.5"
 
-inherit autotools eutils fdo-mime gnome2-utils flag-o-matic multilib pam perl-module python versionator java-pkg-opt-2
+inherit autotools eutils fdo-mime gnome2-utils flag-o-matic linux-info multilib pam perl-module python versionator java-pkg-opt-2
 
 MY_P=${P/_}
 MY_PV=${PV/_}
@@ -23,7 +18,7 @@ SRC_URI="mirror://easysw/${PN}/${MY_PV}/${MY_P}-source.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="acl dbus debug +filters gnutls java +jpeg kerberos ldap pam perl php +png python samba slp +ssl static-libs +threads +tiff usb X xinetd"
+IUSE="acl dbus debug +filters gnutls java +jpeg kerberos ldap pam perl php +png python slp +ssl static-libs +threads +tiff usb X xinetd"
 
 LANGS="da de es eu fi fr id it ja ko nl no pl pt pt_BR ru sv zh zh_TW"
 for X in ${LANGS} ; do
@@ -39,7 +34,6 @@ RDEPEND="
 		)
 	)
 	dbus? ( sys-apps/dbus )
-	filters? ( net-print/foomatic-filters )
 	java? ( >=virtual/jre-1.6 )
 	jpeg? ( virtual/jpeg:0 )
 	kerberos? ( virtual/krb5 )
@@ -52,7 +46,7 @@ RDEPEND="
 	ssl? (
 		gnutls? (
 			dev-libs/libgcrypt
-			>=net-libs/gnutls-2.11
+			net-libs/gnutls
 		)
 		!gnutls? ( >=dev-libs/openssl-0.9.8g )
 	)
@@ -60,7 +54,6 @@ RDEPEND="
 	usb? ( virtual/libusb:0 )
 	X? ( x11-misc/xdg-utils )
 	xinetd? ( sys-apps/xinetd )
-	!net-print/cupsddk
 "
 
 DEPEND="${RDEPEND}
@@ -70,9 +63,10 @@ DEPEND="${RDEPEND}
 PDEPEND="
 	app-text/ghostscript-gpl[cups]
 	>=app-text/poppler-0.12.3-r3[utils]
+	filters? ( net-print/foomatic-filters )
 "
 
-# upstream includes an interactive test which is a nono for gentoo.
+# upstream includes an interactive test which is a nono for gentoo
 RESTRICT="test"
 
 S="${WORKDIR}/${MY_P}"
@@ -87,6 +81,42 @@ pkg_setup() {
 		python_set_active_version 2
 		python_pkg_setup
 	fi
+
+	if use kernel_linux; then
+		linux-info_pkg_setup
+		if  ! linux_config_exists; then
+			ewarn "Can't check the linux kernel configuration."
+			ewarn "You might have some incompatible options enabled."
+		else
+			# recheck that we don't have usblp to collide with libusb
+			if use usb; then
+				if linux_chkconfig_present USB_PRINTER; then
+					eerror "Your usb printers will be managed via libusb. In this case, "
+					eerror "${P} requires the USB_PRINTER support disabled."
+					eerror "Please disable it:"
+					eerror "    CONFIG_USB_PRINTER=n"
+					eerror "in /usr/src/linux/.config or"
+					eerror "    Device Drivers --->"
+					eerror "        USB support  --->"
+					eerror "            [ ] USB Printer support"
+					eerror "Alternatively, just disable the usb useflag for cups (your printer will still work)."
+				fi
+			else
+				#here we should warn user that he should enable it so he can print
+				if ! linux_chkconfig_present USB_PRINTER; then
+					ewarn "If you plan to use USB printers you should enable the USB_PRINTER"
+					ewarn "support in your kernel."
+					ewarn "Please enable it:"
+					ewarn "    CONFIG_USB_PRINTER=y"
+					ewarn "in /usr/src/linux/.config or"
+					ewarn "    Device Drivers --->"
+					ewarn "        USB support  --->"
+					ewarn "            [*] USB Printer support"
+					ewarn "Alternatively, enable the usb useflag for cups and use the libusb code."
+				fi
+			fi
+		fi
+	fi
 }
 
 src_prepare() {
@@ -97,6 +127,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-1.4.4-php-destdir.patch"
 	epatch "${FILESDIR}/${PN}-1.4.4-perl-includes.patch"
 	epatch "${FILESDIR}/${PN}-1.4.8-largeimage.patch"
+
 	# security fixes
 	epatch "${FILESDIR}/${PN}-1.4.8-CVE-2011-3170.patch"
 
@@ -129,16 +160,6 @@ src_configure() {
 		"
 	fi
 
-	# bug 352252, recheck for later versions if still necessary....
-	if use gnutls && ! use threads ; then
-		ewarn "The useflag gnutls requires also threads enabled. Switching on threads."
-	fi
-	if use gnutls || use threads ; then
-		myconf+=" --enable-threads "
-	else
-		myconf+=" --disable-threads "
-	fi
-
 	econf \
 		--libdir=/usr/$(get_libdir) \
 		--localstatedir=/var \
@@ -159,6 +180,7 @@ src_configure() {
 		$(use_enable png) \
 		$(use_enable slp) \
 		$(use_enable static-libs static) \
+		$(use_enable threads) \
 		$(use_enable tiff) \
 		$(use_enable usb libusb) \
 		$(use_with java) \
@@ -178,7 +200,7 @@ src_configure() {
 }
 
 src_compile() {
-	emake || die "emake failed"
+	emake
 
 	if use perl ; then
 		cd "${S}"/scripting/perl
@@ -188,13 +210,13 @@ src_compile() {
 
 	if use php ; then
 		cd "${S}"/scripting/php
-		emake || die "emake php failed"
+		emake
 	fi
 }
 
 src_install() {
-	emake BUILDROOT="${D}" install || die "emake install failed"
-	dodoc {CHANGES,CREDITS,README}.txt || die "dodoc install failed"
+	emake BUILDROOT="${D}" install
+	dodoc {CHANGES,CREDITS,README}.txt
 
 	if use perl ; then
 		cd "${S}"/scripting/perl
@@ -218,7 +240,7 @@ src_install() {
 	sed -i \
 		-e "s/@neededservices@/$neededservices/" \
 		"${T}"/cupsd || die
-	doinitd "${T}"/cupsd || die "doinitd failed"
+	doinitd "${T}"/cupsd
 
 	# install our pam script
 	pamd_mimic_system cups auth account
