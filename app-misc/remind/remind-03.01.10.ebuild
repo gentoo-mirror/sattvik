@@ -1,6 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-misc/remind/remind-03.01.10.ebuild,v 1.3 2011/01/08 11:40:45 fauli Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-misc/remind/remind-03.01.10.ebuild,v 1.1 2011/11/22 18:48:36 tove Exp $
 
 EAPI=2
 
@@ -15,7 +15,7 @@ SRC_URI="http://www.roaringpenguin.com/files/download/${MY_P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 ~ppc x86 ~x86-fbsd"
+KEYWORDS="amd64 ppc sparc x86 ~x86-fbsd"
 IUSE="tk"
 
 DEPEND=">=sci-libs/libnova-0.12"

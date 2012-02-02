@@ -2,6 +2,13 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
 
+*remind-03.01.12 (02 Feb 2012)
+
+  02 Feb 2012; Daniel Solano Gómez <gentoo@sattvik.com>
+  remind-03.01.10.ebuild, remind-03.01.11.ebuild, +remind-03.01.12.ebuild,
+  +files/remind-03.01.12-nova.patch, metadata.xml:
+  Version bump.
+
 *remind-03.01.11 (19 Jan 2012)
 
   19 Jan 2012; Daniel Solano Gómez <gentoo@sattvik.com>

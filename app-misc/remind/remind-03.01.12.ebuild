@@ -1,6 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-misc/remind/remind-03.01.11.ebuild,v 1.1 2011/12/17 11:30:18 tove Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-misc/remind/remind-03.01.12.ebuild,v 1.1 2012/02/01 18:12:20 tove Exp $
 
 EAPI=2
 
@@ -23,7 +23,7 @@ RDEPEND="tk? ( dev-lang/tk dev-tcltk/tcllib )
 	>=sci-libs/libnova-0.12"
 
 src_prepare() {
-	epatch "${FILESDIR}/remind-03.01.09-nova.patch"
+	epatch "${FILESDIR}/${P}-nova.patch"
 	sed -i 's:$(MAKE) install:&-nostripped:' "${S}"/Makefile || die
 }
 
@@ -50,3 +50,4 @@ src_install() {
 	insinto /usr/share/${PN}
 	doins -r contrib/
 }
+
