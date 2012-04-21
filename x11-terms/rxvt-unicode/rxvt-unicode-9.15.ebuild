@@ -1,6 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-terms/rxvt-unicode/rxvt-unicode-9.15.ebuild,v 1.3 2012/01/23 23:39:51 wired Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-terms/rxvt-unicode/rxvt-unicode-9.15.ebuild,v 1.12 2012/03/31 17:29:55 armin76 Exp $
 
 EAPI="4"
 
@@ -8,15 +8,15 @@ inherit autotools
 
 DESCRIPTION="rxvt clone with xft and unicode support"
 HOMEPAGE="http://software.schmorp.de/pkg/rxvt-unicode.html"
-SRC_URI="http://dist.schmorp.de/rxvt-unicode/${P}.tar.bz2"
+SRC_URI="http://dist.schmorp.de/rxvt-unicode/Attic/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris"
+KEYWORDS="alpha amd64 hppa ia64 ppc ppc64 sparc x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~sparc-solaris"
 IUSE="
 	256-color alt-font-width afterimage blink buffer-on-clear +focused-urgency
 	fading-colors +font-styles iso14755 +mousewheel +perl pixbuf secondary-wheel
-	startup-notification truetype unicode3 +vanilla wcwidth
+	startup-notification xft unicode3 +vanilla wcwidth
 "
 
 RDEPEND="
@@ -28,8 +28,8 @@ RDEPEND="
 	pixbuf? ( x11-libs/gdk-pixbuf x11-libs/gtk+:2 )
 	startup-notification? ( x11-libs/startup-notification )
 	x11-libs/libX11
-	x11-libs/libXft
 	x11-libs/libXrender
+	xft? ( x11-libs/libXft )
 "
 DEPEND="
 	${RDEPEND}
@@ -94,7 +94,7 @@ src_configure() {
 		$(use_enable perl) \
 		$(use_enable pixbuf) \
 		$(use_enable startup-notification) \
-		$(use_enable truetype xft) \
+		$(use_enable xft) \
 		$(use_enable unicode3) \
 		${myconf}
 }
@@ -113,6 +113,8 @@ src_install() {
 	dodoc README.FAQ Changes
 	cd "${S}"/doc
 	dodoc README* changes.txt etc/* rxvt-tabbed
+
+	make_desktop_entry urxvt rxvt-unicode utilities-terminal TerminalEmulator
 }
 
 pkg_postinst() {
