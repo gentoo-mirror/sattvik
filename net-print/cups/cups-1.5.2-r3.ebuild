@@ -1,24 +1,28 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.5.0-r4.ebuild,v 1.4 2012/02/08 14:51:03 jer Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.5.2-r3.ebuild,v 1.2 2012/04/21 08:20:35 dilfridge Exp $
 
 EAPI=4
 
 PYTHON_DEPEND="python? 2:2.5"
 
-inherit autotools eutils fdo-mime gnome2-utils flag-o-matic linux-info multilib pam perl-module python versionator java-pkg-opt-2
+inherit autotools eutils fdo-mime gnome2-utils flag-o-matic linux-info multilib pam perl-module python versionator java-pkg-opt-2 systemd
 
 MY_P=${P/_}
 MY_PV=${PV/_}
 
 DESCRIPTION="The Common Unix Printing System"
 HOMEPAGE="http://www.cups.org/"
-SRC_URI="mirror://easysw/${PN}/${MY_PV}/${MY_P}-source.tar.bz2"
+SRC_URI="mirror://easysw/${PN}/${MY_PV}/${MY_P}-source.tar.bz2
+	http://dev.gentoo.org/~dilfridge/distfiles/${P}-ipp-r8950.patch.bz2
+	http://dev.gentoo.org/~dilfridge/distfiles/${P}-avahi.patch.bz2
+"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~hppa ~ppc ~x86"
-IUSE="acl dbus debug +filters gnutls java +jpeg kerberos ldap pam perl php +png python slp +ssl static-libs +threads +tiff usb X xinetd"
+IUSE="acl avahi dbus debug +filters gnutls java +jpeg kerberos ldap pam perl
+	+png python slp +ssl static-libs systemd +threads +tiff usb X xinetd"
 
 LANGS="da de es eu fi fr id it ja ko nl no pl pt pt_BR ru sv zh zh_TW"
 for X in ${LANGS} ; do
@@ -40,7 +44,6 @@ RDEPEND="
 	ldap? ( net-nds/openldap[ssl?,gnutls?] )
 	pam? ( virtual/pam )
 	perl? ( dev-lang/perl )
-	php? ( dev-lang/php )
 	png? ( >=media-libs/libpng-1.4.3:0 )
 	slp? ( >=net-libs/openslp-1.0.4 )
 	ssl? (
@@ -50,6 +53,7 @@ RDEPEND="
 		)
 		!gnutls? ( >=dev-libs/openssl-0.9.8g )
 	)
+	systemd? ( sys-apps/systemd )
 	tiff? ( >=media-libs/tiff-3.5.5:0 )
 	usb? ( virtual/libusb:0 )
 	X? ( x11-misc/xdg-utils )
@@ -126,13 +130,19 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-1.4.4-nostrip.patch"
 	epatch "${FILESDIR}/${PN}-1.4.4-php-destdir.patch"
 	epatch "${FILESDIR}/${PN}-1.4.4-perl-includes.patch"
-	epatch "${FILESDIR}/${PN}-1.4.8-largeimage.patch"
-
-	# security fixes
-	epatch "${FILESDIR}/${PN}-1.4.8-CVE-2011-3170.patch"
+	epatch "${FILESDIR}/${PN}-1.5.2-linkperl.patch"
 
 	# systemd support
 	epatch "${FILESDIR}/${PN}-1.5.0-systemd-socket.patch"
+
+	# revert ipp backend to 1.4 state, as ubuntu and debian
+	epatch "${DISTDIR}/${PN}-1.5.2-ipp-r8950.patch.bz2"
+
+	# avahi support from debian
+	epatch "${DISTDIR}/${PN}-1.5.2-avahi.patch.bz2"
+
+	# browsing off by default
+	epatch "${FILESDIR}/${PN}-1.5.2-browsing.patch"
 
 	# Dan's group fix
 	epatch "${FILESDIR}/${PN}-1.5.0-group_fix.patch"
@@ -173,6 +183,7 @@ src_configure() {
 		--with-pdftops=/usr/bin/pdftops \
 		--with-system-groups=lpadmin \
 		$(use_enable acl) \
+		$(use_enable avahi) \
 		$(use_enable dbus) \
 		$(use_enable debug) \
 		$(use_enable debug debug-guards) \
@@ -188,11 +199,12 @@ src_configure() {
 		$(use_enable usb libusb) \
 		$(use_with java) \
 		$(use_with perl) \
-		$(use_with php) \
+		--without-php \
 		$(use_with python) \
 		$(use_with xinetd xinetd /etc/xinetd.d) \
 		--enable-libpaper \
 		--disable-dnssd \
+		$(use_with systemd systemdsystemunitdir "$(systemd_get_unitdir)") \
 		${myconf}
 
 	# install in /usr/libexec always, instead of using /usr/lib/cups, as that
@@ -210,11 +222,6 @@ src_compile() {
 		perl-module_src_prep
 		perl-module_src_compile
 	fi
-
-	if use php ; then
-		cd "${S}"/scripting/php
-		emake
-	fi
 }
 
 src_install() {
@@ -222,14 +229,10 @@ src_install() {
 	dodoc {CHANGES,CREDITS,README}.txt
 
 	if use perl ; then
-		cd "${S}"/scripting/perl
+		pushd scripting/perl > /dev/null
 		perl-module_src_install
 		fixlocalpod
-	fi
-
-	if use php ; then
-		cd "${S}"/scripting/php
-		emake DESTDIR="${D}" install || die "emake install for php bindings failed"
+		popd > /dev/null
 	fi
 
 	# clean out cups init scripts
@@ -272,6 +275,12 @@ src_install() {
 
 	# create /etc/cups/client.conf, bug #196967 and #266678
 	echo "ServerName /var/run/cups/cups.sock" >> "${D}"/etc/cups/client.conf
+
+	# With USE=systemd, the unit files are installed by autotools.
+	# Without it, non-socket service files are still useful.
+	if ! use systemd; then
+		systemd_dounit data/cups.path data/cups.service
+	fi
 }
 
 pkg_preinst() {
@@ -286,6 +295,10 @@ pkg_postinst() {
 	echo
 	elog "For information about installing a printer and general cups setup"
 	elog "take a look at: http://www.gentoo.org/doc/en/printing-howto.xml"
+	echo
+	elog "Network browsing for printers is now switched off by default in the config file."
+	elog "To (re-)enable it, edit /etc/cupsd.conf and set \"Browsing On\", "
+	elog "afterwards re-start or reload cups."
 	echo
 }
 
