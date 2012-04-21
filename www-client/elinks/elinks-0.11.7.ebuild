@@ -1,6 +1,6 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/www-client/elinks/elinks-0.11.7.ebuild,v 1.3 2010/02/24 12:27:34 phajdan.jr Exp $
+# $Header: /var/cvsroot/gentoo-x86/www-client/elinks/elinks-0.11.7.ebuild,v 1.17 2011/06/22 02:33:17 nirbheek Exp $
 
 EAPI="2"
 
@@ -14,7 +14,7 @@ SRC_URI="http://elinks.or.cz/download/${MY_P}.tar.bz2
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~hppa ~mips ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd"
+KEYWORDS="alpha amd64 hppa ia64 ~mips ppc ppc64 sparc x86 ~x86-fbsd"
 IUSE="bittorrent bzip2 debug finger ftp gopher gpm guile idn ipv6 \
 	  javascript lua nls nntp perl ruby ssl unicode X zlib"
 RESTRICT="test"
@@ -23,14 +23,13 @@ DEPEND=">=dev-libs/expat-1.95.4
 	bzip2? ( >=app-arch/bzip2-1.0.2 )
 	ssl? ( >=dev-libs/openssl-0.9.6g )
 	X? ( x11-libs/libX11 x11-libs/libXt )
-	zlib? ( >=sys-libs/zlib-1.1.4 )
 	lua? ( >=dev-lang/lua-5 )
 	gpm? ( >=sys-libs/ncurses-5.2 >=sys-libs/gpm-1.20.0-r5 )
 	guile? ( >=dev-scheme/guile-1.6.4-r1[deprecated,discouraged] )
 	idn? ( net-dns/libidn )
 	perl? ( sys-devel/libperl )
-	ruby? ( dev-lang/ruby )
-	!hppa? ( !mips? ( !alpha? ( javascript? ( dev-lang/spidermonkey ) ) ) )"
+	ruby? ( dev-lang/ruby dev-ruby/rubygems )
+	javascript? ( <=dev-lang/spidermonkey-1.8 )"
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${MY_P}"
@@ -80,14 +79,15 @@ src_configure() {
 		myconf="${myconf} --without-openssl --without-gnutls"
 	fi
 
+	# zlib support disabled due to bug #365585
 	econf \
 		--sysconfdir=/etc/elinks \
 		--enable-leds \
 		--enable-88-colors \
 		--enable-256-colors \
 		--enable-html-highlight \
+		--without-zlib \
 		$(use_with gpm) \
-		$(use_with zlib) \
 		$(use_with bzip2 bzlib) \
 		$(use_with X x) \
 		$(use_with lua) \

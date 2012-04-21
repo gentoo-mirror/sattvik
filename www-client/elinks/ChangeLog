@@ -1,6 +1,13 @@
 # ChangeLog for www-client/elinks
-# Copyright 1999-2010 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*elinks-0.12_pre5-r2 (21 Apr 2012)
+
+  21 Apr 2012; Daniel Solano Gómez <gentoo@sattvik.com>
+  -elinks-0.12_pre5.ebuild, -elinks-0.12_pre5-r1.ebuild,
+  +elinks-0.12_pre5-r2.ebuild:
+  Sync up with portage.
 
 *elinks-0.12_pre5-r1 (19 Sep 2010)
 
