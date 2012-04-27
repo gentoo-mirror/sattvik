@@ -1,6 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.5.2-r2.ebuild,v 1.4 2012/04/19 20:22:49 dilfridge Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.5.2-r20.ebuild,v 1.1 2012/04/26 21:51:03 dilfridge Exp $
 
 EAPI=4
 
@@ -21,7 +21,8 @@ SRC_URI="mirror://easysw/${PN}/${MY_PV}/${MY_P}-source.tar.bz2
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~hppa ~ppc ~x86"
-IUSE="acl avahi dbus debug +filters gnutls java +jpeg kerberos ldap pam perl +png python slp +ssl static-libs +threads +tiff usb X xinetd"
+IUSE="acl avahi dbus debug +filters gnutls java +jpeg kerberos ldap pam perl
+	+png python slp +ssl static-libs systemd +threads +tiff usb X xinetd"
 
 LANGS="da de es eu fi fr id it ja ko nl no pl pt pt_BR ru sv zh zh_TW"
 for X in ${LANGS} ; do
@@ -52,6 +53,7 @@ RDEPEND="
 		)
 		!gnutls? ( >=dev-libs/openssl-0.9.8g )
 	)
+	systemd? ( sys-apps/systemd )
 	tiff? ( >=media-libs/tiff-3.5.5:0 )
 	usb? ( virtual/libusb:0 )
 	X? ( x11-misc/xdg-utils )
@@ -67,6 +69,8 @@ PDEPEND="
 	>=app-text/poppler-0.12.3-r3[utils]
 	filters? ( net-print/foomatic-filters )
 "
+
+REQUIRED_USE="gnutls? ( ssl )"
 
 # upstream includes an interactive test which is a nono for gentoo
 RESTRICT="test"
@@ -129,6 +133,8 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-1.4.4-php-destdir.patch"
 	epatch "${FILESDIR}/${PN}-1.4.4-perl-includes.patch"
 	epatch "${FILESDIR}/${PN}-1.5.2-linkperl.patch"
+	epatch "${FILESDIR}/${PN}-1.5.2-threads.patch"
+	epatch "${FILESDIR}/${PN}-1.5.2-threads2.patch"
 
 	# systemd support
 	epatch "${FILESDIR}/${PN}-1.5.0-systemd-socket.patch"
@@ -159,7 +165,7 @@ src_configure() {
 	fi
 
 	local myconf
-	if use ssl || use gnutls ; then
+	if use ssl ; then
 		myconf+="
 			$(use_enable gnutls)
 			$(use_enable !gnutls openssl)
@@ -202,7 +208,7 @@ src_configure() {
 		$(use_with xinetd xinetd /etc/xinetd.d) \
 		--enable-libpaper \
 		--disable-dnssd \
-		$(systemd_with_unitdir) \
+		$(use_with systemd systemdsystemunitdir "$(systemd_get_unitdir)") \
 		${myconf}
 
 	# install in /usr/libexec always, instead of using /usr/lib/cups, as that
@@ -227,13 +233,14 @@ src_install() {
 	dodoc {CHANGES,CREDITS,README}.txt
 
 	if use perl ; then
-		cd "${S}"/scripting/perl
+		pushd scripting/perl > /dev/null
 		perl-module_src_install
 		fixlocalpod
+		popd > /dev/null
 	fi
 
 	# clean out cups init scripts
-	rm -rf "${D}"/etc/{init.d/cups,rc*,pam.d/cups}
+	rm -rf "${ED}"/etc/{init.d/cups,rc*,pam.d/cups}
 
 	# install our init script
 	local neededservices
@@ -252,14 +259,14 @@ src_install() {
 		# correct path
 		sed -i \
 			-e "s:server = .*:server = /usr/libexec/cups/daemon/cups-lpd:" \
-			"${D}"/etc/xinetd.d/cups-lpd || die
+			"${ED}"/etc/xinetd.d/cups-lpd || die
 		# it is safer to disable this by default, bug #137130
-		grep -w 'disable' "${D}"/etc/xinetd.d/cups-lpd || \
-			{ sed -i -e "s:}:\tdisable = yes\n}:" "${D}"/etc/xinetd.d/cups-lpd || die ; }
+		grep -w 'disable' "${ED}"/etc/xinetd.d/cups-lpd || \
+			{ sed -i -e "s:}:\tdisable = yes\n}:" "${ED}"/etc/xinetd.d/cups-lpd || die ; }
 		# write permission for file owner (root), bug #296221
 		fperms u+w /etc/xinetd.d/cups-lpd || die "fperms failed"
 	else
-		rm -rf "${D}"/etc/xinetd.d
+		rm -rf "${ED}"/etc/xinetd.d
 	fi
 
 	keepdir /usr/libexec/cups/driver /usr/share/cups/{model,profiles} \
@@ -268,10 +275,10 @@ src_install() {
 
 	keepdir /etc/cups/{interfaces,ppd,ssl}
 
-	use X || rm -r "${D}"/usr/share/applications
+	use X || rm -r "${ED}"/usr/share/applications
 
 	# create /etc/cups/client.conf, bug #196967 and #266678
-	echo "ServerName /var/run/cups/cups.sock" >> "${D}"/etc/cups/client.conf
+	echo "ServerName /var/run/cups/cups.sock" >> "${ED}"/etc/cups/client.conf
 }
 
 pkg_preinst() {
