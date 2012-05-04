@@ -2,6 +2,10 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/net-print/cups/ChangeLog,v 1.454 2012/02/08 14:51:03 jer Exp $
 
+  04 May 2012; Daniel Solano Gómez <gentoo@sattvik.com> cups-1.4.8-r1.ebuild,
+  cups-1.4.8-r23.ebuild, cups-1.5.2-r4.ebuild, cups-1.5.2-r20.ebuild:
+  Sync up with portage.
+
 *cups-1.5.2-r20 (27 Apr 2012)
 *cups-1.5.2-r4 (27 Apr 2012)
 

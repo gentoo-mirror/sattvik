@@ -1,6 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.5.2-r4.ebuild,v 1.1 2012/04/26 21:51:03 dilfridge Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.5.2-r4.ebuild,v 1.6 2012/05/03 20:45:48 maekke Exp $
 
 EAPI=4
 
@@ -20,7 +20,7 @@ SRC_URI="mirror://easysw/${PN}/${MY_PV}/${MY_P}-source.tar.bz2
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~hppa ~ppc ~x86"
+KEYWORDS="amd64 arm hppa ~ppc ~x86"
 IUSE="acl avahi dbus debug +filters gnutls java +jpeg kerberos ldap pam perl
 	+png python slp +ssl static-libs +threads +tiff usb X xinetd"
 
@@ -37,6 +37,7 @@ RDEPEND="
 			sys-apps/attr
 		)
 	)
+	avahi? ( net-dns/avahi )
 	dbus? ( sys-apps/dbus )
 	java? ( >=virtual/jre-1.6 )
 	jpeg? ( virtual/jpeg:0 )
@@ -60,7 +61,7 @@ RDEPEND="
 "
 
 DEPEND="${RDEPEND}
-	dev-util/pkgconfig
+	virtual/pkgconfig
 "
 
 PDEPEND="
@@ -239,6 +240,7 @@ src_install() {
 
 	# install our init script
 	local neededservices
+	use avahi && neededservices+=" avahi-daemon"
 	use dbus && neededservices+=" dbus"
 	[[ -n ${neededservices} ]] && neededservices="need${neededservices}"
 	cp "${FILESDIR}"/cupsd.init.d "${T}"/cupsd || die
