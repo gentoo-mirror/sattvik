@@ -1,26 +1,33 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.5.2-r20.ebuild,v 1.3 2012/05/03 07:22:30 jdhore Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.5.2-r21.ebuild,v 1.4 2012/05/21 22:25:01 dilfridge Exp $
 
 EAPI=4
 
 PYTHON_DEPEND="python? 2:2.5"
 
-inherit autotools eutils fdo-mime gnome2-utils flag-o-matic linux-info multilib pam perl-module python versionator java-pkg-opt-2 systemd
-
 MY_P=${P/_}
 MY_PV=${PV/_}
 
+if [[ "${PV}" != "9999" ]]; then
+	inherit autotools base fdo-mime gnome2-utils flag-o-matic linux-info multilib pam perl-module python versionator java-pkg-opt-2 systemd
+	SRC_URI="mirror://easysw/${PN}/${MY_PV}/${MY_P}-source.tar.bz2
+		http://dev.gentoo.org/~dilfridge/distfiles/${P}-ipp-r8950.patch.bz2
+		http://dev.gentoo.org/~dilfridge/distfiles/${P}-avahi.patch.bz2
+		http://dev.gentoo.org/~dilfridge/distfiles/${P}-locales.patch.xz
+	"
+	KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~ppc ~s390 ~sh ~sparc ~x86 ~amd64-fbsd"
+else
+	inherit autotools base fdo-mime gnome2-utils flag-o-matic linux-info multilib pam perl-module python versionator java-pkg-opt-2 systemd subversion
+	ESVN_REPO_URI="http://svn.easysw.com/public/cups/trunk"
+	KEYWORDS=""
+fi
+
 DESCRIPTION="The Common Unix Printing System"
 HOMEPAGE="http://www.cups.org/"
-SRC_URI="mirror://easysw/${PN}/${MY_PV}/${MY_P}-source.tar.bz2
-	http://dev.gentoo.org/~dilfridge/distfiles/${P}-ipp-r8950.patch.bz2
-	http://dev.gentoo.org/~dilfridge/distfiles/${P}-avahi.patch.bz2
-"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~hppa ~ppc ~x86"
 IUSE="acl avahi dbus debug +filters gnutls java +jpeg kerberos ldap pam perl
 	+png python slp +ssl static-libs systemd +threads +tiff usb X xinetd"
 
@@ -78,6 +85,23 @@ RESTRICT="test"
 
 S="${WORKDIR}/${MY_P}"
 
+PATCHES=(
+	"${FILESDIR}/${PN}-1.4.4-dont-compress-manpages.patch"
+	"${FILESDIR}/${PN}-1.4.4-fix-install-perms.patch"
+	"${FILESDIR}/${PN}-1.4.4-nostrip.patch"
+	"${FILESDIR}/${PN}-1.4.4-php-destdir.patch"
+	"${FILESDIR}/${PN}-1.4.4-perl-includes.patch"
+	"${FILESDIR}/${PN}-1.5.2-linkperl.patch"
+	"${FILESDIR}/${PN}-1.5.2-threads.patch"
+	"${FILESDIR}/${PN}-1.5.2-threads2.patch"
+	"${FILESDIR}/${PN}-1.5.0-systemd-socket.patch"		# systemd support
+	"${WORKDIR}/${PN}-1.5.2-ipp-r8950.patch"		# revert ipp backend to 1.4 state
+	"${WORKDIR}/${PN}-1.5.2-avahi.patch"			# avahi support from debian
+	"${FILESDIR}/${PN}-1.5.2-browsing.patch"		# browsing off by default
+	"${WORKDIR}/${PN}-1.5.2-locales.patch"			# patch locales back into existence
+	"${FILESDIR}/${PN}-1.5.0-group_fix.patch"       # Dan's group fix
+)
+
 pkg_setup() {
 	enewgroup lp
 	enewuser lp -1 -1 -1 lp
@@ -127,31 +151,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	# various build time fixes
-	epatch "${FILESDIR}/${PN}-1.4.4-dont-compress-manpages.patch"
-	epatch "${FILESDIR}/${PN}-1.4.4-fix-install-perms.patch"
-	epatch "${FILESDIR}/${PN}-1.4.4-nostrip.patch"
-	epatch "${FILESDIR}/${PN}-1.4.4-php-destdir.patch"
-	epatch "${FILESDIR}/${PN}-1.4.4-perl-includes.patch"
-	epatch "${FILESDIR}/${PN}-1.5.2-linkperl.patch"
-	epatch "${FILESDIR}/${PN}-1.5.2-threads.patch"
-	epatch "${FILESDIR}/${PN}-1.5.2-threads2.patch"
-
-	# systemd support
-	epatch "${FILESDIR}/${PN}-1.5.0-systemd-socket.patch"
-
-	# revert ipp backend to 1.4 state, as ubuntu and debian
-	epatch "${DISTDIR}/${PN}-1.5.2-ipp-r8950.patch.bz2"
-
-	# avahi support from debian
-	epatch "${DISTDIR}/${PN}-1.5.2-avahi.patch.bz2"
-
-	# browsing off by default
-	epatch "${FILESDIR}/${PN}-1.5.2-browsing.patch"
-
-	# Dan's group fix
-	epatch "${FILESDIR}/${PN}-1.5.0-group_fix.patch"
-
+	base_src_prepare
 	AT_M4DIR=config-scripts eaclocal
 	eautoconf
 }
@@ -240,6 +240,10 @@ src_install() {
 		popd > /dev/null
 	fi
 
+	# move the default config file to docs
+	dodoc "${ED}"/etc/cups/cupsd.conf.default
+	rm -f "${ED}"/etc/cups/cupsd.conf.default
+
 	# clean out cups init scripts
 	rm -rf "${ED}"/etc/{init.d/cups,rc*,pam.d/cups}
 
@@ -297,7 +301,7 @@ pkg_postinst() {
 	elog "take a look at: http://www.gentoo.org/doc/en/printing-howto.xml"
 	echo
 	elog "Network browsing for printers is now switched off by default in the config file."
-	elog "To (re-)enable it, edit /etc/cupsd.conf and set \"Browsing On\", "
+	elog "To (re-)enable it, edit /etc/cups/cupsd.conf and set \"Browsing On\", "
 	elog "afterwards re-start or reload cups."
 	echo
 }
