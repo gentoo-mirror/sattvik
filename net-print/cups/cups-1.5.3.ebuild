@@ -1,30 +1,36 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.5.2-r4.ebuild,v 1.13 2012/06/01 04:19:51 zmedico Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.5.3.ebuild,v 1.1 2012/06/02 18:06:35 dilfridge Exp $
 
 EAPI=4
 
 PYTHON_DEPEND="python? 2:2.5"
 
-inherit autotools eutils fdo-mime gnome2-utils flag-o-matic linux-info multilib pam perl-module python user versionator java-pkg-opt-2
+inherit autotools base fdo-mime gnome2-utils flag-o-matic linux-info multilib pam perl-module python user versionator java-pkg-opt-2 systemd
 
 MY_P=${P/_}
 MY_PV=${PV/_}
 
+if [[ "${PV}" != "9999" ]]; then
+	SRC_URI="mirror://easysw/${PN}/${MY_PV}/${MY_P}-source.tar.bz2
+		http://dev.gentoo.org/~dilfridge/distfiles/${P}-avahi.patch.bz2
+	"
+	KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd"
+else
+	inherit subversion
+	ESVN_REPO_URI="http://svn.easysw.com/public/cups/trunk"
+	KEYWORDS=""
+fi
+
 DESCRIPTION="The Common Unix Printing System"
 HOMEPAGE="http://www.cups.org/"
-SRC_URI="mirror://easysw/${PN}/${MY_PV}/${MY_P}-source.tar.bz2
-	http://dev.gentoo.org/~dilfridge/distfiles/${P}-ipp-r8950.patch.bz2
-	http://dev.gentoo.org/~dilfridge/distfiles/${P}-avahi.patch.bz2
-"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha amd64 arm hppa ~ia64 ~m68k ppc ppc64 ~s390 ~sh ~sparc x86"
 IUSE="acl avahi dbus debug +filters gnutls java +jpeg kerberos ldap pam perl
-	+png python slp +ssl static-libs +threads +tiff usb X xinetd"
+	+png python slp +ssl static-libs systemd +threads +tiff usb X xinetd"
 
-LANGS="da de es eu fi fr id it ja ko nl no pl pt pt_BR ru sv zh zh_TW"
+LANGS="da de es eu fi fr hu id it ja ko nl no pl pt pt_BR ru sv zh zh_TW"
 for X in ${LANGS} ; do
 	IUSE="${IUSE} linguas_${X}"
 done
@@ -54,6 +60,7 @@ RDEPEND="
 		)
 		!gnutls? ( >=dev-libs/openssl-0.9.8g )
 	)
+	systemd? ( sys-apps/systemd )
 	tiff? ( >=media-libs/tiff-3.5.5:0 )
 	usb? ( virtual/libusb:0 )
 	X? ( x11-misc/xdg-utils )
@@ -76,6 +83,19 @@ REQUIRED_USE="gnutls? ( ssl )"
 RESTRICT="test"
 
 S="${WORKDIR}/${MY_P}"
+
+PATCHES=(
+	"${FILESDIR}/${PN}-1.4.4-dont-compress-manpages.patch"
+	"${FILESDIR}/${PN}-1.5.3-fix-install-perms.patch"
+	"${FILESDIR}/${PN}-1.4.4-nostrip.patch"
+	"${FILESDIR}/${PN}-1.4.4-php-destdir.patch"
+	"${FILESDIR}/${PN}-1.4.4-perl-includes.patch"
+	"${FILESDIR}/${PN}-1.5.2-linkperl.patch"
+	"${FILESDIR}/${PN}-1.5.0-systemd-socket.patch"		# systemd support
+	"${WORKDIR}/${PN}-1.5.3-avahi.patch"			# avahi support from debian
+	"${FILESDIR}/${PN}-1.5.2-browsing.patch"		# browsing off by default
+	"${FILESDIR}/${PN}-1.5.0-group_fix.patch"       # Dan's group fix
+)
 
 pkg_setup() {
 	enewgroup lp
@@ -126,28 +146,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	# various build time fixes
-	epatch "${FILESDIR}/${PN}-1.4.4-dont-compress-manpages.patch"
-	epatch "${FILESDIR}/${PN}-1.4.4-fix-install-perms.patch"
-	epatch "${FILESDIR}/${PN}-1.4.4-nostrip.patch"
-	epatch "${FILESDIR}/${PN}-1.4.4-php-destdir.patch"
-	epatch "${FILESDIR}/${PN}-1.4.4-perl-includes.patch"
-	epatch "${FILESDIR}/${PN}-1.5.2-linkperl.patch"
-	epatch "${FILESDIR}/${PN}-1.5.2-threads.patch"
-	epatch "${FILESDIR}/${PN}-1.5.2-threads2.patch"
-
-	# revert ipp backend to 1.4 state, as ubuntu and debian
-	epatch "${DISTDIR}/${PN}-1.5.2-ipp-r8950.patch.bz2"
-
-	# avahi support from debian
-	epatch "${DISTDIR}/${PN}-1.5.2-avahi.patch.bz2"
-
-	# browsing off by default
-	epatch "${FILESDIR}/${PN}-1.5.2-browsing.patch"
-
-	# Dan's group fix
-	epatch "${FILESDIR}/${PN}-1.5.0-group_fix.patch"
-
+	base_src_prepare
 	AT_M4DIR=config-scripts eaclocal
 	eautoconf
 }
@@ -205,6 +204,7 @@ src_configure() {
 		$(use_with xinetd xinetd /etc/xinetd.d) \
 		--enable-libpaper \
 		--disable-dnssd \
+		$(use_with systemd systemdsystemunitdir "$(systemd_get_unitdir)") \
 		${myconf}
 
 	# install in /usr/libexec always, instead of using /usr/lib/cups, as that
@@ -234,6 +234,10 @@ src_install() {
 		fixlocalpod
 		popd > /dev/null
 	fi
+
+	# move the default config file to docs
+	dodoc "${ED}"/etc/cups/cupsd.conf.default
+	rm -f "${ED}"/etc/cups/cupsd.conf.default
 
 	# clean out cups init scripts
 	rm -rf "${ED}"/etc/{init.d/cups,rc*,pam.d/cups}
