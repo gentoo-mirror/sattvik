@@ -1,23 +1,19 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.5.2-r21.ebuild,v 1.5 2012/06/01 04:19:51 zmedico Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.6.1.ebuild,v 1.1 2012/07/31 08:19:38 dilfridge Exp $
 
 EAPI=4
 
 PYTHON_DEPEND="python? 2:2.5"
 
-inherit autotools base fdo-mime gnome2-utils flag-o-matic linux-info multilib pam perl-module python user versionator java-pkg-opt-2 systemd
+inherit autotools base fdo-mime gnome2-utils flag-o-matic linux-info multilib pam python user versionator java-pkg-opt-2 systemd
 
-MY_P=${P/_}
-MY_PV=${PV/_}
+MY_P=${P/_beta/b}
+MY_PV=${PV/_beta/b}
 
 if [[ "${PV}" != "9999" ]]; then
-	SRC_URI="mirror://easysw/${PN}/${MY_PV}/${MY_P}-source.tar.bz2
-		http://dev.gentoo.org/~dilfridge/distfiles/${P}-ipp-r8950.patch.bz2
-		http://dev.gentoo.org/~dilfridge/distfiles/${P}-avahi.patch.bz2
-		http://dev.gentoo.org/~dilfridge/distfiles/${P}-locales.patch.xz
-	"
-	KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~m68k ~ppc ~s390 ~sh ~sparc ~x86 ~amd64-fbsd"
+	SRC_URI="mirror://easysw/${PN}/${MY_PV}/${MY_P}-source.tar.bz2"
+	KEYWORDS="~amd64 ~mips ~x86"
 else
 	inherit subversion
 	ESVN_REPO_URI="http://svn.easysw.com/public/cups/trunk"
@@ -29,10 +25,10 @@ HOMEPAGE="http://www.cups.org/"
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE="acl avahi dbus debug +filters gnutls java +jpeg kerberos ldap pam perl
-	+png python slp +ssl static-libs systemd +threads +tiff usb X xinetd"
+IUSE="acl avahi dbus debug +filters gnutls java kerberos pam
+	python selinux +ssl static-libs systemd +threads usb X xinetd zeroconf"
 
-LANGS="da de es eu fi fr id it ja ko nl no pl pt pt_BR ru sv zh zh_TW"
+LANGS="ca es ja"
 for X in ${LANGS} ; do
 	IUSE="${IUSE} linguas_${X}"
 done
@@ -48,13 +44,9 @@ RDEPEND="
 	avahi? ( net-dns/avahi )
 	dbus? ( sys-apps/dbus )
 	java? ( >=virtual/jre-1.6 )
-	jpeg? ( virtual/jpeg:0 )
 	kerberos? ( virtual/krb5 )
-	ldap? ( net-nds/openldap[ssl?,gnutls?] )
 	pam? ( virtual/pam )
-	perl? ( dev-lang/perl )
-	png? ( >=media-libs/libpng-1.4.3:0 )
-	slp? ( >=net-libs/openslp-1.0.4 )
+	selinux? ( sec-policy/selinux-cups )
 	ssl? (
 		gnutls? (
 			dev-libs/libgcrypt
@@ -63,10 +55,10 @@ RDEPEND="
 		!gnutls? ( >=dev-libs/openssl-0.9.8g )
 	)
 	systemd? ( sys-apps/systemd )
-	tiff? ( >=media-libs/tiff-3.5.5:0 )
 	usb? ( virtual/libusb:0 )
 	X? ( x11-misc/xdg-utils )
 	xinetd? ( sys-apps/xinetd )
+	zeroconf? ( net-dns/avahi[mdnsresponder-compat] )
 "
 
 DEPEND="${RDEPEND}
@@ -76,6 +68,7 @@ DEPEND="${RDEPEND}
 PDEPEND="
 	app-text/ghostscript-gpl[cups]
 	>=app-text/poppler-0.12.3-r3[utils]
+	net-print/cups-filters
 	filters? ( net-print/foomatic-filters )
 "
 
@@ -87,19 +80,11 @@ RESTRICT="test"
 S="${WORKDIR}/${MY_P}"
 
 PATCHES=(
-	"${FILESDIR}/${PN}-1.4.4-dont-compress-manpages.patch"
-	"${FILESDIR}/${PN}-1.4.4-fix-install-perms.patch"
+	"${FILESDIR}/${PN}-1.6.0-dont-compress-manpages.patch"
+	"${FILESDIR}/${PN}-1.6.0-fix-install-perms.patch"
 	"${FILESDIR}/${PN}-1.4.4-nostrip.patch"
-	"${FILESDIR}/${PN}-1.4.4-php-destdir.patch"
-	"${FILESDIR}/${PN}-1.4.4-perl-includes.patch"
-	"${FILESDIR}/${PN}-1.5.2-linkperl.patch"
-	"${FILESDIR}/${PN}-1.5.2-threads.patch"
-	"${FILESDIR}/${PN}-1.5.2-threads2.patch"
 	"${FILESDIR}/${PN}-1.5.0-systemd-socket.patch"		# systemd support
-	"${WORKDIR}/${PN}-1.5.2-ipp-r8950.patch"		# revert ipp backend to 1.4 state
-	"${WORKDIR}/${PN}-1.5.2-avahi.patch"			# avahi support from debian
 	"${FILESDIR}/${PN}-1.5.2-browsing.patch"		# browsing off by default
-	"${WORKDIR}/${PN}-1.5.2-locales.patch"			# patch locales back into existence
 	"${FILESDIR}/${PN}-1.5.0-group_fix.patch"       # Dan's group fix
 )
 
@@ -186,30 +171,24 @@ src_configure() {
 		--with-cups-group=lp \
 		--with-docdir=/usr/share/cups/html \
 		--with-languages="${LINGUAS}" \
-		--with-pdftops=/usr/bin/pdftops \
 		--with-system-groups=lpadmin \
 		$(use_enable acl) \
 		$(use_enable avahi) \
 		$(use_enable dbus) \
 		$(use_enable debug) \
 		$(use_enable debug debug-guards) \
-		$(use_enable jpeg) \
 		$(use_enable kerberos gssapi) \
-		$(use_enable ldap) \
 		$(use_enable pam) \
-		$(use_enable png) \
-		$(use_enable slp) \
 		$(use_enable static-libs static) \
 		$(use_enable threads) \
-		$(use_enable tiff) \
 		$(use_enable usb libusb) \
+		$(use_enable zeroconf dnssd) \
 		$(use_with java) \
-		$(use_with perl) \
+		--without-perl \
 		--without-php \
 		$(use_with python) \
 		$(use_with xinetd xinetd /etc/xinetd.d) \
 		--enable-libpaper \
-		--disable-dnssd \
 		$(use_with systemd systemdsystemunitdir "$(systemd_get_unitdir)") \
 		${myconf}
 
@@ -220,26 +199,12 @@ src_configure() {
 	sed -i -e 's:cups_serverbin=.*:cups_serverbin=/usr/libexec/cups:' cups-config || die
 }
 
-src_compile() {
-	emake
-
-	if use perl ; then
-		cd "${S}"/scripting/perl
-		perl-module_src_prep
-		perl-module_src_compile
-	fi
-}
-
 src_install() {
+	# Fix install-sh, posix sh does not have 'function'.
+	sed 's#function gzipcp#gzipcp()#g' -i "${S}/install-sh"
+
 	emake BUILDROOT="${D}" install
 	dodoc {CHANGES,CREDITS,README}.txt
-
-	if use perl ; then
-		pushd scripting/perl > /dev/null
-		perl-module_src_install
-		fixlocalpod
-		popd > /dev/null
-	fi
 
 	# move the default config file to docs
 	dodoc "${ED}"/etc/cups/cupsd.conf.default
@@ -286,6 +251,10 @@ src_install() {
 
 	# create /etc/cups/client.conf, bug #196967 and #266678
 	echo "ServerName /var/run/cups/cups.sock" >> "${ED}"/etc/cups/client.conf
+
+	# the following files are now provided by cups-filters:
+	rm -r "${ED}"/usr/share/cups/banners || die
+	rm -r "${ED}"/usr/share/cups/data/testprint || die
 }
 
 pkg_preinst() {

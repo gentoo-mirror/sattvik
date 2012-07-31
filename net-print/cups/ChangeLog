@@ -2,6 +2,17 @@
 # Copyright 1999-2012 Gentoo Foundation; Distributed under the GPL v2
 # $Header: /var/cvsroot/gentoo-x86/net-print/cups/ChangeLog,v 1.454 2012/02/08 14:51:03 jer Exp $
 
+*cups-1.6.1 (31 Jul 2012)
+
+  31 Jul 2012; Daniel Solano Gómez <gentoo@sattvik.com>
+  -files/cups-1.4.0-backend-https.patch, -files/cups-1.4.1-group_fix.patch,
+  -files/cups-1.4.2-str3200.patch, -files/cups-1.4.6-force-gnutls.patch,
+  -files/cups-1.4.6-serialize-gnutls.patch, -cups-1.4.8-r1.ebuild,
+  -cups-1.4.8-r23.ebuild, -files/cups-1.4.8-CVE-2011-3170.patch,
+  -files/cups-1.4.8-largeimage.patch, cups-1.5.2-r4.ebuild,
+  -cups-1.5.2-r21.ebuild, cups-1.5.3.ebuild, +cups-1.6.1.ebuild:
+  Sync up with portage
+
 *cups-1.5.2-r21 (27 May 2012)
 
   27 May 2012; Daniel Solano Gómez <gentoo@sattvik.com> cups-1.5.2-r4.ebuild,
