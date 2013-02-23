@@ -1,0 +1,3 @@
+USE="X alsa cups jpeg opengl png"
+
+# vim:set ft=gentoo-make-conf:

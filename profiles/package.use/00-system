@@ -1,0 +1,8 @@
+# install motd/mail/lastlog pam modules
+sys-auth/pambase -cracklib -minimal mktemp passwdqc
+
+# install terminfo files
+sys-libs/ncurses -minimal
+
+# use openssh by default
+virtual/ssh -minimal

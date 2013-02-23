@@ -1,0 +1,3 @@
+USE="-berkdb -gdbm -gstreamer -introspection minimal -pcre -perl -python -tcpd truetype vim-syntax xattr zsh-completion"
+
+# vim:set ft=gentoo-make-conf:
