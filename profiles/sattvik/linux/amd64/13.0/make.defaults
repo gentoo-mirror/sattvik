@@ -10,7 +10,7 @@ FCFLAGS="${FFLAGS}"
 
 PORTAGE_ELOG_CLASSES="*"
 PORTAGE_ELOG_SYSTEM="save mail:warn,error,log echo"
-PORTAGE_ELOG_MAILURI="root /usr/bin/sendmail"
+PORTAGE_ELOG_MAILURI="root /usr/sbin/sendmail"
 PORTAGE_ELOG_MAILFROM="portage"
 PORTAGE_ELOG_MAILSUBJECT="[portage] \${HOST}: \${ACTION} \${PACKAGE}"
 
