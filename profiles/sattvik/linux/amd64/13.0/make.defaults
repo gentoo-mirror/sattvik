@@ -2,7 +2,7 @@ ACCEPT_KEYWORDS="~amd64"
 CFLAGS="-march=native -O2 -pipe -frecord-gcc-switches"
 CXXFLAGS="${CFLAGS}"
 PORT_LOGDIR=/var/log/portage
-EMERGE_DEFAULT_OPTS="--verbose --keep-going --autounmask --autounmask-unrestricted-atoms --complete-graph --fail-clean --ask --backtrack=50 --changed-use"
+EMERGE_DEFAULT_OPTS="--verbose --keep-going --autounmask --autounmask-unrestricted-atoms --complete-graph --fail-clean --ask --backtrack=50"
 PORTAGE_IONICE_COMMAND="ionice -c 3 -p \${PID}"
 FEATURES="candy compress-build-logs downgrade-backup ebuild-locks fakeroot fail-clean news parallel-fetch protect-owned sandbox sfperms strict unmerge-backup unmerge-orphans unknown-features-warn userfetch userpriv usersandbox usersync xattr"
 FFLAGS="${CFLAGS}"
