@@ -1,9 +1,7 @@
 #!/bin/bash
 
-overpatch() {
-	echo "funcname is: ${FUNCNAME[1]}"
-}
-
 post_src_unpack() {
-	overpatch
+	local patches_overlay_dir patches patch locksuffix
+	echo "cwd: $cwd"
+	echo "0: $0"
 }
