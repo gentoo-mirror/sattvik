@@ -1,44 +1,5 @@
-From dd5777f08ffc2f0e8a2620f635cbec3393b4dd6b Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Daniel=20Solano=20G=C3=B3mez?= <daniel@solanogomez.org>
-Date: Fri, 5 Apr 2013 19:13:12 -0500
-Subject: [PATCH] Add DHCPv6 support via dhclient
-
-This adds DHCPv6 support to OpenRC using dhclient as outlined by Stuart
-Longland at <http://stuartl.longlandclan.yi.org/blog/2011/02/15/gentoo-and-dhcpv6/>.
-The main place where the new support is added is via a modified copy of
-the dhclient.sh script that:
-
-- Renames functions using a 'v6' suffix
-- Uses a different pid file
-- Uses the '-6' argument when invoking dhclient
-- Recognizes new DHCPv6-specific configuration variables with a fallback
-  to the DHCP configuration variables.
-
-Additionally:
-
-1. The iproute2 and Linux ifconfig scripts have been ammended to be able
-to return IPv6 addresses using new '_get_inet6_address' and
-'_get_inet6_addresses' functions.
-
-2. The 'net.lo' init script now has a '_show_address6' function.
-
-3. The documentation in the Linux net.example now contains some DHCPv6
-information.
-
-Reported-by: Dustin C. Hatch <admiralnemo@gmail.com>
-x-Gentoo-Bug: 150908
-x-Gentoo-Bug-URL: https://bugs.gentoo.org/show_bug.cgi?id=150908
----
- doc/net.example.Linux.in | 35 +++++++++++++++++++++
- init.d/net.lo.in         |  5 +++
- net/dhclientv6.sh        | 79 ++++++++++++++++++++++++++++++++++++++++++++++++
- net/ifconfig.sh.Linux.in | 26 ++++++++++++++--
- net/iproute2.sh          | 19 ++++++++++--
- 5 files changed, 159 insertions(+), 5 deletions(-)
- create mode 100644 net/dhclientv6.sh
-
 diff --git a/doc/net.example.Linux.in b/doc/net.example.Linux.in
-index d8fa084..540fe75 100644
+index f050c2a..a0d9435 100644
 --- a/doc/net.example.Linux.in
 +++ b/doc/net.example.Linux.in
 @@ -473,6 +473,41 @@
@@ -84,10 +45,10 @@ index d8fa084..540fe75 100644
  
  # APIPA is a module that tries to find a free address in the range
 diff --git a/init.d/net.lo.in b/init.d/net.lo.in
-index cc3bfd0..f6031bd 100644
+index d42b5ae..2d6d4fb 100644
 --- a/init.d/net.lo.in
 +++ b/init.d/net.lo.in
-@@ -214,6 +214,11 @@ _show_address()
+@@ -211,6 +211,11 @@ _show_address()
  	einfo "received address $(_get_inet_address "${IFACE}")"
  }
  
@@ -185,7 +146,7 @@ index 0000000..0d36bd0
 +	eend $?
 +}
 diff --git a/net/ifconfig.sh.Linux.in b/net/ifconfig.sh.Linux.in
-index 2afa66c..80aeb1d 100644
+index 19e5c35..739e63a 100644
 --- a/net/ifconfig.sh.Linux.in
 +++ b/net/ifconfig.sh.Linux.in
 @@ -86,21 +86,41 @@ _get_inet_address()
@@ -270,6 +231,3 @@ index 3bab7b7..81fefae 100644
  _add_address()
  {
  	if [ "$1" = "127.0.0.1/8" -a "${IFACE}" = "lo" ]; then
--- 
-1.8.1.2
-
