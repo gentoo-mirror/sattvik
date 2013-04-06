@@ -12,16 +12,16 @@ sattvik_profile_patches() {
 				patches_dirs+=("$patches_dir")
 			fi
 		done
-	
+
 		local idx
 		local -a rev_patches_dirs
 		for (( idx=${#patches_dirs[@]}-1 ; idx>=0 ; idx-- )); do
 			rev_patches_dirs+=("${patches_dirs[idx]}")
 		done
-	
+
 		local applied="${T}/sattvik_patch.log"
 		[[ -e ${applied} ]] && return 2
-	
+
 		local patches_dir
 		for patches_dir in "${rev_patches_dirs[@]}"; do
 			local EPATCH_SOURCE check
@@ -40,7 +40,7 @@ sattvik_profile_patches() {
 				fi
 			done
 		done
-	
+
 		echo "none" > "${applied}"
 		return 1
 	fi
