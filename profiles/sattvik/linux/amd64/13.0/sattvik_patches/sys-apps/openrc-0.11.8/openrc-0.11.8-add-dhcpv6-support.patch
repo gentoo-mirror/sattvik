@@ -62,10 +62,10 @@ index d42b5ae..2d6d4fb 100644
  {
 diff --git a/net/dhclientv6.sh b/net/dhclientv6.sh
 new file mode 100644
-index 0000000..0d36bd0
+index 0000000..f87ed4d
 --- /dev/null
 +++ b/net/dhclientv6.sh
-@@ -0,0 +1,79 @@
+@@ -0,0 +1,82 @@
 +# Copyright (c) 2007-2008 Roy Marples <roy@marples.name>
 +# Released under the 2-clause BSD license.
 +
@@ -108,7 +108,10 @@ index 0000000..0d36bd0
 +		local hname="$(hostname)"
 +		if [ "${hname}" != "(none)" -a "${hname}" != "localhost" ]; then
 +			dhconf="${dhconf} interface \"${IFACE}\" {"
-+			dhconf="${dhconf} send host-name \"${hname}\";"
++			dhconf="${dhconf} send fqdn.fqdn \"${hname}\";"
++			dhconf="${dhconf} send fqdn.encoded on;"
++			dhconf="${dhconf} send fqdn.server-update on;"
++			dhconf="${dhconf} send fqdn.no-client-update on;"
 +			dhconf="${dhconf}}"
 +		fi
 +	fi
