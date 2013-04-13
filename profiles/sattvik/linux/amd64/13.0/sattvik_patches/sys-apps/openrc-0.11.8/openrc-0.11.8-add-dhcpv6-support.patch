@@ -60,6 +60,19 @@ index d42b5ae..2d6d4fb 100644
  # Basically sorts our modules into order and saves the list
  _gen_module_list()
  {
+diff --git a/net/Makefile b/net/Makefile
+index cc24a80..7bde5e1 100644
+--- a/net/Makefile
++++ b/net/Makefile
+@@ -13,7 +13,7 @@ SRCS-Linux=	iwconfig.sh.in
+ INC-Linux=	adsl.sh apipa.sh arping.sh bonding.sh br2684ctl.sh bridge.sh \
+ 		ccwgroup.sh clip.sh ethtool.sh iproute2.sh ifplugd.sh ip6to4.sh \
+ 		ipppd.sh iwconfig.sh netplugd.sh pppd.sh pump.sh tuntap.sh udhcpc.sh \
+-		vlan.sh macvlan.sh ip6rd.sh firewalld.sh
++		vlan.sh macvlan.sh ip6rd.sh firewalld.sh dhclientv6.sh
+ 
+ SRCS-NetBSD=
+ INC-NetBSD=	ifwatchd.sh
 diff --git a/net/dhclientv6.sh b/net/dhclientv6.sh
 new file mode 100644
 index 0000000..f87ed4d
