@@ -36,7 +36,7 @@ src_prepare() {
 }
 
 src_install() {
-	cp -pPR opt/* "${ED}/opt/" || die
+	cp -pPR opt "${ED}/opt/" || die
 }
 
 pkg_postinst() {
