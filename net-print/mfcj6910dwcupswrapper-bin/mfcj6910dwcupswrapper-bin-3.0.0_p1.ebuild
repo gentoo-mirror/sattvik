@@ -4,7 +4,7 @@
 
 EAPI=5
 
-inherit unpacker
+inherit unpacker eutils
 
 MY_PV="${PV/_p/-}"
 
