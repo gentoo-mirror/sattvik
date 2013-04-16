@@ -8,14 +8,14 @@ inherit unpacker
 
 MY_PV="${PV/_p/-}"
 
-DESCRIPTION="PPD files for Brother MFC-J6910DW"
+DESCRIPTION="LPR driver for Brother MFC-J6910DW printers"
 HOMEPAGE="http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/index.html"
-SRC_URI="http://www.brother.com/pub/bsc/linux/dlf/mfcj6910dwlpr-${MY_PV}.i386.deb"
+SRC_URI="http://www.brother.com/pub/bsc/linux/dlf/${PN/-bin/}-${MY_PV}.i386.deb"
 
 RESTRICT="mirror"
 QA_PREBUILT=".*"
 
-LICENSE="Brother-EULA"
+LICENSE="metapackage"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
@@ -26,7 +26,7 @@ RDEPEND=""
 S="${WORKDIR}"
 
 src_unpack() {
-	unpack_deb "${A}"
+	unpack_deb ${A}
 }
 
 src_install() {
