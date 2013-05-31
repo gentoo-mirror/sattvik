@@ -6,7 +6,7 @@ FCFLAGS="${FFLAGS}"
 PORT_LOGDIR=/var/log/portage
 EMERGE_DEFAULT_OPTS="--verbose --keep-going --autounmask --autounmask-unrestricted-atoms --complete-graph --fail-clean --ask --backtrack=50"
 PORTAGE_IONICE_COMMAND="ionice -c 3 -p \${PID}"
-FEATURES="candy compress-build-logs downgrade-backup ebuild-locks fakeroot fail-clean news parallel-fetch protect-owned sandbox sfperms strict unmerge-backup unmerge-orphans unknown-features-warn userfetch userpriv usersandbox usersync xattr"
+FEATURES="candy compress-build-logs ebuild-locks fakeroot fail-clean news parallel-fetch protect-owned sandbox sfperms strict unmerge-orphans unknown-features-warn userfetch userpriv usersandbox usersync xattr"
 
 PORTAGE_ELOG_CLASSES="*"
 PORTAGE_ELOG_SYSTEM="save mail:warn,error,log echo"
