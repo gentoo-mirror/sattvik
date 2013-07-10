@@ -32,7 +32,7 @@ src_prepare() {
 		-e "s,share/doc/\$(self),share/doc/${PF}," \
 		Makefile || die
 	sed -i \
-		-e 's,/etc/vcsh/config,@GENTOO_PORTAGE_EPREFIX@&,' \
+		-e 's,/etc/vcsh/config,@GENTOO_PORTAGE_EPREFIX@&,g' \
 		vcsh || die
 	eprefixify vcsh
 }
