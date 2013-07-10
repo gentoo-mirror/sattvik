@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit eutils
+inherit eutils prefix
 
 GITHUB_ID=6426f33
 
@@ -14,7 +14,7 @@ SRC_URI="http://github.com/RichiH/vcsh/tarball/v${PV} -> ${P}.tar.gz"
 
 LICENSE="|| ( GPL-3 GPL-2 )"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~amd64-linux"
 IUSE=""
 
 RDEPEND="dev-vcs/git"
@@ -31,4 +31,8 @@ src_prepare() {
 		-e 's,vendor-completions,site-functions,' \
 		-e "s,share/doc/\$(self),share/doc/${PF}," \
 		Makefile || die
+	sed -i \
+		-e 's,/etc/vcsh/config,@GENTOO_PORTAGE_EPREFIX@&,' \
+		vcsh || die
+	eprefixify vcsh
 }
