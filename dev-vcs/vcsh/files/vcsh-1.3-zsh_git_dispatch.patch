@@ -1,0 +1,13 @@
+diff --unified -Naur RichiH-vcsh-6426f33.orig/_vcsh RichiH-vcsh-6426f33/_vcsh
+--- RichiH-vcsh-6426f33.orig/_vcsh	2013-05-27 16:37:45.000000000 -0500
++++ RichiH-vcsh-6426f33/_vcsh	2013-07-10 10:07:09.302707991 -0500
+@@ -114,8 +114,7 @@
+ 			if ! (( ${+functions[_vcsh-$vcshcommand]} )); then
+ 				# There is no handler function, so this is probably the name
+ 				# of a repository. Act accordingly.
+-				_message "git sub-command"
+-				#TODO and now we need to complete on git subcommands
++				_dispatch git git
+ 			else
+ 				curcontext="${curcontext%:*:*}:vcsh-${vcshcommand}:"
+ 				_call_function ret _vcsh-${vcshcommand}
