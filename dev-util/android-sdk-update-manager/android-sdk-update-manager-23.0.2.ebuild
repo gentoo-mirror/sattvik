@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit eutils user udev multilib
+inherit eutils user udev
 
 MY_P="android-sdk_r${PV}-linux"
 
