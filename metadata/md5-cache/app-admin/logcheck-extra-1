@@ -1,0 +1,11 @@
+DEFINED_PHASES=install unpack
+DEPEND=app-admin/logcheck
+DESCRIPTION=Extra helper files for app-admin/logcheck
+EAPI=4
+HOMEPAGE=na
+KEYWORDS=x86 amd64
+LICENSE=BSD
+RDEPEND=app-admin/logcheck
+SLOT=0
+_eclass_exported_funcs=src_unpack:- src_install:-
+_md5_=30a7533238f62a5123a94c82b7606319
