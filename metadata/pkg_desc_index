@@ -1,8 +1,7 @@
 app-admin/logcheck-extra 1: Extra helper files for app-admin/logcheck
 app-backup/amanda 3.3.3-r1: The Advanced Maryland Automatic Network Disk Archiver
+app-backup/tarsnap 1.0.37: Online backups for the truly paranoid
 app-misc/todotxt 2.9: A simple and extensible shell script for managing your todo.txt file.
-dev-util/android-sdk-update-manager 23.0.2: Open Handset Alliance's Android SDK
 dev-util/bear 9999: Bear is a tool to generate compilation databases for clang tooling.
-media-sound/apulse 0.1.2-r2: PulseAudio emulation for ALSA
 net-print/mfcj6910dwcupswrapper-bin 3.0.0_p1-r1: CUPS wrapper for the Brother MFC-J6910DW LPR drivers
 net-print/mfcj6910dwlpr-bin 3.0.0_p1: LPR driver for Brother MFC-J6910DW printers
