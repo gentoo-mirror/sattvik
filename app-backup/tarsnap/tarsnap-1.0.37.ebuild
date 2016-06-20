@@ -11,7 +11,7 @@ SRC_URI="https://www.tarsnap.com/download/${PN}-autoconf-${PV}.tgz"
 LICENSE="tarsnap"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="acl bzip2 libressl lzma cpu_flags_x86_sse2 xattr"
+IUSE="acl bzip2 libressl lzma xattr"
 
 RDEPEND="
 	!libressl? ( dev-libs/openssl:0= )
@@ -29,7 +29,6 @@ S=${WORKDIR}/${PN}-autoconf-${PV}
 
 src_configure() {
 	econf \
-		$(use_enable cpu_flags_x86_sse2 sse2) \
 		$(use_enable xattr) \
 		$(use_enable acl) \
 		$(use_with bzip2 bz2lib) \
