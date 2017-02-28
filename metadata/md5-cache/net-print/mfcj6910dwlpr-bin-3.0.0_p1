@@ -8,5 +8,5 @@ RESTRICT=mirror
 SLOT=0
 SRC_URI=http://www.brother.com/pub/bsc/linux/dlf/mfcj6910dwlpr-3.0.0-1.i386.deb
 _eclass_exported_funcs=src_unpack:- src_install:-
-_eclasses_=unpacker	45d07319df5f40ee6af58418b0f930be
+_eclasses_=unpacker	76ddf385f3c212c12857bb8ec2a8bd35
 _md5_=cacff83934aebbf9f10b012fb0bfbffa
