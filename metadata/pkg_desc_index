@@ -3,6 +3,8 @@ app-backup/acts 1.2: Another Calendar-based Tarsnap Script
 app-backup/amanda 3.3.3-r1: The Advanced Maryland Automatic Network Disk Archiver
 app-backup/tarsnap 1.0.37: Online backups for the truly paranoid
 app-misc/todotxt 2.9: A simple and extensible shell script for managing your todo.txt file.
+dev-python/awscli 1.11.85: Universal Command Line Environment for AWS
+dev-python/colorama 0.3.7: ANSI escape character sequences for colored terminal text & cursor positioning
 dev-util/bear 9999: Bear is a tool to generate compilation databases for clang tooling.
 net-print/mfcj6910dwcupswrapper-bin 3.0.0_p1-r1: CUPS wrapper for the Brother MFC-J6910DW LPR drivers
 net-print/mfcj6910dwlpr-bin 3.0.0_p1: LPR driver for Brother MFC-J6910DW printers
