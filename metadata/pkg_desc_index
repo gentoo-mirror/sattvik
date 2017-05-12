@@ -2,6 +2,7 @@ app-admin/logcheck-extra 1: Extra helper files for app-admin/logcheck
 app-backup/acts 1.2: Another Calendar-based Tarsnap Script
 app-backup/amanda 3.3.3-r1: The Advanced Maryland Automatic Network Disk Archiver
 app-backup/tarsnap 1.0.37: Online backups for the truly paranoid
+app-emulation/vagrant-bin 1.9.4: Tool for building and distributing virtual machines
 app-misc/todotxt 2.9: A simple and extensible shell script for managing your todo.txt file.
 dev-python/awscli 1.11.85: Universal Command Line Environment for AWS
 dev-python/colorama 0.3.7: ANSI escape character sequences for colored terminal text & cursor positioning
