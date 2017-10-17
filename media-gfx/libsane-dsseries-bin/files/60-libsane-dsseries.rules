@@ -1,0 +1,2 @@
+# Brother DS-720D
+ATTRS{idVendor}=="04f9", ATTRS{idProduct}=="60e2", MODE="0664", GROUP="scanner", ENV{libsane_matched}="yes"

@@ -26,13 +26,6 @@ S="${WORKDIR}"
 
 src_unpack() {
 	unpack_deb ${A}
-	echo > dsseries.conf <<EOF
-dsseries
-EOF
-	echo > 60-libsane-brother-dsseries.rules <<EOF
-# Brother DS-720D
-ATTRS{idVendor}=="04f9", ATTRS{idProduct}=="60e2", MODE="0664", GROUP="scanner", ENV{libsane_matched}="yes"
-EOF
 }
 
 src_install() {
@@ -46,10 +39,10 @@ src_install() {
 
 	insinto /etc/sane.d/dll.d
 	insopts -m0644
-	doins dsseries.conf
+	doins "${FILESDIR}/dsseries.conf"
 
 	insinto /etc/sane.d
 	doins "usr/lib/tmp_DSDriver/dsseries.conf"
 
-	udev_dorules 60-libsane-brother-dsseries.rules
+	udev_dorules "${FILESDIR}/60-libsane-dsseries.rules"
 }
