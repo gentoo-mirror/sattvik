@@ -4,6 +4,7 @@ app-emulation/vagrant-bin 1.9.4: Tool for building and distributing virtual mach
 app-misc/todotxt 2.9: A simple and extensible shell script for managing your todo.txt file.
 dev-java/boot-bin 2.7.2: Build tooling for Clojure
 dev-python/click-log 0.2.1: Logging integration for Click.
+dev-python/click-threading 0.4.4: Multithreaded Click apps made easy.
 dev-util/bear 9999: Bear is a tool to generate compilation databases for clang tooling.
 media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scanners
 net-print/mfcj6910dwcupswrapper-bin 3.0.0_p1-r1: CUPS wrapper for the Brother MFC-J6910DW LPR drivers
