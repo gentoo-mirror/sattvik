@@ -9,4 +9,7 @@
 		<remote-id type="github">pimutils/vdirsyncer</remote-id>
 		<remote-id type="pypi">vdirsyncer</remote-id>
 	</upstream>
+	<use>
+		<flag name='google'>Adds support for syncing with Google</flag>
+	</use>
 </pkgmetadata>
