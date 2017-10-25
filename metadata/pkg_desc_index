@@ -1,6 +1,7 @@
 app-admin/logcheck-extra 1: Extra helper files for app-admin/logcheck
 app-backup/acts 1.2: Another Calendar-based Tarsnap Script
 app-emulation/vagrant-bin 1.9.4: Tool for building and distributing virtual machines
+app-misc/todoman 3.2.4: A simple CalDav-based todo manager
 dev-java/boot-bin 2.7.2: Build tooling for Clojure
 dev-python/click-log 0.2.1: Logging integration for Click.
 dev-python/click-threading 0.4.4: Multithreaded Click apps made easy.
