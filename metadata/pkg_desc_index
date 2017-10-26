@@ -4,6 +4,7 @@ app-emulation/vagrant-bin 1.9.4: Tool for building and distributing virtual mach
 app-misc/todoman 3.2.4: A simple CalDav-based todo manager
 dev-java/boot-bin 2.7.2: Build tooling for Clojure
 dev-python/click-log 0.2.1: Logging integration for Click.
+dev-python/click-repl 0.1.2: REPL plugin for Click
 dev-python/click-threading 0.4.4: Multithreaded Click apps made easy.
 dev-python/icalendar 3.11.6: Package used for parsing and generating iCalendar files (RFC 2445)
 dev-python/tabulate 0.8.1: Pretty-print tabular data
