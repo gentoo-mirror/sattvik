@@ -43,11 +43,5 @@ DEPEND="${RDEPEND}
 DOCS=( AUTHORS.rst CHANGELOG.rst README.rst todoman.conf.sample )
 
 python_test() {
-# 	# skip tests needing servers running
-# 	local -x DAV_SERVER=skip
-# 	local -x REMOTESTORAGE_SERVER=skip
-# 	# pytest dies hard if the envvars do not have any value...
-# 	local -x CI=false
-# 	local -x DETERMINISTIC_TESTS=false
 	pytest || die "Tests fail with ${EPYTHON}"
 }
