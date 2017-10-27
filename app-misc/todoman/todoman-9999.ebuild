@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/pimutils/todoman"
 EGIT_REPO_URI="https://github.com/pimutils/todoman"
 
 LICENSE="ISC"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 SLOT="0"
 IUSE="bash-completion test"
 
