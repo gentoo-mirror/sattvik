@@ -1,16 +1,1 @@
 app-admin/logcheck-extra 1: Extra helper files for app-admin/logcheck
-app-backup/acts 1.2: Another Calendar-based Tarsnap Script
-app-emulation/vagrant-bin 1.9.4: Tool for building and distributing virtual machines
-app-misc/todoman 3.2.4 9999: A simple CalDav-based todo manager
-dev-java/boot-bin 2.7.2: Build tooling for Clojure
-dev-python/click-log 0.2.1: Logging integration for Click.
-dev-python/click-repl 0.1.2: REPL plugin for Click
-dev-python/click-threading 0.4.4: Multithreaded Click apps made easy.
-dev-python/icalendar 3.11.6: Package used for parsing and generating iCalendar files (RFC 2445)
-dev-python/tabulate 0.8.1: Pretty-print tabular data
-dev-python/vdirsyncer 0.16.3 0.16.3-r1: Synchronize calendars and contacts
-dev-util/bear 9999: Bear is a tool to generate compilation databases for clang tooling.
-media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scanners
-net-print/mfcj6910dwcupswrapper-bin 3.0.0_p1-r1: CUPS wrapper for the Brother MFC-J6910DW LPR drivers
-net-print/mfcj6910dwlpr-bin 3.0.0_p1: LPR driver for Brother MFC-J6910DW printers
-x11-misc/prismatik 5.11.2.13: Prismatik is an open-source software to control Lightpack devices
