@@ -21,7 +21,7 @@ DEPEND="dev-lang/ocaml[ocamlopt?]
 RDEPEND="gtk? ( dev-ml/lablgtk
 	|| ( net-misc/x11-ssh-askpass net-misc/ssh-askpass-fullscreen ) )
 	!net-misc/unison:0
-	app-eselect/eselect-unison"
+	>=app-eselect/eselect-unison-0.4"
 
 #PDEPEND="gtk? ( media-fonts/font-schumacher-misc )"
 
@@ -63,7 +63,7 @@ src_install () {
 	# install manually, since it's just too much
 	# work to force the Makefile to do the right thing.
 	newbin unison unison-${SLOT}
-	dobin unison-fsmonitor
+	newbin unison-fsmonitor unison-fsmonitor-${SLOT}
 	dodoc BUGS.txt CONTRIB INSTALL NEWS \
 		  README ROADMAP.txt TODO.txt
 
