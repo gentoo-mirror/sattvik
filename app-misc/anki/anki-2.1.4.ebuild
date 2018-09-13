@@ -26,7 +26,7 @@ RDEPEND="${PYTHON_DEPS}
 	dev-python/beautifulsoup:4[${PYTHON_USEDEP}]
 	dev-python/decorator[${PYTHON_USEDEP}]
 	dev-python/markdown[${PYTHON_USEDEP}]
-    dev-python/pyaudio[${PYTHON_USEDEP}]
+	dev-python/pyaudio[${PYTHON_USEDEP}]
 	dev-python/requests[${PYTHON_USEDEP}]
 	dev-python/send2trash[${PYTHON_USEDEP}]
 	recording? ( media-sound/lame )
