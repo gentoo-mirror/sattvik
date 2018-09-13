@@ -35,6 +35,8 @@ RDEPEND="${PYTHON_DEPS}
 		app-text/texlive
 		app-text/dvipng
 	)
+	!dev-qt/qtcore:5/5.11
+	!dev-qt/qtgui:5/5.11
 "
 DEPEND="${RDEPEND}
 	test? ( dev-python/nose[${PYTHON_USEDEP}] )
