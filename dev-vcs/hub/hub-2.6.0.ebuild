@@ -15,7 +15,7 @@ RESTRICT="mirror"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc"
+IUSE="bash-completion doc fish-completion zsh-completion"
 
 DEPEND="doc? ( app-text/ronn dev-ruby/bundler )"
 RDEPEND=">=dev-vcs/git-1.7.3"
@@ -64,11 +64,15 @@ src_install() {
 
 	use doc && doman share/man/man1/*.1
 
-	newbashcomp etc/hub.bash_completion.sh hub
+	use bash-completion && newbashcomp etc/hub.bash_completion.sh hub
 
-	insinto /usr/share/fish/completions
-	newins etc/hub.fish_completion hub.fish
+	if use fish-completion; then
+		insinto /usr/share/fish/completions
+		newins etc/hub.fish_completion hub.fish
+	fi
 
-	insinto /usr/share/zsh/site-functions
-	newins etc/hub.zsh_completion _hub
+	if use zsh-completion; then
+		insinto /usr/share/zsh/site-functions
+		newins etc/hub.zsh_completion _hub
+	fi
 }
