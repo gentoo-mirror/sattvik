@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -39,7 +39,7 @@ REQUIRED_USE="
 	vmware-tools-darwin? ( macos-guests )
 	vmware-tools-darwinPre15? ( macos-guests )
 "
-RESTRICT="mirror strip"
+RESTRICT="mirror preserve-libs strip"
 
 BUNDLED_LIBS_DIR=/opt/vmware/lib/vmware/lib
 
@@ -180,6 +180,7 @@ RDEPEND="
 	dev-libs/icu
 	dev-libs/json-c
 	dev-libs/nettle:0/6.2
+	<gnome-base/dconf-0.30.1
 	gnome-base/gconf
 	gnome-base/libgnome-keyring
 	media-gfx/graphite2
@@ -226,6 +227,11 @@ QA_WX_LOAD="opt/vmware/lib/vmware/tools-upgraders/vmware-tools-upgrader-32 opt/v
 # adding "opt/vmware/lib/vmware/lib/libvmware-gksu.so/libvmware-gksu.so" to QA_WX_LOAD doesn't work
 
 src_unpack() {
+	if has usersandbox $FEATURES ; then
+		ewarn "You are emerging ${P} with 'usersandbox' enabled." \
+			"If unpacking fails, try emerging with 'FEATURES=-usersandbox'!"
+	fi
+
 	for a in ${A}; do
 		if [ ${a##*.} == 'bundle' ]; then
 			cp "${DISTDIR}/${a}" "${WORKDIR}"
