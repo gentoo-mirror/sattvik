@@ -11,7 +11,6 @@ S="${WORKDIR}/${MY_PN}_${PV}-x86_64"
 DESCRIPTION="Allows communication with Digilent system boards"
 HOMEPAGE="https://reference.digilentinc.com/reference/software/adept/start"
 SRC_URI="https://s3-us-west-2.amazonaws.com/digilent/Software/Adept2+Runtime/${PV}/${MY_PN}_${PV}-x86_64.tar.gz"
-#https://s3-us-west-2.amazonaws.com/digilent/Software/Waveforms2015/3.10.9/digilent.waveforms_3.10.9_amd64.deb
 
 LICENSE="Digilent-EULA"
 SLOT="0"
@@ -41,7 +40,6 @@ src_install() {
 		insinto /usr/share/digilent/adept/data
 		doins data/jtscdvclist.txt
 	)
-
 
 	(
 		insinto /usr/share/digilent/adept/data/firmware
