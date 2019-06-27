@@ -1,0 +1,14 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=install
+DEPEND=virtual/libusb:1
+DESCRIPTION=Allows communication with Digilent system boards
+EAPI=7
+HOMEPAGE=https://reference.digilentinc.com/reference/software/adept/start
+KEYWORDS=~amd64
+LICENSE=Digilent-EULA
+RDEPEND=virtual/libusb:1
+RESTRICT=strip
+SLOT=0
+SRC_URI=https://s3-us-west-2.amazonaws.com/digilent/Software/Adept2+Runtime/2.19.2/digilent.adept.runtime_2.19.2-x86_64.tar.gz
+_eclasses_=multilib	1d91b03d42ab6308b5f4f6b598ed110e	toolchain-funcs	8c7f9d80beedd16f2e5a7f612c609529	udev	7752f306eec7b286d00bdb47b763e7ac
+_md5_=6f3e04df4681f74a0d48dc593e76a69b
