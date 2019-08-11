@@ -2,3 +2,26 @@
 # Please add your descriptions to your package's metadata.xml ONLY.
 # * generated automatically using pmaint *
 
+app-admin/pass-otp:qrcode - Add support for qrcodes using media-gfx/qrencode
+app-emulation/vmware-workstation:bundled-libs - Use precompiled bundled libraries instead of the system installation.
+app-emulation/vmware-workstation:macos-guests - Support macOS guests.
+app-emulation/vmware-workstation:modules - Install app-emulation/vmware-modules in order to run VMs locally.
+app-emulation/vmware-workstation:ovftool - Install OVF tool.
+app-emulation/vmware-workstation:server - Install VMware Workstation Server component.
+app-emulation/vmware-workstation:vix - Install VIX. The VIX API allows you to write programs and scripts that automate virtual machine operations, and run programs or manipulate files within guest operating systems.
+app-emulation/vmware-workstation:vmware-tools-darwin - Install VMware Tools for OS X (El Capitan and later) guests.
+app-emulation/vmware-workstation:vmware-tools-darwinPre15 - Install VMware Tools for OS X (up to Yosemite) guests.
+app-emulation/vmware-workstation:vmware-tools-linux - Install VMware Tools for Linux guests.
+app-emulation/vmware-workstation:vmware-tools-linuxPreGlibc25 - Install VMware Tools for Linux (glibc older than 2.5) guests.
+app-emulation/vmware-workstation:vmware-tools-netware - Install VMware Tools for Netware guests.
+app-emulation/vmware-workstation:vmware-tools-solaris - Install VMware Tools for Solaris guests.
+app-emulation/vmware-workstation:vmware-tools-winPre2k - Install VMware Tools for Windows (before 2000) guests.
+app-emulation/vmware-workstation:vmware-tools-winPreVista - Install VMware Tools for Windows (after 2000, before Vista) guests.
+app-emulation/vmware-workstation:vmware-tools-windows - Install VMware Tools for Windows (Vista and later) guests.
+app-misc/anki:recording - Enable support for audio recording
+app-misc/anki:sound - Enable support for adding sound to cards
+dev-util/idea-ultimate:custom-jdk - Install and use IntelliJ's custom JRE.
+media-sound/musescore:portmidi - Enable support for building against media-libs/portmidi
+net-wireless/chirp:radioreference - support downloading data from radioreference.com (premium users only)
+sci-electronics/ngspice:deprecated - Build ngsconver, ngproc2mod, ngmultidec, and ngmakeidx
+sci-electronics/ngspice:shared - Build ngspice as a shared library
