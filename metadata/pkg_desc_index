@@ -5,8 +5,8 @@ app-doc/zeal 0.6.1: Offline documentation browser inspired by Dash
 app-emulation/amazon-ecr-credential-helper 0.1.0: Automatically gets credentials for Amazon ECR on docker push/docker pull
 app-emulation/docker-compose 1.22.0: Multi-container orchestration for Docker
 app-emulation/vagrant-bin 1.9.4: Tool for building and distributing virtual machines
-app-emulation/vmware-modules 331.1.7 361.1.0: VMware kernel modules
-app-emulation/vmware-workstation 14.1.7.12989993-r6 15.1.0.13591040-r4: Emulate a complete PC without the performance overhead of most emulators
+app-emulation/vmware-modules 15.1.0: VMware kernel modules
+app-emulation/vmware-workstation 15.1.0.13591040-r5: Emulate a complete PC without the performance overhead of most emulators
 app-misc/anki 2.1.4: A spaced-repetition memory training program (flash cards)
 app-misc/todoman 3.2.4 9999: A simple CalDav-based todo manager
 dev-java/boot-bin 2.7.2: Build tooling for Clojure
