@@ -54,7 +54,7 @@ src_configure() {
 		-DENABLE_DEFAULT=OFF
 		-DPYTHON_EXECUTABLE="${PYTHON}"
 		-DENABLE_FILE=ON
-		-DENABLE_AIRSPYHFF="$(usex airspyhf)"
+		-DENABLE_AIRSPYHF="$(usex airspyhf)"
 		-DENABLE_BLADERF="$(usex bladerf)"
 		-DENABLE_FCD="$(usex fcd)"
 		-DENABLE_HACKRF="$(usex hackrf)"
