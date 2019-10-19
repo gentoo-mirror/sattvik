@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>gentoo@sattvik.com</email>
+	</maintainer>
+	<longdescription lang="en">
+		Contains the host software for the Airspy HF+, a high performance software defined radio for the HF and VHF bands.
+	</longdescription>
+</pkgmetadata>
