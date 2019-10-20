@@ -6,7 +6,7 @@ EAPI=6
 inherit eapi7-ver eutils flag-o-matic linux-info linux-mod user udev
 
 DESCRIPTION="VMware kernel modules"
-HOMEPAGE="http://www.vmware.com/"
+HOMEPAGE="https://github.com/mkubecek/vmware-host-modules"
 
 MY_KERNEL_VERSION="5.3"
 SRC_URI="https://github.com/mkubecek/vmware-host-modules/archive/w${PV}-k${MY_KERNEL_VERSION}.zip -> ${P}.zip"
