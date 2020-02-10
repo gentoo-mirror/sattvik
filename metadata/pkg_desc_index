@@ -13,7 +13,6 @@ dev-java/boot-bin 2.7.2: Build tooling for Clojure
 dev-java/leiningen-bin 2.9.0 2.9.1: Automate Clojure projects without setting your hair on fire
 dev-python/click-repl 0.1.2: REPL plugin for Click
 dev-python/docker-pycreds 0.3.0: Python bindings for the docker credentials store API
-dev-util/bear 9999: Bear is a tool to generate compilation databases for clang tooling.
 dev-util/idea-ultimate 2018.1.6.181.5540.7 2018.2.3.182.4323.46: A complete toolset for web, mobile and enterprise development
 dev-vcs/hub 2.6.0: A command-line wrapper for git that makes you better at GitHub
 media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scanners
