@@ -18,7 +18,6 @@ app-emulation/vmware-workstation:vmware-tools-winPreVista - Install VMware Tools
 app-emulation/vmware-workstation:vmware-tools-windows - Install VMware Tools for Windows (Vista and later) guests.
 app-misc/anki:recording - Enable support for audio recording
 app-misc/anki:sound - Enable support for adding sound to cards
-dev-util/idea-ultimate:custom-jdk - Install and use IntelliJ's custom JRE.
 media-sound/musescore:portmidi - Enable support for building against media-libs/portmidi
 net-wireless/chirp:radioreference - support downloading data from radioreference.com (premium users only)
 net-wireless/gr-osmosdr:bladerf - Build with Nuand BladeRF support
