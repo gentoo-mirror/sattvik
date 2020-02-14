@@ -39,6 +39,11 @@ DEPEND="${RDEPEND}
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
+src_prepare() {
+	eapply "${FILESDIR}/airspyhf.patch"
+	cmake-utils_src_prepare
+}
+
 src_configure() {
 	local mycmakeargs=(
 		-DENABLE_DEFAULT=OFF
