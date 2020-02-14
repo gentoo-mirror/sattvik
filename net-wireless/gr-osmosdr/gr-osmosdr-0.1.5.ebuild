@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -23,21 +23,26 @@ IUSE="airspy airspyhf bladerf fcd hackrf iqbalance mirisdr python rtlsdr sdrplay
 
 RDEPEND="${PYTHON_DEPS}
 	dev-libs/boost:=
-	>=net-wireless/gnuradio-3.7_rc:0=[fcd?,${PYTHON_USEDEP}]
+	>=net-wireless/gnuradio-3.7_rc:0=[fcd?,${PYTHON_SINGLE_USEDEP}]
 	airspy? ( net-wireless/airspy )
 	airspyhf? ( net-wireless/airspyhf )
 	bladerf? ( >=net-wireless/bladerf-2018.08_rc1:= )
 	hackrf? ( net-libs/libhackrf:= )
-	iqbalance? ( net-wireless/gr-iqbal:=[${PYTHON_USEDEP}] )
+	iqbalance? ( net-wireless/gr-iqbal:=[${PYTHON_SINGLE_USEDEP}] )
 	mirisdr? ( net-libs/libmirisdr:= )
 	rtlsdr? ( >=net-wireless/rtl-sdr-0.5.4:= )
 	sdrplay? ( net-wireless/sdrplay )
 	soapy? ( net-wireless/soapysdr:= )
-	uhd? ( net-wireless/uhd:=[${PYTHON_USEDEP}] )"
+	uhd? ( net-wireless/uhd:=[${PYTHON_SINGLE_USEDEP}] )"
 DEPEND="${RDEPEND}
 	dev-python/cheetah"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+
+src_prepare() {
+	eapply "${FILESDIR}/airspyhf.patch"
+	cmake-utils_src_prepare
+}
 
 src_configure() {
 	local mycmakeargs=(
