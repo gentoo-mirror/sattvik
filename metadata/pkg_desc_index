@@ -5,7 +5,7 @@ app-emulation/vmware-modules 15.5.1-r1: VMware kernel modules
 app-emulation/vmware-workstation 15.5.1.15018445-r1: Emulate a complete PC without the performance overhead of most emulators
 app-misc/todoman 3.2.4 9999: A simple CalDav-based todo manager
 dev-python/click-repl 0.1.2: REPL plugin for Click
-dev-vcs/git-extras 5.1.0: Little git extras
+dev-vcs/git-extras 5.1.0 5.1.0-r1: Little git extras
 media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scanners
 media-radio/tqsl 2.4.7: ARRL Logbook of the World
 media-radio/xlog 2.0.18_beta: An amateur radio logging program
