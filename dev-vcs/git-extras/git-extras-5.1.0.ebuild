@@ -3,6 +3,8 @@
 
 EAPI=7
 
+inherit bash-completion-r1
+
 DESCRIPTION="Little git extras"
 HOMEPAGE="https://github.com/tj/git-extras"
 SRC_URI="https://github.com/tj/git-extras/archive/${PV}.tar.gz -> ${P}.tar.gz"
@@ -15,12 +17,18 @@ IUSE=""
 DEPEND=""
 RDEPEND="${DEPEND}
 		sys-apps/util-linux"
-BDEPEND="app-text/ronn"
+BDEPEND="virtual/awk"
 
 src_compile() {
-	emake docs
+	:
 }
 
 src_install() {
-	emake install PREFIX="${ED}"/usr
+	emake install PREFIX="${EPREIFX}"/usr SYSCONFDIR="${EPREFIX}"/etc DESTDIR="${D}"
+	rm -rf "${D}"/etc/bash_completion.d
+
+	newbashcomp etc/bash_completion.sh ${PN}
+
+	insinto /usr/share/zsh/site-functions/contrib/zsh-completion
+	newins etc/git-extras-completion.zsh _git
 }
