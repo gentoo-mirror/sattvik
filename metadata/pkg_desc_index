@@ -4,6 +4,7 @@ app-emulation/vagrant-bin 1.9.4: Tool for building and distributing virtual mach
 app-emulation/vmware-modules 15.5.1-r1: VMware kernel modules
 app-emulation/vmware-workstation 15.5.1.15018445-r2: Emulate a complete PC without the performance overhead of most emulators
 app-misc/todoman 3.2.4 9999: A simple CalDav-based todo manager
+dev-java/openjfx 11.0.6_p2: Java OpenJFX client application platform
 dev-python/click-repl 0.1.2: REPL plugin for Click
 dev-vcs/git-extras 5.1.0 5.1.0-r1: Little git extras
 media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scanners
