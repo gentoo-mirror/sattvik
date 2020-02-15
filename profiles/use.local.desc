@@ -2,7 +2,6 @@
 # Please add your descriptions to your package's metadata.xml ONLY.
 # * generated automatically using pmaint *
 
-app-admin/pass-otp:qrcode - Add support for qrcodes using media-gfx/qrencode
 app-emulation/vmware-workstation:macos-guests - Support macOS guests.
 app-emulation/vmware-workstation:modules - Install app-emulation/vmware-modules in order to run VMs locally.
 app-emulation/vmware-workstation:ovftool - Install OVF tool.
@@ -16,10 +15,6 @@ app-emulation/vmware-workstation:vmware-tools-solaris - Install VMware Tools for
 app-emulation/vmware-workstation:vmware-tools-winPre2k - Install VMware Tools for Windows (before 2000) guests.
 app-emulation/vmware-workstation:vmware-tools-winPreVista - Install VMware Tools for Windows (after 2000, before Vista) guests.
 app-emulation/vmware-workstation:vmware-tools-windows - Install VMware Tools for Windows (Vista and later) guests.
-app-misc/anki:recording - Enable support for audio recording
-app-misc/anki:sound - Enable support for adding sound to cards
-media-sound/musescore:portmidi - Enable support for building against media-libs/portmidi
-net-wireless/chirp:radioreference - support downloading data from radioreference.com (premium users only)
 net-wireless/gr-osmosdr:bladerf - Build with Nuand BladeRF support
 net-wireless/gr-osmosdr:fcd - Build with Funcube Dongle support
 net-wireless/gr-osmosdr:hackrf - Build with Great Scott Gadgets HackRF support
@@ -30,5 +25,3 @@ net-wireless/gr-osmosdr:rtlsdr - Build with Realtek RTL2832U (rtlsdr) support
 net-wireless/gr-osmosdr:sdrplay - Enable support for SDRplay devices through net-wireless/sdrplay
 net-wireless/gr-osmosdr:soapy - Build with SoapySDR support
 net-wireless/gr-osmosdr:uhd - Build with Ettus Research USRP Hardware Driver support
-sci-electronics/ngspice:deprecated - Build ngsconver, ngproc2mod, ngmultidec, and ngmakeidx
-sci-electronics/ngspice:shared - Build ngspice as a shared library
