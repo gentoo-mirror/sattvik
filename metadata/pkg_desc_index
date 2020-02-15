@@ -27,4 +27,4 @@ sci-electronics/digilent-adept-runtime 2.19.2 2.19.2-r1: Allows communication wi
 sci-electronics/digilent-adept-utilities 2.2.1: Command line utilities for managing Digilent devices
 sci-electronics/digilent-waveforms 3.10.9: Digilent WaveForms Application, Runtime, and SDK
 sci-electronics/ngspice 30: The Next Generation Spice (Electronic Circuit Simulator)
-x11-misc/prismatik 5.11.2.17 5.11.2.19 5.11.2.20: Prismatik is an open-source software to control Lightpack devices
+x11-misc/prismatik 5.11.2.20 5.11.2.21: Prismatik is an open-source software to control Lightpack devices
