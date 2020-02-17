@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-PYTHON_COMPAT=( python2_7 python3_{6,7} )
+PYTHON_COMPAT=( python3_{6,7} )
 DISTUTILS_USE_SETUPTOOLS="bdepend"
 
 inherit distutils-r1
@@ -32,7 +32,10 @@ DEPEND="${CDEPEND}
 RDEPEND="${CDEPEND}
 	dev-python/paramiko[${PYTHON_USEDEP}]
 	dev-python/future[${PYTHON_USEDEP}]
-	s3? ( dev-python/boto[${PYTHON_USEDEP}] )
+	s3? ( || (
+			dev-python/boto3[${PYTHON_USEDEP}]
+			dev-python/boto[${PYTHON_USEDEP}]
+		) )
 "
 
 RESTRICT="test"
