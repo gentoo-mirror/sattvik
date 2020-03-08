@@ -1,9 +1,9 @@
 app-backup/acts 1.2: Another Calendar-based Tarsnap Script
-app-backup/duplicity 0.8.09-r1: Secure backup system using gnupg to encrypt data
+app-backup/duplicity 0.8.09-r1 0.8.11.1596: Secure backup system using gnupg to encrypt data
 app-backup/duply 2.2.1: A shell frontend for duplicity
 app-emulation/amazon-ecr-credential-helper 0.1.0: Automatically gets credentials for Amazon ECR on docker push/docker pull
 app-emulation/vagrant-bin 1.9.4: Tool for building and distributing virtual machines
-app-emulation/vmware-modules 15.5.1-r1: VMware kernel modules
+app-emulation/vmware-modules 15.5.1-r2: VMware kernel modules
 app-emulation/vmware-workstation 15.5.1.15018445-r2: Emulate a complete PC without the performance overhead of most emulators
 app-misc/todoman 3.2.4 9999: A simple CalDav-based todo manager
 dev-java/openjfx 11.0.6_p2: Java OpenJFX client application platform
