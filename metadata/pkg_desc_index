@@ -13,6 +13,7 @@ dev-vcs/git-extras 5.1.0 5.1.0-r1: Little git extras
 media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scanners
 media-radio/tqsl 2.4.7: ARRL Logbook of the World
 media-radio/xlog 2.0.18_beta: An amateur radio logging program
+net-im/teams 1.3.00.5153: Microsoft Teams, an Office 365 multimedia collaboration client, pre-release
 net-print/mfcj6910dwcupswrapper-bin 3.0.0_p1-r1: CUPS wrapper for the Brother MFC-J6910DW LPR drivers
 net-print/mfcj6910dwlpr-bin 3.0.0_p1: LPR driver for Brother MFC-J6910DW printers
 net-wireless/airspyhf 1.1.5 9999: User mode driver for Airspy HF+
