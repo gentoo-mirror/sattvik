@@ -21,4 +21,4 @@ net-wireless/gr-osmosdr 0.1.5: GNU Radio source block for OsmoSDR and rtlsdr and
 sci-electronics/digilent-adept-runtime 2.19.2 2.19.2-r1: Allows communication with Digilent system boards
 sci-electronics/digilent-adept-utilities 2.2.1: Command line utilities for managing Digilent devices
 sci-electronics/digilent-waveforms 3.10.9: Digilent WaveForms Application, Runtime, and SDK
-x11-misc/prismatik 5.11.2.20 5.11.2.21: Prismatik is an open-source software to control Lightpack devices
+x11-misc/prismatik 5.11.2.21 5.11.2.22: Prismatik is an open-source software to control Lightpack devices
