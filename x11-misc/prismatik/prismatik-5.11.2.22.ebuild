@@ -1,6 +1,5 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -12,7 +11,7 @@ if [ ${PV} == "9999" ]; then
 else
 	inherit vcs-snapshot
 	SRC_URI="https://github.com/psieg/Lightpack/archive/${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~x86 ~amd64"
+	KEYWORDS="~amd64 ~x86"
 fi
 
 DESCRIPTION="Prismatik is an open-source software to control Lightpack devices"
