@@ -20,7 +20,7 @@ HOMEPAGE="http://lightpack.tv"
 
 LICENSE="GPL-3"
 SLOT="0"
-IUSE=""
+IUSE="pulseaudio"
 
 RDEPEND="
 	dev-qt/qtcore:5
@@ -41,6 +41,11 @@ S="${WORKDIR}/${P}/Software"
 src_prepare() {
 	rm -rf qtserialport
 	sed -e "/qtserialport/d" -i Lightpack.pro || die
+	if use pulseaudio ; then
+		cp build-vars.prf.default build-vars.prf || die
+	else
+		sed -e "/PULSEAUDIO_SUPPORT/d"  build-vars.prf.default > build-vars.prf || die
+	fi
 	default
 }
 
