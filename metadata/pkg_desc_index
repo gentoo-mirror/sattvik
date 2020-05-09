@@ -1,17 +1,15 @@
 app-backup/acts 1.2: Another Calendar-based Tarsnap Script
-app-backup/duplicity 0.8.09-r1 0.8.11.1596 0.8.11.1596-r1 0.8.12.1612: Secure backup system using gnupg to encrypt data
+app-backup/duplicity 0.8.09-r1 0.8.11.1596 0.8.11.1596-r1 0.8.12.1612 0.8.12.1612-r1: Secure backup system using gnupg to encrypt data
 app-backup/duply 2.2.1: A shell frontend for duplicity
 app-emulation/amazon-ecr-credential-helper 0.1.0: Automatically gets credentials for Amazon ECR on docker push/docker pull
 app-emulation/vagrant-bin 1.9.4: Tool for building and distributing virtual machines
 app-emulation/vmware-modules 15.5.2: VMware kernel modules
 app-emulation/vmware-workstation 15.5.2.15785246: Emulate a complete PC without the performance overhead of most emulators
 app-misc/todoman 3.2.4 9999: A simple CalDav-based todo manager
-dev-java/openjfx 11.0.6_p2: Java OpenJFX client application platform
 dev-python/click-repl 0.1.2: REPL plugin for Click
 dev-python/future 0.18.2: Easy, clean, reliable Python 2/3 compatibility
 dev-vcs/git-extras 5.1.0 5.1.0-r1: Little git extras
 media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scanners
-media-radio/tqsl 2.4.7: ARRL Logbook of the World
 media-radio/xlog 2.0.18_beta: An amateur radio logging program
 net-im/teams 1.3.00.5153: Microsoft Teams, an Office 365 multimedia collaboration client, pre-release
 net-print/mfcj6910dwcupswrapper-bin 3.0.0_p1-r1: CUPS wrapper for the Brother MFC-J6910DW LPR drivers
