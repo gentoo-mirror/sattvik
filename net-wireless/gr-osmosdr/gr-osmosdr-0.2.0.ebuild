@@ -19,13 +19,14 @@ fi
 
 LICENSE="GPL-3"
 SLOT="0/${PV}"
-IUSE="airspy bladerf hackrf iqbalance mirisdr python rtlsdr sdrplay soapy uhd"
+IUSE="airspy airspyhf bladerf hackrf iqbalance mirisdr python rtlsdr sdrplay soapy uhd"
 
 RDEPEND="${PYTHON_DEPS}
 	dev-libs/boost:=
 	=net-wireless/gnuradio-3.8*:0=[${PYTHON_SINGLE_USEDEP}]
 	sci-libs/volk
 	airspy? ( net-wireless/airspy )
+	airspyhf? ( net-wireless/airspyhf )
 	bladerf? ( >=net-wireless/bladerf-2018.08_rc1:= )
 	hackrf? ( net-libs/libhackrf:= )
 	iqbalance? ( net-wireless/gr-iqbal:=[${PYTHON_SINGLE_USEDEP}] )
@@ -44,6 +45,7 @@ src_configure() {
 		-DPYTHON_EXECUTABLE="${PYTHON}"
 		-DENABLE_FILE=ON
 		-DENABLE_AIRSPY="$(usex airspy)"
+		-DENABLE_AIRSPYHF="$(usex airspyhf)"
 		-DENABLE_BLADERF="$(usex bladerf)"
 		-DENABLE_HACKRF="$(usex hackrf)"
 		-DENABLE_IQBALANCE="$(usex iqbalance)"
