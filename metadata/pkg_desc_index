@@ -16,6 +16,7 @@ net-print/mfcj6910dwcupswrapper-bin 3.0.0_p1-r1: CUPS wrapper for the Brother MF
 net-print/mfcj6910dwlpr-bin 3.0.0_p1: LPR driver for Brother MFC-J6910DW printers
 net-wireless/airspyhf 1.1.5 1.6.8 9999: User mode driver for Airspy HF+
 net-wireless/chirp 20200430: Free open-source tool for programming your amateur radio
+net-wireless/gqrx 2.12.1: Software defined radio receiver powered by GNU Radio and Qt
 net-wireless/gr-osmosdr 0.2.0: GNU Radio source block for OsmoSDR and rtlsdr and hackrf
 sci-electronics/digilent-adept-runtime 2.19.2 2.19.2-r1: Allows communication with Digilent system boards
 sci-electronics/digilent-adept-utilities 2.2.1: Command line utilities for managing Digilent devices

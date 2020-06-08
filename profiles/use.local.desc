@@ -17,6 +17,7 @@ app-emulation/vmware-workstation:vmware-tools-winPre2k - Install VMware Tools fo
 app-emulation/vmware-workstation:vmware-tools-winPreVista - Install VMware Tools for Windows (after 2000, before Vista) guests.
 app-emulation/vmware-workstation:vmware-tools-windows - Install VMware Tools for Windows (Vista and later) guests.
 net-wireless/chirp:radioreference - support downloading data from radioreference.com (premium users only)
+net-wireless/gqrx:gr-audio - Use audio support from net-wireless/gnuradio
 net-wireless/gr-osmosdr:bladerf - Build with Nuand BladeRF support
 net-wireless/gr-osmosdr:fcd - Build with Funcube Dongle support
 net-wireless/gr-osmosdr:hackrf - Build with Great Scott Gadgets HackRF support
