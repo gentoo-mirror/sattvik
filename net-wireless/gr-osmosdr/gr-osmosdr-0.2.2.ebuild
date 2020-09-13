@@ -4,7 +4,7 @@
 EAPI=7
 PYTHON_COMPAT=( python3_{6,7,8} )
 
-inherit cmake-utils python-single-r1
+inherit cmake python-single-r1
 
 DESCRIPTION="GNU Radio source block for OsmoSDR and rtlsdr and hackrf"
 HOMEPAGE="http://sdr.osmocom.org/trac/wiki/GrOsmoSDR"
@@ -39,6 +39,11 @@ DEPEND="${RDEPEND}"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
+src_prepare() {
+	cmake_src_prepare
+	sed -i "s:\${GR_DOC_DIR}/\${CMAKE_PROJECT_NAME}:\${GR_DOC_DIR}/${PF}:" CMakeLists.txt || die
+}
+
 src_configure() {
 	local mycmakeargs=(
 		-DENABLE_DEFAULT=OFF
@@ -59,14 +64,16 @@ src_configure() {
 		-DENABLE_NONFREE="$(usex sdrplay)"
 	)
 
-	cmake-utils_src_configure
+	cmake_src_configure
 }
 
 src_install() {
-	cmake-utils_src_install
+	cmake_src_install
 	if use python; then
+		# Remove incorrectly byte-compiled Python files and replace
+		# https://github.com/gnuradio/gnuradio/issues/2944
+		find "${ED}"/usr/lib* -name "*.py[co]" -exec rm {} \; || die
 		python_fix_shebang "${ED}"/usr/bin
 		python_optimize
 	fi
-	mv "${ED}/usr/share/doc/${PN}" "${ED}/usr/share/doc/${P}"
 }
