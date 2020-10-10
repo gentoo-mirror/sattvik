@@ -3,8 +3,8 @@ app-backup/duplicity 0.8.12.1612-r1 0.8.13 0.8.15: Secure backup system using gn
 app-backup/duply 2.2.1: A shell frontend for duplicity
 app-emulation/amazon-ecr-credential-helper 0.1.0: Automatically gets credentials for Amazon ECR on docker push/docker pull
 app-emulation/vagrant-bin 1.9.4: Tool for building and distributing virtual machines
-app-emulation/vmware-modules 15.5.6-r1: VMware kernel modules
-app-emulation/vmware-workstation 15.5.6.16341506: Emulate a complete PC without the performance overhead of most emulators
+app-emulation/vmware-modules 15.5.6-r2 16.0.0: VMware kernel modules
+app-emulation/vmware-workstation 15.5.6.16341506-r2 16.0.0.16894299-r1: Emulate a complete PC without the performance overhead of most emulators
 app-misc/todoman 3.2.4 9999: A simple CalDav-based todo manager
 dev-cpp/catch 2.13.1: Modern C++ header-only framework for unit-tests
 dev-python/click-repl 0.1.2: REPL plugin for Click
@@ -22,4 +22,4 @@ net-wireless/gr-osmosdr 0.2.2: GNU Radio source block for OsmoSDR and rtlsdr and
 sci-electronics/digilent-adept-runtime 2.19.2 2.19.2-r1: Allows communication with Digilent system boards
 sci-electronics/digilent-adept-utilities 2.2.1: Command line utilities for managing Digilent devices
 sci-electronics/digilent-waveforms 3.10.9: Digilent WaveForms Application, Runtime, and SDK
-x11-misc/prismatik 5.11.2.21 5.11.2.22: Prismatik is an open-source software to control Lightpack devices
+x11-misc/prismatik 5.11.2.21 5.11.2.22 5.11.2.23: Prismatik is an open-source software to control Lightpack devices
