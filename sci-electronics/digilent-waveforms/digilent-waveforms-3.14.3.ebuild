@@ -39,7 +39,7 @@ src_install() {
 
 	dolib.so usr/lib/libdwf.so
 	dolib.so usr/lib/libdwf.so.3
-	dolib.so usr/lib/libdwf.so.3.10.9
+	dolib.so usr/lib/libdwf.so.3.14.3
 
 	for manpage in usr/share/man/man1/*.gz; do
 		gunzip "$manpage"
@@ -56,6 +56,12 @@ src_install() {
 
 	(
 		insinto /usr/share
+		doins -r usr/share/applications
 		doins -r usr/share/digilent
+		doins -r usr/share/mime
+	)
+
+	(
+		dodoc usr/share/doc/digilient.waveforms/*
 	)
 }
