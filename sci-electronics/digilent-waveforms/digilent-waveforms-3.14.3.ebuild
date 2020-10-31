@@ -62,6 +62,7 @@ src_install() {
 	)
 
 	(
-		dodoc usr/share/doc/digilient.waveforms/*
+		dodoc usr/share/doc/digilent.waveforms/changelog.gz
+		dodoc usr/share/doc/digilent.waveforms/copyright
 	)
 }
