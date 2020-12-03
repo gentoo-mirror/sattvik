@@ -5,18 +5,14 @@ app-emulation/vagrant-bin 1.9.4: Tool for building and distributing virtual mach
 app-emulation/vmware-modules 15.5.7 16.1.0: VMware kernel modules
 app-emulation/vmware-workstation 15.5.7.17171714 16.1.0.17198959: Emulate a complete PC without the performance overhead of most emulators
 app-misc/todoman 3.2.4 9999: A simple CalDav-based todo manager
-dev-cpp/catch 2.13.1: Modern C++ header-only framework for unit-tests
 dev-python/click-repl 0.1.2: REPL plugin for Click
-dev-python/future 0.18.2: Easy, clean, reliable Python 2/3 compatibility
 dev-vcs/git-extras 5.1.0 5.1.0-r1: Little git extras
 media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scanners
-media-radio/xlog 2.0.18_beta: An amateur radio logging program
-net-im/teams 1.3.00.5153: Microsoft Teams, an Office 365 multimedia collaboration client, pre-release
 net-print/mfcj6910dwcupswrapper-bin 3.0.0_p1-r1: CUPS wrapper for the Brother MFC-J6910DW LPR drivers
 net-print/mfcj6910dwlpr-bin 3.0.0_p1: LPR driver for Brother MFC-J6910DW printers
 net-wireless/airspyhf 1.1.5 1.6.8 9999: User mode driver for Airspy HF+
 net-wireless/chirp 20200430: Free open-source tool for programming your amateur radio
-net-wireless/gqrx 2.12.1 2.12.1-r1: Software defined radio receiver powered by GNU Radio and Qt
+net-wireless/gqrx 2.12.1-r1 2.14: Software defined radio receiver powered by GNU Radio and Qt
 net-wireless/gr-osmosdr 0.2.2: GNU Radio source block for OsmoSDR and rtlsdr and hackrf
 net-wireless/nanovna-qt 0.1_p20200507: software for NanoVNA V2
 sci-electronics/digilent-adept-runtime 2.19.2 2.19.2-r1 2.20.2: Allows communication with Digilent system boards
