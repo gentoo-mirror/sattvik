@@ -8,11 +8,11 @@ app-misc/todoman 3.2.4 9999: A simple CalDav-based todo manager
 dev-python/click-repl 0.1.2: REPL plugin for Click
 dev-vcs/git-extras 5.1.0 5.1.0-r1: Little git extras
 media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scanners
+media-gfx/prusa-slicer 2.2.0: G-code generator for 3D printers
 net-print/mfcj6910dwcupswrapper-bin 3.0.0_p1-r1: CUPS wrapper for the Brother MFC-J6910DW LPR drivers
 net-print/mfcj6910dwlpr-bin 3.0.0_p1: LPR driver for Brother MFC-J6910DW printers
 net-wireless/airspyhf 1.1.5 1.6.8 9999: User mode driver for Airspy HF+
 net-wireless/chirp 20200430: Free open-source tool for programming your amateur radio
-net-wireless/gqrx 2.12.1-r1 2.14: Software defined radio receiver powered by GNU Radio and Qt
 net-wireless/gr-osmosdr 0.2.2: GNU Radio source block for OsmoSDR and rtlsdr and hackrf
 net-wireless/nanovna-qt 0.1_p20200507: software for NanoVNA V2
 sci-electronics/digilent-adept-runtime 2.19.2 2.19.2-r1 2.20.2: Allows communication with Digilent system boards
