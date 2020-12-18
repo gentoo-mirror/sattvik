@@ -16,7 +16,6 @@ app-emulation/vmware-workstation:vmware-tools-solaris - Install VMware Tools for
 app-emulation/vmware-workstation:vmware-tools-winPre2k - Install VMware Tools for Windows (before 2000) guests.
 app-emulation/vmware-workstation:vmware-tools-winPreVista - Install VMware Tools for Windows (after 2000, before Vista) guests.
 app-emulation/vmware-workstation:vmware-tools-windows - Install VMware Tools for Windows (Vista and later) guests.
-media-gfx/prusa-slicer:gui - Enable GUI
 net-wireless/chirp:radioreference - support downloading data from radioreference.com (premium users only)
 net-wireless/gr-osmosdr:airspy - Build with Airspy support
 net-wireless/gr-osmosdr:airspyhf - Build with Airspy HF+ support

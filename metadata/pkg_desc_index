@@ -8,7 +8,6 @@ app-misc/todoman 3.2.4 9999: A simple CalDav-based todo manager
 dev-python/click-repl 0.1.2: REPL plugin for Click
 dev-vcs/git-extras 5.1.0 5.1.0-r1: Little git extras
 media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scanners
-media-gfx/prusa-slicer 2.2.0: G-code generator for 3D printers
 net-print/mfcj6910dwcupswrapper-bin 3.0.0_p1-r1: CUPS wrapper for the Brother MFC-J6910DW LPR drivers
 net-print/mfcj6910dwlpr-bin 3.0.0_p1: LPR driver for Brother MFC-J6910DW printers
 net-wireless/airspyhf 1.1.5 1.6.8 9999: User mode driver for Airspy HF+
