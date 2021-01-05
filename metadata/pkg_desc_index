@@ -2,7 +2,7 @@ app-backup/acts 1.2: Another Calendar-based Tarsnap Script
 app-backup/duplicity 0.8.15 0.8.16 0.8.17: Secure backup system using gnupg to encrypt data
 app-emulation/amazon-ecr-credential-helper 0.1.0: Automatically gets credentials for Amazon ECR on docker push/docker pull
 app-emulation/vagrant-bin 1.9.4: Tool for building and distributing virtual machines
-app-emulation/vmware-modules 15.5.7 16.1.0: VMware kernel modules
+app-emulation/vmware-modules 15.5.7-r1 16.1.0-r1: VMware kernel modules
 app-emulation/vmware-workstation 15.5.7.17171714 16.1.0.17198959: Emulate a complete PC without the performance overhead of most emulators
 app-misc/todoman 3.2.4 9999: A simple CalDav-based todo manager
 dev-python/click-repl 0.1.2: REPL plugin for Click
@@ -12,7 +12,7 @@ net-print/mfcj6910dwcupswrapper-bin 3.0.0_p1-r1: CUPS wrapper for the Brother MF
 net-print/mfcj6910dwlpr-bin 3.0.0_p1: LPR driver for Brother MFC-J6910DW printers
 net-wireless/airspyhf 1.1.5 1.6.8 9999: User mode driver for Airspy HF+
 net-wireless/chirp 20200430: Free open-source tool for programming your amateur radio
-net-wireless/gr-osmosdr 0.2.2: GNU Radio source block for OsmoSDR and rtlsdr and hackrf
+net-wireless/gr-osmosdr 0.2.2 0.2.3: GNU Radio source block for OsmoSDR and rtlsdr and hackrf
 net-wireless/nanovna-qt 0.1_p20200507: software for NanoVNA V2
 sci-electronics/digilent-adept-runtime 2.19.2 2.19.2-r1 2.20.2: Allows communication with Digilent system boards
 sci-electronics/digilent-adept-utilities 2.2.1 2.3.2: Command line utilities for managing Digilent devices
