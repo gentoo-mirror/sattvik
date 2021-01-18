@@ -7,6 +7,7 @@ app-emulation/vmware-workstation 15.5.7.17171714 16.1.0.17198959: Emulate a comp
 dev-python/click-repl 0.1.2: REPL plugin for Click
 dev-vcs/git-extras 5.1.0 5.1.0-r1: Little git extras
 media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scanners
+media-libs/qhull 2020.2-r2: Geometry library
 net-print/mfcj6910dwcupswrapper-bin 3.0.0_p1-r1: CUPS wrapper for the Brother MFC-J6910DW LPR drivers
 net-print/mfcj6910dwlpr-bin 3.0.0_p1: LPR driver for Brother MFC-J6910DW printers
 net-wireless/airspyhf 1.1.5 1.6.8 9999: User mode driver for Airspy HF+
