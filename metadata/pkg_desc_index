@@ -4,6 +4,7 @@ app-emulation/amazon-ecr-credential-helper 0.1.0: Automatically gets credentials
 app-emulation/vagrant-bin 1.9.4: Tool for building and distributing virtual machines
 app-emulation/vmware-modules 15.5.7-r1 16.1.0-r1: VMware kernel modules
 app-emulation/vmware-workstation 15.5.7.17171714 16.1.0.17198959: Emulate a complete PC without the performance overhead of most emulators
+dev-java/openjdk-bin 15.0.2_p7: Prebuilt Java JDK binaries provided by AdoptOpenJDK
 dev-vcs/git-extras 5.1.0 5.1.0-r1: Little git extras
 media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scanners
 media-libs/qhull 2020.2-r2: Geometry library
