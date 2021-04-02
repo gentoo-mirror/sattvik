@@ -15,8 +15,32 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="
+	app-arch/bzip2
+	dev-libs/double-conversion
+	dev-libs/glib
+	dev-libs/icu
+	dev-libs/libbsd
+	dev-libs/libpcre2
+	dev-libs/openssl
+	dev-qt/qtcore:5
+	dev-qt/qtgui:5
+	dev-qt/qtmultimedia:5[widgets]
+	dev-qt/qtnetwork:5
 	dev-qt/qtscript:5[scripttools]
-	sci-electronics/digilent-adept-runtime"
+	dev-qt/qtwidgets:5
+	media-libs/freetype
+	media-libs/harfbuzz
+	media-libs/libglvnd
+	media-libs/libpng
+	sci-electronics/digilent-adept-runtime
+	sys-libs/glibc
+	sys-libs/zlib
+	virtual/libusb:1
+	virtual/udev
+	x11-libs/libX11
+	x11-libs/libXau
+	x11-libs/libXdmcp
+	x11-libs/libxcb"
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
@@ -39,7 +63,7 @@ src_install() {
 
 	dolib.so usr/lib/libdwf.so
 	dolib.so usr/lib/libdwf.so.3
-	dolib.so usr/lib/libdwf.so.3.10.9
+	dolib.so usr/lib/libdwf.so.3.14.3
 
 	for manpage in usr/share/man/man1/*.gz; do
 		gunzip "$manpage"
@@ -56,6 +80,13 @@ src_install() {
 
 	(
 		insinto /usr/share
+		doins -r usr/share/applications
 		doins -r usr/share/digilent
+		doins -r usr/share/mime
+	)
+
+	(
+		dodoc usr/share/doc/digilent.waveforms/changelog.gz
+		dodoc usr/share/doc/digilent.waveforms/copyright
 	)
 }
