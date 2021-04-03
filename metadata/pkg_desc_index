@@ -15,5 +15,5 @@ net-wireless/gr-osmosdr 0.2.2 0.2.3: GNU Radio source block for OsmoSDR and rtls
 net-wireless/nanovna-qt 0.1_p20200507: software for NanoVNA V2
 sci-electronics/digilent-adept-runtime 2.19.2 2.19.2-r1 2.20.2: Allows communication with Digilent system boards
 sci-electronics/digilent-adept-utilities 2.2.1 2.3.2: Command line utilities for managing Digilent devices
-sci-electronics/digilent-waveforms 3.10.9 3.14.3: Digilent WaveForms Application, Runtime, and SDK
+sci-electronics/digilent-waveforms 3.14.3 3.14.3-r1: Digilent WaveForms Application, Runtime, and SDK
 x11-misc/prismatik 5.11.2.25 5.11.2.27: Prismatik is an open-source software to control Lightpack devices

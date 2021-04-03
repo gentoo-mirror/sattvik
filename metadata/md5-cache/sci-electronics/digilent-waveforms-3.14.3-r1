@@ -1,0 +1,12 @@
+DEFINED_PHASES=install unpack
+DEPEND=app-arch/bzip2 dev-libs/double-conversion dev-libs/glib dev-libs/icu dev-libs/libbsd dev-libs/libpcre2 dev-libs/openssl dev-qt/qtcore:5 dev-qt/qtgui:5 dev-qt/qtmultimedia:5[widgets] dev-qt/qtnetwork:5 dev-qt/qtscript:5[scripttools] dev-qt/qtwidgets:5 media-libs/freetype media-libs/harfbuzz media-libs/libglvnd media-libs/libpng sci-electronics/digilent-adept-runtime sys-libs/glibc sys-libs/zlib virtual/libusb:1 virtual/udev x11-libs/libX11 x11-libs/libXau x11-libs/libXdmcp x11-libs/libxcb
+DESCRIPTION=Digilent WaveForms Application, Runtime, and SDK
+EAPI=7
+HOMEPAGE=https://reference.digilentinc.com/reference/software/adept/start
+KEYWORDS=~amd64
+LICENSE=Digilent-EULA
+RDEPEND=app-arch/bzip2 dev-libs/double-conversion dev-libs/glib dev-libs/icu dev-libs/libbsd dev-libs/libpcre2 dev-libs/openssl dev-qt/qtcore:5 dev-qt/qtgui:5 dev-qt/qtmultimedia:5[widgets] dev-qt/qtnetwork:5 dev-qt/qtscript:5[scripttools] dev-qt/qtwidgets:5 media-libs/freetype media-libs/harfbuzz media-libs/libglvnd media-libs/libpng sci-electronics/digilent-adept-runtime sys-libs/glibc sys-libs/zlib virtual/libusb:1 virtual/udev x11-libs/libX11 x11-libs/libXau x11-libs/libXdmcp x11-libs/libxcb
+RESTRICT=strip
+SLOT=0
+SRC_URI=https://s3-us-west-2.amazonaws.com/digilent/Software/Waveforms2015/3.14.3/digilent.waveforms_3.14.3_amd64.deb
+_md5_=aa3b7c5ce8a80a5f7c57ad096ddeda36
