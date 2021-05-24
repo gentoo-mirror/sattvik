@@ -1,5 +1,5 @@
 app-backup/acts 1.2: Another Calendar-based Tarsnap Script
-app-backup/duplicity 0.8.15 0.8.17 0.8.18: Secure backup system using gnupg to encrypt data
+app-backup/duplicity 0.8.15 0.8.17 0.8.18 0.8.19: Secure backup system using gnupg to encrypt data
 app-emulation/amazon-ecr-credential-helper 0.1.0: Automatically gets credentials for Amazon ECR on docker push/docker pull
 app-emulation/vagrant-bin 1.9.4: Tool for building and distributing virtual machines
 app-emulation/vmware-modules 15.5.7-r4 16.1.1: VMware kernel modules
