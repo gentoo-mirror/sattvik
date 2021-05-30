@@ -1,0 +1,11 @@
+diff -Naur PrusaSlicer-version_2.3.1/src/libslic3r/Optimize/Optimizer.hpp PrusaSlicer-version_2.3.1/src/libslic3r/Optimize/Optimizer.hpp
+--- PrusaSlicer-version_2.3.1/src/libslic3r/Optimize/Optimizer.hpp	2021-04-16 06:41:00.000000000 -0500
++++ PrusaSlicer-version_2.3.1/src/libslic3r/Optimize/Optimizer.hpp	2021-05-30 17:43:35.819546751 -0500
+@@ -8,6 +8,7 @@
+ #include <functional>
+ #include <limits>
+ #include <cassert>
++#include <optional>
+ 
+ namespace Slic3r { namespace opt {
+ 
