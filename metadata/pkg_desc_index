@@ -4,6 +4,7 @@ app-emulation/amazon-ecr-credential-helper 0.1.0: Automatically gets credentials
 app-emulation/vagrant-bin 1.9.4: Tool for building and distributing virtual machines
 app-emulation/vmware-modules 15.5.7-r4 16.1.1: VMware kernel modules
 app-emulation/vmware-workstation 15.5.7.17171714-r1 16.1.1.17801498-r1: Emulate a complete PC without the performance overhead of most emulators
+app-misc/todoman 4.0.0: A simple CalDav-based todo manager
 dev-java/openjdk-bin 15.0.2_p7: Prebuilt Java JDK binaries provided by AdoptOpenJDK
 dev-python/click-threading 0.5.0: Multithreaded Click apps made easy.
 dev-vcs/git-extras 5.1.0 5.1.0-r1: Little git extras
