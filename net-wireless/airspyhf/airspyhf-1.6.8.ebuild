@@ -15,7 +15,7 @@ if [[ ${PV} == 9999* ]]; then
 	KEYWORDS=""
 else
 	SRC_URI="https://github.com/airspy/airspyhf/archive/${PV}.tar.gz -> ${PN}-${PV}.tar.gz"
-	KEYWORDS="~amd64"
+	KEYWORDS="~amd64 ~x86 ~arm"
 fi
 
 LICENSE="BSD"
