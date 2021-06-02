@@ -20,7 +20,7 @@ src_compile() {
 
 src_install() {
 	dobin acts
-	dodoc acts.conf.sample README.rst
+	dodoc acts.conf.sample README.md
 	docinto "contrib"
 	dodoc contrib/acts-pre.sh contrib/acts-post.sh
 	docompress -x /usr/share/doc/${PF}/contrib
