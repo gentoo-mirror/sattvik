@@ -19,6 +19,7 @@ app-emulation/vmware-workstation:vmware-tools-windows - Install VMware Tools for
 dev-java/openjdk-bin:gentoo-vm - Allow this JDK to be recognised by Gentoo (package manager, eselect, java-config, EXPERIMENTAL!)
 dev-java/openjdk-bin:headless-awt - Don't install the X backend for AWT, needed by some GUIs (used to be X flag)
 dev-java/openjdk-bin:source - Install JVM sources
+media-radio/fldigi:hamlib - Enables support by the Hamlib amateur radio rig control library to get/set frequency and mode of the ham radio in use
 net-wireless/gr-osmosdr:airspy - Build with Airspy support
 net-wireless/gr-osmosdr:airspyhf - Build with Airspy HF+ support
 net-wireless/gr-osmosdr:bladerf - Build with Nuand BladeRF support
