@@ -11,5 +11,5 @@ LICENSE=GPL-3
 RDEPEND=dev-qt/qtcore:5 dev-qt/qtgui:5 dev-qt/qtnetwork:5 dev-qt/qtserialport:5 dev-qt/qtwidgets:5 media-libs/mesa virtual/libusb:1 virtual/udev x11-libs/libX11 x11-libs/libXext
 SLOT=0
 SRC_URI=https://github.com/psieg/Lightpack/archive/5.11.2.27.tar.gz -> prismatik-5.11.2.27.tar.gz
-_eclasses_=toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	97566c1a256d07b00848aa767e38a352	qmake-utils	dc74fe3891abc25e80dad5cd3d7c6e47	udev	26207b5d4f4708920b9fcb7302d94068	vcs-snapshot	b1abf460a493fc59ebb25de0df3f09dd
+_eclasses_=toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	97566c1a256d07b00848aa767e38a352	qmake-utils	8d97008fa49744cf997d627ec6f9cd30	udev	26207b5d4f4708920b9fcb7302d94068	vcs-snapshot	b1abf460a493fc59ebb25de0df3f09dd
 _md5_=6073edb1aa8690a0ee687f8cbdc0191e
