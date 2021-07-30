@@ -3,7 +3,7 @@ app-backup/duplicity 0.8.15 0.8.17 0.8.18 0.8.19: Secure backup system using gnu
 app-emulation/amazon-ecr-credential-helper 0.1.0: Automatically gets credentials for Amazon ECR on docker push/docker pull
 app-emulation/vagrant-bin 1.9.4: Tool for building and distributing virtual machines
 app-emulation/vmware-modules 16.1.2: VMware kernel modules
-app-emulation/vmware-workstation 16.1.2.17966106-r1: Emulate a complete PC without the performance overhead of most emulators
+app-emulation/vmware-workstation 16.1.2.17966106-r3: Emulate a complete PC without the performance overhead of most emulators
 app-misc/todoman 4.0.0: A simple CalDav-based todo manager
 dev-java/openjdk-bin 15.0.2_p7: Prebuilt Java JDK binaries provided by AdoptOpenJDK
 dev-python/click-threading 0.5.0: Multithreaded Click apps made easy.
