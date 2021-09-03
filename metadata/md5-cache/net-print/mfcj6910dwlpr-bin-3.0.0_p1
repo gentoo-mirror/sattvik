@@ -8,5 +8,5 @@ LICENSE=metapackage
 RESTRICT=mirror
 SLOT=0
 SRC_URI=http://www.brother.com/pub/bsc/linux/dlf/mfcj6910dwlpr-3.0.0-1.i386.deb
-_eclasses_=toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	97566c1a256d07b00848aa767e38a352	unpacker	928e1f35ef78ba9fc2b214e29c2b55a4
+_eclasses_=toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	4b66d835ec72e021e359bb81eacfe988	unpacker	928e1f35ef78ba9fc2b214e29c2b55a4
 _md5_=cacff83934aebbf9f10b012fb0bfbffa
