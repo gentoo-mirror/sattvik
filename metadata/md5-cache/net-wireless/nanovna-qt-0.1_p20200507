@@ -10,5 +10,5 @@ LICENSE=GPL-2
 RDEPEND=dev-qt/qtwidgets:5 dev-qt/qtgui:5 dev-qt/qtcore:5 dev-qt/qtcharts:5 dev-qt/qtsvg:5 media-libs/libglvnd sci-libs/fftw:3.0 virtual/opengl
 SLOT=0
 SRC_URI=https://github.com/nanovna/NanoVNA-QT/archive/20200507.tar.gz -> nanovna-qt-0.1_p20200507.tar.gz
-_eclasses_=toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	4b66d835ec72e021e359bb81eacfe988	qmake-utils	f5eb2f69fffe94292aaaf802fb21c8d1	gnuconfig	262062cef0ba4f22b397193da514a350	libtool	241a8f577b9781a42a7421e53448a44e	autotools	c7052b276346587968d52ea8eaf5aca1
+_eclasses_=toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	4b66d835ec72e021e359bb81eacfe988	qmake-utils	f5eb2f69fffe94292aaaf802fb21c8d1	gnuconfig	262062cef0ba4f22b397193da514a350	libtool	241a8f577b9781a42a7421e53448a44e	autotools	c9df06c186913b43eb211100ef5fe2cf
 _md5_=7837566c28014ae1c192fe365b07f7e3
