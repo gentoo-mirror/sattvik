@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Prismatik
+Comment=Prismatik
+Exec=prismatik
+Icon=Prismatik
+Terminal=false
+Type=Application
+Categories=Video;AudioVideo
+Name[ru_RU]=Prismatik
