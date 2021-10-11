@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit qmake-utils udev
+inherit desktop qmake-utils udev
 
 if [ ${PV} == "9999" ]; then
 	inherit git-r3
