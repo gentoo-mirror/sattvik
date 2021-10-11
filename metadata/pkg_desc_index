@@ -22,4 +22,4 @@ sci-electronics/digilent-adept-runtime 2.19.2 2.19.2-r1 2.20.2: Allows communica
 sci-electronics/digilent-adept-utilities 2.2.1 2.3.2: Command line utilities for managing Digilent devices
 sci-electronics/digilent-waveforms 3.14.3 3.14.3-r1: Digilent WaveForms Application, Runtime, and SDK
 sys-fs/mp3fs 1.1.1: a read-only FUSE filesystem which transcodes FLAC audio files to MP3 when read
-x11-misc/prismatik 5.11.2.25 5.11.2.27: Prismatik is an open-source software to control Lightpack devices
+x11-misc/prismatik 5.11.2.27 5.11.2.30: Prismatik is an open-source software to control Lightpack devices
