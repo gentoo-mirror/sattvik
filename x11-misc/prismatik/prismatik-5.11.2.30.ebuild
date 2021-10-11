@@ -55,10 +55,10 @@ src_configure() {
 src_install() {
 	newbin bin/Prismatik ${PN}
 
-	domenu Software/dist_linux/package_template/usr/share/applications/${PN}.desktop
+	domenu "${FILESDIR}/${PN}.desktop"
 
 	insinto /usr/share/
-	doins -r dist_linux/deb/usr/share/{icons,pixmaps}
+	doins -r dist_linux/package_template/usr/share/{icons,pixmaps}
 
-	udev_dorules dist_linux/deb/etc/udev/rules.d/93-lightpack.rules
+	udev_dorules dist_linux/package_template/etc/udev/rules.d/93-lightpack.rules
 }
