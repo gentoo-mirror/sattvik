@@ -12,4 +12,4 @@ RDEPEND=dev-qt/qtcore:5 dev-qt/qtgui:5 dev-qt/qtnetwork:5 dev-qt/qtserialport:5 
 SLOT=0
 SRC_URI=https://github.com/psieg/Lightpack/archive/5.11.2.30.tar.gz -> prismatik-5.11.2.30.tar.gz
 _eclasses_=desktop	c0d27bf73aa08ca05b663dbd31fbef28	toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	4b66d835ec72e021e359bb81eacfe988	qmake-utils	f5eb2f69fffe94292aaaf802fb21c8d1	udev	2d229ad4bfa09058e0184b1ca900db32	vcs-snapshot	b1abf460a493fc59ebb25de0df3f09dd
-_md5_=0cc5b5d2069ca7d685b6f15af0692f92
+_md5_=4eb5c324e4c009d8bc15a148f63b4473
