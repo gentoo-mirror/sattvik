@@ -55,7 +55,7 @@ src_configure() {
 src_install() {
 	newbin bin/Prismatik ${PN}
 
-	domenu dist_linux/deb/usr/share/applications/${PN}.desktop
+	domenu Software/dist_linux/package_template/usr/share/applications/${PN}.desktop
 
 	insinto /usr/share/
 	doins -r dist_linux/deb/usr/share/{icons,pixmaps}
