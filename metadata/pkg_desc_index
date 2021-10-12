@@ -9,6 +9,7 @@ dev-java/openjdk-bin 15.0.2_p7: Prebuilt Java JDK binaries provided by AdoptOpen
 dev-python/click-threading 0.5.0: Multithreaded Click apps made easy.
 dev-vcs/git-extras 5.1.0 5.1.0-r1: Little git extras
 media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scanners
+media-gfx/plantuml 1.2021.12: Draw UML diagrams using a simple and human readable text description
 media-gfx/prusaslicer 2.3.1: A mesh slicer to generate G-code for fused-filament-fabrication (3D printers)
 media-libs/qhull 2020.2-r2: Geometry library
 media-radio/fldigi 4.1.19: Sound card based multimode software modem for Amateur Radio use
