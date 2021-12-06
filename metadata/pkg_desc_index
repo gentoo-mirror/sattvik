@@ -1,16 +1,13 @@
 app-backup/acts 1.2 1.4.2: Another Calendar-based Tarsnap Script
 app-backup/duplicity 0.8.15 0.8.17 0.8.18 0.8.19 0.8.20: Secure backup system using gnupg to encrypt data
 app-emulation/amazon-ecr-credential-helper 0.1.0: Automatically gets credentials for Amazon ECR on docker push/docker pull
-app-emulation/vagrant-bin 1.9.4: Tool for building and distributing virtual machines
-app-emulation/vmware-modules 16.1.2: VMware kernel modules
-app-emulation/vmware-workstation 16.1.2.17966106-r3: Emulate a complete PC without the performance overhead of most emulators
+app-emulation/vmware-modules 16.2.1: VMware kernel modules
+app-emulation/vmware-workstation 16.2.1.18811642: Emulate a complete PC without the performance overhead of most emulators
 app-misc/todoman 4.0.0: A simple CalDav-based todo manager
-dev-java/openjdk-bin 15.0.2_p7: Prebuilt Java JDK binaries provided by AdoptOpenJDK
 dev-python/click-threading 0.5.0: Multithreaded Click apps made easy.
 dev-vcs/git-extras 5.1.0 5.1.0-r1: Little git extras
 media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scanners
 media-gfx/plantuml 1.2021.12: Draw UML diagrams using a simple and human readable text description
-media-gfx/prusaslicer 2.3.1: A mesh slicer to generate G-code for fused-filament-fabrication (3D printers)
 media-libs/qhull 2020.2-r2: Geometry library
 media-radio/fldigi 4.1.19: Sound card based multimode software modem for Amateur Radio use
 media-video/streamdeck-ui 1.1.2: A Linux compatible UI for the Elgato Stream Deck
@@ -22,5 +19,4 @@ net-wireless/nanovna-qt 0.1_p20200507: software for NanoVNA V2
 sci-electronics/digilent-adept-runtime 2.19.2 2.19.2-r1 2.20.2: Allows communication with Digilent system boards
 sci-electronics/digilent-adept-utilities 2.2.1 2.3.2: Command line utilities for managing Digilent devices
 sci-electronics/digilent-waveforms 3.14.3 3.14.3-r1: Digilent WaveForms Application, Runtime, and SDK
-sys-fs/mp3fs 1.1.1: a read-only FUSE filesystem which transcodes FLAC audio files to MP3 when read
 x11-misc/prismatik 5.11.2.27 5.11.2.30: Prismatik is an open-source software to control Lightpack devices
