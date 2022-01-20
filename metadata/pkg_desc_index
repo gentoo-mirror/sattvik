@@ -1,6 +1,6 @@
 app-backup/acts 1.2 1.4.2: Another Calendar-based Tarsnap Script
 app-backup/duplicity 0.8.19 0.8.20 0.8.21: Secure backup system using gnupg to encrypt data
-app-emulation/amazon-ecr-credential-helper 0.1.0: Automatically gets credentials for Amazon ECR on docker push/docker pull
+app-containers/amazon-ecr-credential-helper 0.1.0 0.4.0: Automatically gets credentials for Amazon ECR on docker push/docker pull
 app-emulation/vmware-modules 16.2.1: VMware kernel modules
 app-emulation/vmware-workstation 16.2.1.18811642-r1: Emulate a complete PC without the performance overhead of most emulators
 app-misc/todoman 4.0.0: A simple CalDav-based todo manager
