@@ -1,9 +1,9 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-inherit qmake-utils udev
+inherit desktop qmake-utils udev
 
 if [ ${PV} == "9999" ]; then
 	inherit git-r3
@@ -21,6 +21,9 @@ LICENSE="GPL-3"
 SLOT="0"
 IUSE="pulseaudio"
 
+BDEPEND="
+	dev-qt/linguist-tools:5
+	"
 RDEPEND="
 	dev-qt/qtcore:5
 	dev-qt/qtgui:5
@@ -55,10 +58,10 @@ src_configure() {
 src_install() {
 	newbin bin/Prismatik ${PN}
 
-	domenu dist_linux/deb/usr/share/applications/${PN}.desktop
+	domenu "${FILESDIR}/${PN}.desktop"
 
 	insinto /usr/share/
-	doins -r dist_linux/deb/usr/share/{icons,pixmaps}
+	doins -r dist_linux/package_template/usr/share/{icons,pixmaps}
 
-	udev_dorules dist_linux/deb/etc/udev/rules.d/93-lightpack.rules
+	udev_dorules dist_linux/package_template/etc/udev/rules.d/93-lightpack.rules
 }
