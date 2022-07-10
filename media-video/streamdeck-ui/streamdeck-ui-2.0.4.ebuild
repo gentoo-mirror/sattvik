@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{8..9} )
+PYTHON_COMPAT=( python3_{9..10} )
 DISTUTILS_USE_SETUPTOOLS=pyproject.toml
 inherit distutils-r1
 
@@ -32,7 +32,6 @@ DEPEND="${PYTHON_DEPS}
 		dev-python/python-xlib[${PYTHON_USEDEP}]
 		media-gfx/cairosvg[${PYTHON_USEDEP}]
 		media-libs/elgato-streamdeck[${PYTHON_USEDEP}]
-		dev-libs/hidapi
 		"
 RDEPEND="${DEPEND}"
 
