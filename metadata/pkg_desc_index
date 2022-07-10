@@ -3,10 +3,11 @@ app-backup/duplicity 0.8.22: Secure backup system using gnupg to encrypt data
 app-containers/amazon-ecr-credential-helper 0.1.0 0.4.0: Automatically gets credentials for Amazon ECR on docker push/docker pull
 app-emulation/vmware-modules 16.2.3-r2: VMware kernel modules
 app-emulation/vmware-workstation 16.2.3.19376536: Emulate a complete PC without the performance overhead of most emulators
-app-misc/todoman 4.0.0: A simple CalDav-based todo manager
+app-misc/todoman 4.1.0: A simple CalDav-based todo manager
 dev-python/click-threading 0.5.0: Multithreaded Click apps made easy.
 dev-vcs/git-extras 5.1.0 5.1.0-r1: Little git extras
 media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scanners
+media-libs/elgato-streamdeck 0.9.1: Python library to control the Elgato Stream Deck
 media-libs/qhull 2020.2-r2: Geometry library
 media-radio/fldigi 4.1.19: Sound card based multimode software modem for Amateur Radio use
 media-video/streamdeck-ui 1.1.2 2.0.3: A Linux compatible UI for the Elgato Stream Deck
