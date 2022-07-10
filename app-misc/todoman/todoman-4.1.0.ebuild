@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=(python{3_8,3_9})
+PYTHON_COMPAT=(python{3_8,3_9,3_10})
 
 inherit distutils-r1 bash-completion-r1
 
@@ -26,7 +26,6 @@ RDEPEND="
 	dev-python/parsedatetime[${PYTHON_USEDEP}]
 	dev-python/python-dateutil[${PYTHON_USEDEP}]
 	dev-python/pyxdg[${PYTHON_USEDEP}]
-	dev-python/tabulate[${PYTHON_USEDEP}]
 	dev-python/urwid[${PYTHON_USEDEP}]
 "
 
