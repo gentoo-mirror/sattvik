@@ -25,6 +25,7 @@ IUSE=""
 RESTRICT="test"
 
 DEPEND="${PYTHON_DEPS}
+		dev-libs/hidapi
 		dev-python/filetype[${PYTHON_USEDEP}]
 		dev-python/pillow[${PYTHON_USEDEP}]
 		dev-python/pynput[${PYTHON_USEDEP}]
