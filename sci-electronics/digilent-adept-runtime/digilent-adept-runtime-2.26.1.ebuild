@@ -65,8 +65,8 @@ src_install() {
 	# driver installation
 	(
 		insinto /usr
-		dolib.so ftdi.drivers_1.4.8-x86_64/lib64/libftd2xx.so.1.4.8
-		dosym libftd2xx.so.1.4.8 ${EP}/usr/lib64/libftd2xx.so.1
-		dosym libftd2xx.so.1.4.8 ${EP}/usr/lib64/libftd2xx.so
+		dolib.so ftdi.drivers_1.4.24-x86_64/lib64/libftd2xx.so.1.4.24
+		dosym libftd2xx.so.1.4.24 ${EP}/usr/lib64/libftd2xx.so.1
+		dosym libftd2xx.so.1.4.24 ${EP}/usr/lib64/libftd2xx.so
 	)
 }
