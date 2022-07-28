@@ -1,4 +1,4 @@
-# Copyright 2019 Gentoo Authors
+# Copyright 2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -27,7 +27,7 @@ src_unpack() {
 	default
 	mkdir "${S}"
 	cd "${S}"
-	tar xzf "${WORKDIR}/data.tar.gz" \
+	tar xJf "${WORKDIR}/data.tar.xz" \
 		--exclude="usr/share/lintian" \
 		--exclude="usr/lib/digilent/waveforms/qtlibs"
 }
@@ -39,20 +39,12 @@ src_install() {
 
 	dolib.so usr/lib/libdwf.so
 	dolib.so usr/lib/libdwf.so.3
-	dolib.so usr/lib/libdwf.so.3.14.3
+	dolib.so usr/lib/libdwf.so.3.18.1
 
 	for manpage in usr/share/man/man1/*.gz; do
 		gunzip "$manpage"
 		doman "${manpage/.gz/}"
 	done
-
-	(
-		insinto /usr/lib
-		doins -r usr/lib/digilent
-
-		chmod +x "${ED}/usr/lib/digilent/waveforms/waveforms"
-		chmod +x "${ED}/usr/lib/digilent/waveforms/waveforms.sh"
-	)
 
 	(
 		insinto /usr/share
