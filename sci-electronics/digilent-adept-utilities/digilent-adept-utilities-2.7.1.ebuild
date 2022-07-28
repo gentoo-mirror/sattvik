@@ -3,8 +3,6 @@
 
 EAPI=7
 
-inherit udev
-
 MY_PN=${PN//-/.}
 S="${WORKDIR}/${MY_PN}_${PV}-x86_64"
 
@@ -17,7 +15,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="sci-electronics/diligent-adept-runtime"
+DEPEND="sci-electronics/digilent-adept-runtime"
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
@@ -30,7 +28,7 @@ src_install() {
 	(
 		insinto /usr/share/digilent/dsumecfg/bitstreams
 		doins bitstreams/dsumecfg/*.bit
-    )
+	)
 
 	doman man/*
 }
