@@ -16,6 +16,7 @@ IUSE=""
 
 DEPEND="
 	dev-qt/qtscript:5[scripttools]
+	net-dns/avahi
 	sci-electronics/digilent-adept-runtime"
 RDEPEND="${DEPEND}"
 BDEPEND=""
