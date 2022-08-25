@@ -1,8 +1,8 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-PYTHON_COMPAT=( python3_{7,8,9} )
+PYTHON_COMPAT=( python3_{8..10} )
 
 inherit cmake python-single-r1
 
@@ -13,8 +13,10 @@ if [[ ${PV} == 9999* ]]; then
 	inherit git-r3
 	EGIT_REPO_URI="https://github.com/osmocom/gr-osmosdr.git"
 else
-	SRC_URI="https://github.com/osmocom/gr-osmosdr/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64 ~arm ~x86"
+	COMMIT="a100eb024c0210b95e4738b6efd836d48225bd03"
+	SRC_URI="https://github.com/osmocom/gr-osmosdr/archive/${COMMIT}.tar.gz -> ${P}.tar.gz"
+	S="${WORKDIR}/${PN}-${COMMIT}"
+	KEYWORDS="~amd64 ~x86"
 fi
 
 LICENSE="GPL-3"
@@ -24,7 +26,7 @@ IUSE="airspy airspyhf bladerf hackrf iqbalance python rtlsdr sdrplay soapy uhd x
 RDEPEND="${PYTHON_DEPS}
 	dev-libs/boost:=
 	dev-libs/log4cpp
-	=net-wireless/gnuradio-3.8*:0=[${PYTHON_SINGLE_USEDEP}]
+	>=net-wireless/gnuradio-3.9.0.0:0=[${PYTHON_SINGLE_USEDEP}]
 	sci-libs/volk:=
 	airspy? ( net-wireless/airspy )
 	airspyhf? ( net-wireless/airspyhf )
@@ -42,10 +44,6 @@ DEPEND="${RDEPEND}
 	"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
-
-PATCHES=(
-	"${FILESDIR}/${P}-use_xtrx_open_string.patch"
-)
 
 src_configure() {
 	local mycmakeargs=(
@@ -73,6 +71,7 @@ src_configure() {
 src_install() {
 	cmake_src_install
 	if use python; then
+		find "${D}" -name '*.py[oc]' -delete || die
 		python_fix_shebang "${ED}"/usr/bin
 		python_optimize
 	fi

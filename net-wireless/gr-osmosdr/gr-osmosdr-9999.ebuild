@@ -1,8 +1,8 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-PYTHON_COMPAT=( python3_{7,8,9} )
+PYTHON_COMPAT=( python3_{8..10} )
 
 inherit cmake python-single-r1
 
@@ -19,8 +19,9 @@ fi
 
 LICENSE="GPL-3"
 SLOT="0/${PV}"
-IUSE="airspy airspyhf bladerf hackrf iqbalance python rtlsdr sdrplay soapy uhd xtrx"
+IUSE="airspy airspyhf bladerf hackrf iqbalance python rtlsdr sdrplay soapy uhd"
 
+#xtrx? ( net-wireless/libxtrx )
 RDEPEND="${PYTHON_DEPS}
 	dev-libs/boost:=
 	=net-wireless/gnuradio-3.8*:0=[${PYTHON_SINGLE_USEDEP}]
