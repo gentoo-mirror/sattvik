@@ -21,7 +21,7 @@ fi
 
 LICENSE="GPL-3"
 SLOT="0/${PV}"
-IUSE="airspy airspyhf bladerf hackrf iqbalance python rtlsdr sdrplay soapy uhd xtrx"
+IUSE="airspy airspyhf bladerf doc hackrf iqbalance python rtlsdr sdrplay soapy uhd xtrx"
 
 RDEPEND="${PYTHON_DEPS}
 	dev-libs/boost:=
@@ -39,8 +39,11 @@ RDEPEND="${PYTHON_DEPS}
 	uhd? ( net-wireless/uhd:=[${PYTHON_SINGLE_USEDEP}] )
 	xtrx? ( net-wireless/libxtrx )
 	"
-DEPEND="${RDEPEND}
-	dev-lang/swig
+DEPEND="${RDEPEND}"
+
+BDEPEND="
+		$(python_gen_cond_dep 'dev-python/pybind11[${PYTHON_USEDEP}]')
+		doc? ( app-doc/doxygen )
 	"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
@@ -67,6 +70,7 @@ src_configure() {
 		-DENABLE_SOAPY="$(usex soapy ON OFF)"
 		-DENABLE_UHD="$(usex uhd ON OFF)"
 		-DENABLE_XTRX="$(usex xtrx ON OFF)"
+		-DENABLE_DOXYGEN="$(usex doc ON OFF)"
 	)
 
 	cmake_src_configure
