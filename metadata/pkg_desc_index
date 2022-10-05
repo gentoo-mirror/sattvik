@@ -1,8 +1,8 @@
 app-backup/acts 1.2 1.4.2: Another Calendar-based Tarsnap Script
 app-backup/duplicity 0.8.22: Secure backup system using gnupg to encrypt data
 app-containers/amazon-ecr-credential-helper 0.4.0 0.6.0: Automatically gets credentials for Amazon ECR on docker push/docker pull
-app-emulation/vmware-modules 16.2.3-r2: VMware kernel modules
-app-emulation/vmware-workstation 16.2.3.19376536: Emulate a complete PC without the performance overhead of most emulators
+app-emulation/vmware-modules 16.2.4-r2: VMware kernel modules
+app-emulation/vmware-workstation 16.2.4.20089737: Emulate a complete PC without the performance overhead of most emulators
 app-misc/todoman 4.1.0: A simple CalDav-based todo manager
 dev-python/click-threading 0.5.0: Multithreaded Click apps made easy.
 dev-python/pynput 1.7.6: Sends virtual input commands
