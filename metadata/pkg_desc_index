@@ -15,7 +15,6 @@ media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scann
 media-libs/elgato-streamdeck 0.9.1: Python library to control the Elgato Stream Deck
 media-libs/qhull 2020.2-r2: Geometry library
 media-radio/fldigi 4.1.19: Sound card based multimode software modem for Amateur Radio use
-media-video/streamdeck-ui 2.0.4: A Linux compatible UI for the Elgato Stream Deck
 net-print/mfcj6910dwcupswrapper-bin 3.0.0_p1-r1: CUPS wrapper for the Brother MFC-J6910DW LPR drivers
 net-print/mfcj6910dwlpr-bin 3.0.0_p1: LPR driver for Brother MFC-J6910DW printers
 net-wireless/airspyhf 1.6.8 9999: User mode driver for Airspy HF+
