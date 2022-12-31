@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit flag-o-matic linux-info linux-mod user udev
+inherit flag-o-matic linux-info linux-mod udev
 
 DESCRIPTION="VMware kernel modules"
 HOMEPAGE="https://github.com/mkubecek/vmware-host-modules"
@@ -17,7 +17,7 @@ MY_KERNEL_VERSION="6.0"
 # and test it ourselves.
 #
 # Details: https://github.com/mkubecek/vmware-host-modules/issues/158#issuecomment-1228341760
-MY_COMMIT="cafa1489600562d26c8393ede8e702154276e0be"
+MY_COMMIT="78b77816d39a77b1643426ece1ebd48776d83c1b"
 
 SRC_URI=" https://github.com/mkubecek/vmware-host-modules/archive/${MY_COMMIT}.tar.gz -> ${P}-${MY_COMMIT}.tar.gz"
 
@@ -26,7 +26,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-RDEPEND=""
+RDEPEND="acct-group/vmware"
 DEPEND=""
 
 RESTRICT="mirror"
@@ -52,15 +52,11 @@ pkg_setup() {
 		ewarn
 	fi
 
-	VMWARE_GROUP=${VMWARE_GROUP:-vmware}
-
 	VMWARE_MODULE_LIST="vmmon vmnet"
 
 	VMWARE_MOD_DIR="${PN}-${PVR}"
 
 	BUILD_TARGETS="auto-build KERNEL_DIR=${KERNEL_DIR} KBUILD_OUTPUT=${KV_OUT_DIR}"
-
-	enewgroup "${VMWARE_GROUP}"
 
 	filter-flags -mfpmath=sse -mavx -mpclmul -maes
 	append-cflags -mno-sse  # Found a problem similar to bug #492964
