@@ -19,7 +19,7 @@ media-video/streamdeck-ui 2.0.6: A Linux compatible UI for the Elgato Stream Dec
 net-print/mfcj6910dwcupswrapper-bin 3.0.0_p1-r1: CUPS wrapper for the Brother MFC-J6910DW LPR drivers
 net-print/mfcj6910dwlpr-bin 3.0.0_p1: LPR driver for Brother MFC-J6910DW printers
 net-wireless/airspyhf 1.6.8 9999: User mode driver for Airspy HF+
-net-wireless/gr-osmosdr 0.2.3 0.2.3_p20210128 0.2.3_p20210128-r1 9999: GNU Radio source block for OsmoSDR and rtlsdr and hackrf
+net-wireless/gr-osmosdr 0.2.3_p20210128-r1 0.2.4 9999: GNU Radio source block for OsmoSDR and rtlsdr and hackrf
 net-wireless/nanovna-qt 0.1_p20200507: software for NanoVNA V2
 net-wireless/tinysa-saver 0.11: tool for reading, displaying and saving data from the TinySA
 sci-electronics/digilent-adept-runtime 2.20.2 2.26.1: Allows communication with Digilent system boards
