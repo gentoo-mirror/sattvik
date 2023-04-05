@@ -9,7 +9,7 @@ DESCRIPTION="User mode driver for Airspy HF+"
 HOMEPAGE="https://github.com/airspy/airspyhf"
 
 SRC_URI="https://github.com/airspy/airspyhf/archive/${PV}.tar.gz -> ${P}.tar.gz"
-KEYWORDS="~amd64 ~arm ~x86"
+KEYWORDS="~amd64 ~arm ~riscv ~x86"
 
 LICENSE="BSD"
 SLOT="0/${PV}"
