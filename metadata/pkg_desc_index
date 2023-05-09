@@ -2,8 +2,8 @@ acct-group/vmware 0: A group for app-emulation/vmware-modules
 app-backup/acts 1.2 1.4.2: Another Calendar-based Tarsnap Script
 app-backup/duplicity 0.8.22: Secure backup system using gnupg to encrypt data
 app-containers/amazon-ecr-credential-helper 0.4.0 0.6.0: Automatically gets credentials for Amazon ECR on docker push/docker pull
-app-emulation/vmware-modules 16.2.5-r3 17.0.1-r2: VMware kernel modules
-app-emulation/vmware-workstation 16.2.5.20904516-r1 17.0.1.21139696: Emulate a complete PC without the performance overhead of most emulators
+app-emulation/vmware-modules 16.2.5-r4 17.0.2: VMware kernel modules
+app-emulation/vmware-workstation 16.2.5.20904516-r3 17.0.2.21581411: Emulate a complete PC without the performance overhead of most emulators
 app-misc/todoman 4.1.0: A simple CalDav-based todo manager
 dev-python/pynput 1.7.6: Sends virtual input commands
 dev-ruby/asciidoctor-pdf 2.3.0: A native PDF converter for AsciiDoc based on Asciidoctor and Prawn
@@ -12,10 +12,10 @@ dev-ruby/prawn-svg 0.32.0: Provides support for SVG in Prawn
 dev-ruby/prawn-templates 0.1.2-r1: Provides support for templates in Prawn
 dev-vcs/git-extras 5.1.0 5.1.0-r1: Little git extras
 media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scanners
-media-libs/elgato-streamdeck 0.9.2: Python library to control the Elgato Stream Deck
+media-libs/elgato-streamdeck 0.9.3: Python library to control the Elgato Stream Deck
 media-libs/qhull 2020.2-r2: Geometry library
 media-radio/fldigi 4.1.19: Sound card based multimode software modem for Amateur Radio use
-media-video/streamdeck-ui 2.0.6: A Linux compatible UI for the Elgato Stream Deck
+media-video/streamdeck-ui 2.0.15: A Linux compatible UI for the Elgato Stream Deck
 net-print/mfcj6910dwcupswrapper-bin 3.0.0_p1-r1: CUPS wrapper for the Brother MFC-J6910DW LPR drivers
 net-print/mfcj6910dwlpr-bin 3.0.0_p1: LPR driver for Brother MFC-J6910DW printers
 net-wireless/airspyhf 1.6.8 9999: User mode driver for Airspy HF+
