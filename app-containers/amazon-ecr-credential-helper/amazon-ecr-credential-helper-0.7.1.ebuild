@@ -16,14 +16,14 @@ LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-S="${WORKDIR}/${P}/ecr-login"
+S="${WORKDIR}/${P}/ecr-login/cli/docker-credential-ecr-login"
 
 src_compile() {
-	ego build -v -work ${EGO_PN}/ecr-login/cli/docker-credential-ecr-login
-	echo "$@"
-	"$@" || die
+	ego build
 }
 
 src_install() {
 	dobin docker-credential-ecr-login
+
+	default
 }
