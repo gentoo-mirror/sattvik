@@ -24,6 +24,8 @@ src_compile() {
 
 src_install() {
 	dobin docker-credential-ecr-login
+	cd "${WORKDIR}/${P}/docs"
+	doman docker-credential-ecr-login.1
 
 	default
 }
