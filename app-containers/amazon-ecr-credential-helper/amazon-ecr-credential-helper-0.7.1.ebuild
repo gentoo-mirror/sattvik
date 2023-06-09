@@ -8,7 +8,6 @@ inherit go-module
 
 EGO_VER="v${PV}"
 SRC_URI="https://github.com/awslabs/${PN}/archive/${EGO_VER}.tar.gz -> ${P}.tar.gz"
-SRC_URI+=" ${P}-deps.tar.xz"
 
 DESCRIPTION="Automatically gets credentials for Amazon ECR on docker push/docker pull"
 HOMEPAGE="https://github.com/awslabs/amazon-ecr-credential-helper"
