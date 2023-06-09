@@ -3,6 +3,9 @@
 <pkgmetadata>
 	<maintainer type="person">
 		<email>gentoo@sattvik.com</email>
-		<name>Daniel Solano Gómez</name>
+		<name>Quetzaly Daniela Solano Gómez</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">awslabs/amazon-ecr-credential-helper</remote-id>
+	</upstream>
 </pkgmetadata>
