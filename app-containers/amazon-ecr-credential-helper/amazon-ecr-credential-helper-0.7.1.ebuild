@@ -6,8 +6,8 @@ EGO_PN=github.com/awslabs/${PN}
 
 inherit go-module
 
-EGO_VER="v${PV}"
-SRC_URI="https://github.com/awslabs/${PN}/archive/${EGO_VER}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://${PN}-releases.s3.us-east-2.amazonaws.com/${PV}/release.tar.gz -> ${P}.tar.gz"
+SRC_URI+=" ${P}-deps.tar.xz"
 
 DESCRIPTION="Automatically gets credentials for Amazon ECR on docker push/docker pull"
 HOMEPAGE="https://github.com/awslabs/amazon-ecr-credential-helper"
@@ -24,6 +24,8 @@ src_compile() {
 
 src_install() {
 	dobin docker-credential-ecr-login
+	cd "${WORKDIR}/${P}/docs"
+	doman docker-credential-ecr-login.1
 
 	default
 }
