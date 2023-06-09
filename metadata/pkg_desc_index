@@ -1,6 +1,6 @@
 acct-group/vmware 0: A group for app-emulation/vmware-modules
 app-backup/acts 1.2 1.4.2: Another Calendar-based Tarsnap Script
-app-containers/amazon-ecr-credential-helper 0.4.0 0.6.0: Automatically gets credentials for Amazon ECR on docker push/docker pull
+app-containers/amazon-ecr-credential-helper 0.7.1: Automatically gets credentials for Amazon ECR on docker push/docker pull
 app-emulation/vmware-modules 16.2.5-r4 17.0.2: VMware kernel modules
 app-emulation/vmware-workstation 16.2.5.20904516-r3 17.0.2.21581411: Emulate a complete PC without the performance overhead of most emulators
 app-misc/todoman 4.1.0: A simple CalDav-based todo manager
