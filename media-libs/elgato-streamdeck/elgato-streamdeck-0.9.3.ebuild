@@ -23,4 +23,5 @@ SLOT="0"
 IUSE=""
 
 DEPEND=">=dev-python/pillow-9.0.0[${PYTHON_USEDEP}]"
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	dev-libs/hidapi"
