@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..11} )
 DISTUTILS_USE_PEP517=poetry
 inherit distutils-r1
 
@@ -25,11 +25,10 @@ IUSE=""
 RESTRICT="test"
 
 DEPEND="${PYTHON_DEPS}
-		dev-libs/hidapi
 		dev-python/filetype[${PYTHON_USEDEP}]
 		dev-python/pillow[${PYTHON_USEDEP}]
 		dev-python/pynput[${PYTHON_USEDEP}]
-		dev-python/pyside2[${PYTHON_USEDEP},designer]
+		dev-python/pyside6[${PYTHON_USEDEP},designer]
 		dev-python/python-xlib[${PYTHON_USEDEP}]
 		media-gfx/cairosvg[${PYTHON_USEDEP}]
 		media-libs/elgato-streamdeck[${PYTHON_USEDEP}]
