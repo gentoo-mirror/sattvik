@@ -3,19 +3,19 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{10..11} )
+PYTHON_COMPAT=( python3_{11..11} )
 DISTUTILS_USE_PEP517=poetry
 inherit distutils-r1
 
-DESCRIPTION="A Linux compatible UI for the Elgato Stream Deck"
-HOMEPAGE="https://github.com/timothycrosley/streamdeck-ui"
+DESCRIPTION="A service, Web Interface, and UI for using a Stream Deck"
+HOMEPAGE="https://github.com/streamdeck-linux-gui/streamdeck-linux-gui"
 if [ "${PV}" = "9999" ]; then
 	inherit git-r3
-	EGIT_REPO_URI="https://github.com/timothycrosley/streamdeck-ui.git"
+	EGIT_REPO_URI="https://github.com/streamdeck-linux-gui/streamdeck-linux-gui.git"
 else
-	SRC_URI="https://github.com/timothycrosley/streamdeck-ui/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
-	#S="${WORKDIR}/${PN}-${COMMIT}"
-	KEYWORDS="~amd64 ~x86"
+	SRC_URI="https://github.com/streamdeck-linux-gui/streamdeck-linux-gui/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+	KEYWORDS="~amd64"
+	S="${WORKDIR}/streamdeck-linux-gui-${PV}"
 fi
 
 LICENSE="MIT Apache-2.0"
@@ -28,7 +28,7 @@ DEPEND="${PYTHON_DEPS}
 		dev-python/filetype[${PYTHON_USEDEP}]
 		dev-python/pillow[${PYTHON_USEDEP}]
 		dev-python/pynput[${PYTHON_USEDEP}]
-		dev-python/pyside6[${PYTHON_USEDEP},designer]
+		dev-python/pyside6[${PYTHON_USEDEP}]
 		dev-python/python-xlib[${PYTHON_USEDEP}]
 		media-gfx/cairosvg[${PYTHON_USEDEP}]
 		media-libs/elgato-streamdeck[${PYTHON_USEDEP}]
