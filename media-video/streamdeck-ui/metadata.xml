@@ -2,10 +2,10 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>zerochaos@gentoo.org</email>
-		<name>Rick Farina</name>
+		<email>gentoo@sattvik.com</email>
+		<name>Quetzaly Solano</name>
 	</maintainer>
 	<upstream>
-		<remote-id type="github">timothycrosley/streamdeck-ui</remote-id>
+		<remote-id type="github">streamdeck-linux-gui/streamdeck-linux-gui</remote-id>
 	</upstream>
 </pkgmetadata>
