@@ -1,8 +1,8 @@
 acct-group/vmware 0: A group for app-emulation/vmware-modules
 app-backup/acts 1.2 1.4.2: Another Calendar-based Tarsnap Script
 app-containers/amazon-ecr-credential-helper 0.7.1: Automatically gets credentials for Amazon ECR on docker push/docker pull
-app-emulation/vmware-modules 16.2.5-r4 17.0.2: VMware kernel modules
-app-emulation/vmware-workstation 16.2.5.20904516-r3 17.0.2.21581411: Emulate a complete PC without the performance overhead of most emulators
+app-emulation/vmware-modules 16.2.5-r11 17.5.0-r3: VMware kernel modules
+app-emulation/vmware-workstation 16.2.5.20904516-r4 17.5.0.22583795: Emulate a complete PC without the performance overhead of most emulators
 app-misc/todoman 4.1.0: A simple CalDav-based todo manager
 dev-python/pynput 1.7.6: Sends virtual input commands
 dev-ruby/asciidoctor-pdf 2.3.4: A native PDF converter for AsciiDoc based on Asciidoctor and Prawn
@@ -15,7 +15,7 @@ media-video/streamdeck-ui 3.1.0: A service, Web Interface, and UI for using a St
 net-print/mfcj6910dwcupswrapper-bin 3.0.0_p1-r1: CUPS wrapper for the Brother MFC-J6910DW LPR drivers
 net-print/mfcj6910dwlpr-bin 3.0.0_p1: LPR driver for Brother MFC-J6910DW printers
 net-wireless/airspyhf 1.6.8 9999: User mode driver for Airspy HF+
-net-wireless/gr-osmosdr 0.2.3_p20210128-r1 0.2.4 9999: GNU Radio source block for OsmoSDR and rtlsdr and hackrf
+net-wireless/gr-osmosdr 0.2.5-r1 9999: GNU Radio source block for OsmoSDR and rtlsdr and hackrf
 net-wireless/nanovna-qt 0.1_p20200507: software for NanoVNA V2
 net-wireless/tinysa-saver 0.11: tool for reading, displaying and saving data from the TinySA
 sci-electronics/digilent-adept-runtime 2.20.2 2.26.1: Allows communication with Digilent system boards
