@@ -9,15 +9,15 @@ DESCRIPTION="VMware kernel modules"
 HOMEPAGE="https://github.com/mkubecek/vmware-host-modules"
 
 # Highest kernel version known to work:
-MY_KERNEL_VERSION="6.3"
+MY_KERNEL_VERSION="6.7"
 
-# Upstream doesn't want to tag versions or anything that looks like properly
+# Upstream does not want to tag versions or anything that looks like properly
 # releasing the software, so we need to just pick a commit from
 # https://github.com/mkubecek/vmware-host-modules/commits/workstation-${PV}
 # and test it ourselves.
 #
 # Details: https://github.com/mkubecek/vmware-host-modules/issues/158#issuecomment-1228341760
-MY_COMMIT="650fb3abeb82f2b7d3a14f9579a7529d153636b7"
+MY_COMMIT="4c2a103fd2d71f2084f1fe7ceacb816b9832ffa2"
 
 SRC_URI=" https://github.com/mkubecek/vmware-host-modules/archive/${MY_COMMIT}.tar.gz -> ${P}-${MY_COMMIT}.tar.gz"
 
@@ -41,7 +41,7 @@ pkg_setup() {
 	if kernel_is -ge 2 6 37 && kernel_is -lt 2 6 39; then
 		CONFIG_CHECK="${CONFIG_CHECK} BKL"
 	fi
-	CONFIG_CHECK="${CONFIG_CHECK} VMWARE_VMCI VMWARE_VMCI_VSOCKETS"
+	CONFIG_CHECK="${CONFIG_CHECK} VMWARE_VMCI ~VMWARE_VMCI_VSOCKETS"
 
 	linux-info_pkg_setup
 	linux-mod_pkg_setup
