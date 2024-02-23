@@ -4,7 +4,7 @@
 EAPI=7
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{9..12} )
 inherit distutils-r1
 
 DESCRIPTION="Sends virtual input commands"
@@ -25,7 +25,7 @@ else
 fi
 
 RDEPEND="
-	dev-python/python-evdev[${PYTHON_USEDEP}]
+	dev-python/evdev[${PYTHON_USEDEP}]
 	dev-python/python-xlib[${PYTHON_USEDEP}]
 	dev-python/six[${PYTHON_USEDEP}]
 "
