@@ -25,7 +25,7 @@ else
 fi
 
 RDEPEND="
-	dev-python/python-evdev[${PYTHON_USEDEP}]
+	dev-python/evdev[${PYTHON_USEDEP}]
 	dev-python/python-xlib[${PYTHON_USEDEP}]
 	dev-python/six[${PYTHON_USEDEP}]
 "
