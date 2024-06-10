@@ -3,10 +3,9 @@
 <pkgmetadata>
 	<maintainer type="person">
 		<email>gentoo@sattvik.com</email>
-		<name>Daniel Solano Gómez</name>
+		<name>Quetzaly Solano Gómez</name>
 	</maintainer>
 	<longdescription lang="en">
 		This is the LPR driver for Brother's MFC-J6910DW.
 	</longdescription>
 </pkgmetadata>
-

@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit unpacker eutils udev
+inherit unpacker udev
 
 MY_PV="${PV/_p/-}"
 
@@ -11,18 +11,17 @@ DESCRIPTION="SANE driver for Brother DS-series scanners"
 HOMEPAGE="http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/index.html"
 SRC_URI="http://download.brother.com/welcome/dlf100976/${PN/-bin}_${MY_PV}_amd64.deb"
 
-RESTRICT="mirror"
-QA_PREBUILT=".*"
+S="${WORKDIR}"
 
 LICENSE="metapackage"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
+
+RESTRICT="mirror"
+QA_PREBUILT=".*"
 
 RDEPEND="media-gfx/sane-backends"
 DEPEND="${RDEPEND}"
-
-S="${WORKDIR}"
 
 src_unpack() {
 	unpack_deb ${A}
@@ -45,4 +44,12 @@ src_install() {
 	doins "usr/lib/tmp_DSDriver/dsseries.conf"
 
 	udev_dorules "${FILESDIR}/60-libsane-dsseries.rules"
+}
+
+pkg_postinst() {
+	udev_reload
+}
+
+pkg_postrm() {
+	udev_reload
 }
