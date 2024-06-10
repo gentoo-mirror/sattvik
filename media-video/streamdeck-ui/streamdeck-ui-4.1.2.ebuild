@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{11..11} )
+PYTHON_COMPAT=( python3_{8..12} )
 DISTUTILS_USE_PEP517=poetry
 inherit distutils-r1
 
@@ -26,6 +26,7 @@ RESTRICT="test"
 
 DEPEND="${PYTHON_DEPS}
 		dev-python/filetype[${PYTHON_USEDEP}]
+		dev-python/importlib-metadata[${PYTHON_USEDEP}]
 		dev-python/pillow[${PYTHON_USEDEP}]
 		dev-python/pynput[${PYTHON_USEDEP}]
 		dev-python/pyside6[${PYTHON_USEDEP}]
