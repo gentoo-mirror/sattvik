@@ -5,8 +5,4 @@
 		<email>gentoo@sattvik.com</email>
 		<name>Daniel Solano Gómez</name>
 	</maintainer>
-	<longdescription lang="en">
-		This is the CUPS wrapper to the LPR driver for Brother's MFC-J6910DW.
-	</longdescription>
 </pkgmetadata>
-

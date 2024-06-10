@@ -1,9 +1,9 @@
 # Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=8
 
-inherit unpacker eutils
+inherit unpacker
 
 MY_PV="${PV/_p/-}"
 
@@ -11,21 +11,19 @@ DESCRIPTION="CUPS wrapper for the Brother MFC-J6910DW LPR drivers"
 HOMEPAGE="http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/index.html"
 SRC_URI="http://www.brother.com/pub/bsc/linux/dlf/${PN/-bin/}-${MY_PV}.i386.deb"
 
-RESTRICT="mirror"
+S="${WORKDIR}"
+
 QA_PREBUILT=".*"
 
 LICENSE="metapackage"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
+RESTRICT="mirror"
 
-DEPEND=""
 RDEPEND="
 	net-print/cups
 	net-print/cups-filters
 	net-print/mfcj6910dwlpr-bin"
-
-S="${WORKDIR}"
 
 src_unpack() {
 	unpack_deb ${A}
