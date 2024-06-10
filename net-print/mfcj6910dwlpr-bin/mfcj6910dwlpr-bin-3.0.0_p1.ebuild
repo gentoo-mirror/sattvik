@@ -1,7 +1,7 @@
 # Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=8
 
 inherit unpacker
 
@@ -11,18 +11,13 @@ DESCRIPTION="LPR driver for Brother MFC-J6910DW printers"
 HOMEPAGE="http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/index.html"
 SRC_URI="http://www.brother.com/pub/bsc/linux/dlf/${PN/-bin/}-${MY_PV}.i386.deb"
 
-RESTRICT="mirror"
-QA_PREBUILT=".*"
+S="${WORKDIR}"
 
 LICENSE="metapackage"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
-
-DEPEND=""
-RDEPEND=""
-
-S="${WORKDIR}"
+RESTRICT="mirror"
+QA_PREBUILT=".*"
 
 src_unpack() {
 	unpack_deb ${A}
