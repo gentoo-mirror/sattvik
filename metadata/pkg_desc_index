@@ -15,7 +15,7 @@ media-video/streamdeck-ui 4.1.2: A service, Web Interface, and UI for using a St
 net-print/mfcj6910dwcupswrapper-bin 3.0.0_p1-r1: CUPS wrapper for the Brother MFC-J6910DW LPR drivers
 net-print/mfcj6910dwlpr-bin 3.0.0_p1: LPR driver for Brother MFC-J6910DW printers
 net-wireless/airspyhf 1.6.8 9999: User mode driver for Airspy HF+
-net-wireless/gr-osmosdr 0.2.5-r2 9999: GNU Radio source block for OsmoSDR and rtlsdr and hackrf
+net-wireless/gr-osmosdr 0.2.5-r2 0.2.6 9999: GNU Radio source block for OsmoSDR and rtlsdr and hackrf
 net-wireless/tinysa-saver 0.11: tool for reading, displaying and saving data from the TinySA
 sci-electronics/digilent-adept-runtime 2.20.2 2.26.1: Allows communication with Digilent system boards
 sci-electronics/digilent-adept-utilities 2.3.2 2.7.1: Command line utilities for managing Digilent devices
