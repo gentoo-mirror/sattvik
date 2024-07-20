@@ -8,7 +8,6 @@ dev-ruby/asciidoctor-pdf 2.3.4: A native PDF converter for AsciiDoc based on Asc
 dev-ruby/prawn-icon 3.1.0: Provides support for icons in Prawn
 dev-ruby/prawn-svg 0.32.0: Provides support for SVG in Prawn
 dev-ruby/prawn-templates 0.1.2-r1: Provides support for templates in Prawn
-media-gfx/libsane-dsseries-bin 1.0.5_p1: SANE driver for Brother DS-series scanners
 media-gfx/wings 2.2.6.1: Wings 3D is an advanced subdivision modeler
 media-libs/elgato-streamdeck 0.9.5: Python library to control the Elgato Stream Deck
 media-video/streamdeck-ui 4.1.2: A service, Web Interface, and UI for using a Stream Deck
