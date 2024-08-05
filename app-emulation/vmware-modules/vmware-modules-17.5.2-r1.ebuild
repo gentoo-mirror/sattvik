@@ -9,7 +9,7 @@ DESCRIPTION="VMware kernel modules"
 HOMEPAGE="https://github.com/mkubecek/vmware-host-modules"
 
 # Highest kernel version known to work:
-MY_KERNEL_VERSION="6.8"
+MY_KERNEL_VERSION="6.9"
 
 # Upstream does not want to tag versions or anything that looks like properly
 # releasing the software, so we need to just pick a commit from
@@ -31,6 +31,10 @@ RESTRICT="mirror"
 RDEPEND="
 	acct-group/vmware
 "
+
+PATCHES=(
+	"${FILESDIR}/vmware-modules-17.5.2-kernel-6.9.patch"
+)
 
 pkg_setup() {
 	CONFIG_CHECK="~HIGH_RES_TIMERS"
