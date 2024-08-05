@@ -5,4 +5,7 @@
         <email>gentoo@sattvik.com</email>
         <name>Daniel Solano Gómez</name>
     </maintainer>
+    <upstream>
+        <remote-id type="github">alexjurkiewicz/acts</remote-id>
+    </upstream>
 </pkgmetadata>

@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 DESCRIPTION="Another Calendar-based Tarsnap Script"
 HOMEPAGE="https://github.com/alexjurkiewicz/acts"
@@ -12,10 +12,9 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="app-backup/tarsnap"
-DEPEND=""
 
 src_compile() {
-	true;
+	default
 }
 
 src_install() {
