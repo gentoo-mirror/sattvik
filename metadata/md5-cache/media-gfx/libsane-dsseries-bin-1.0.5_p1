@@ -1,0 +1,15 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=install postinst postrm unpack
+DEPEND=media-gfx/sane-backends
+DESCRIPTION=SANE driver for Brother DS-series scanners
+EAPI=8
+HOMEPAGE=http://welcome.solutions.brother.com/bsc/public_s/id/linux/en/index.html
+INHERIT=unpacker udev
+KEYWORDS=~amd64
+LICENSE=metapackage
+RDEPEND=media-gfx/sane-backends
+RESTRICT=mirror
+SLOT=0
+SRC_URI=http://download.brother.com/welcome/dlf100976/libsane-dsseries_1.0.5-1_amd64.deb
+_eclasses_=multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	toolchain-funcs	e56c7649b804f051623c8bc1a1c44084	multilib	c19072c3cd7ac5cb21de013f7e9832e0	unpacker	fb4b84181244b3b9990fa0bf40232dd2	udev	eec0bbab06977f1cfc5597269c1fa152
+_md5_=a1ebde71b1952065440b6de907b06b1b
