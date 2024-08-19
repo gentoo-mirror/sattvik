@@ -9,5 +9,5 @@ RDEPEND=net-print/cups net-print/cups-filters net-print/mfcj6910dwlpr-bin
 RESTRICT=mirror
 SLOT=0
 SRC_URI=http://www.brother.com/pub/bsc/linux/dlf/mfcj6910dwcupswrapper-3.0.0-1.i386.deb
-_eclasses_=multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	toolchain-funcs	5f8f1dc0c94e007fa08af4e98a19d0e5	multilib	c19072c3cd7ac5cb21de013f7e9832e0	unpacker	fb4b84181244b3b9990fa0bf40232dd2
+_eclasses_=multiprocessing	30ead54fa2e2b5f9cd4e612ffc34d0fe	toolchain-funcs	333970c740aa7b1a92e4fcdc52f612bd	multilib	c19072c3cd7ac5cb21de013f7e9832e0	unpacker	fb4b84181244b3b9990fa0bf40232dd2
 _md5_=8e159fa8e8a5f991116632b58a159bfd
