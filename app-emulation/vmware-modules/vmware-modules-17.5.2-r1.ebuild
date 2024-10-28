@@ -21,11 +21,9 @@ MY_COMMIT="2c6d66f3f1947384038b765c897b102ecdb18298"
 
 SRC_URI=" https://github.com/mkubecek/vmware-host-modules/archive/${MY_COMMIT}.tar.gz -> ${P}-${MY_COMMIT}.tar.gz"
 S="${WORKDIR}/vmware-host-modules-${MY_COMMIT}"
-
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-
 RESTRICT="mirror"
 
 RDEPEND="
