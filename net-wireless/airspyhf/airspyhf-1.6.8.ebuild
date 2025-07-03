@@ -9,10 +9,11 @@ DESCRIPTION="User mode driver for Airspy HF+"
 HOMEPAGE="https://github.com/airspy/airspyhf"
 
 SRC_URI="https://github.com/airspy/airspyhf/archive/${PV}.tar.gz -> ${P}.tar.gz"
-KEYWORDS="~amd64 ~arm ~riscv ~x86"
-
 LICENSE="BSD"
+
 SLOT="0/${PV}"
+
+KEYWORDS="~amd64 ~arm ~riscv ~x86"
 
 DEPEND="
 	virtual/libusb:0
@@ -20,6 +21,10 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 BDEPEND="virtual/pkgconfig"
+
+PATCHES=(
+	"${FILESDIR}/${PN}-1.6.8-support-c23.patch"
+)
 
 src_configure() {
 	cmake_src_configure
