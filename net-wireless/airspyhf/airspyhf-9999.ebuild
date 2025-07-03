@@ -8,12 +8,12 @@ inherit cmake udev git-r3
 DESCRIPTION="User mode driver for Airspy HF+"
 HOMEPAGE="https://github.com/airspy/airspyhf"
 
-SRC_URI=""
 EGIT_REPO_URI="https://github.com/airspy/airspyhf.git"
-KEYWORDS=""
-
 LICENSE="BSD"
+
 SLOT="0/${PV}"
+
+KEYWORDS=""
 
 DEPEND="
 	virtual/libusb:0

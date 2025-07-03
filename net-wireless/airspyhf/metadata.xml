@@ -7,4 +7,7 @@
 	<longdescription lang="en">
 		Contains the host software for the Airspy HF+, a high performance software defined radio for the HF and VHF bands.
 	</longdescription>
+	<upstream>
+		<remote-id type="github">airspy/airspyhf</remote-id>
+	</upstream>
 </pkgmetadata>
