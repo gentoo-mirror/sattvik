@@ -3,7 +3,7 @@ app-backup/acts 1.4.2: Another Calendar-based Tarsnap Script
 app-containers/amazon-ecr-credential-helper 0.8.0: Automatically gets credentials for Amazon ECR on docker push/docker pull
 app-emulation/vmware-modules 17.5.2-r1: VMware kernel modules
 app-emulation/vmware-workstation 17.5.2.23775571-r2: Emulate a complete PC without the performance overhead of most emulators
-dev-ruby/asciidoctor-pdf 2.3.18: A native PDF converter for AsciiDoc based on Asciidoctor and Prawn
+dev-ruby/asciidoctor-pdf 2.3.19: A native PDF converter for AsciiDoc based on Asciidoctor and Prawn
 dev-ruby/prawn-icon 3.1.0: Provides support for icons in Prawn
 dev-ruby/prawn-svg 0.35.1: Provides support for SVG in Prawn
 dev-ruby/prawn-templates 0.1.2-r1: Provides support for templates in Prawn
